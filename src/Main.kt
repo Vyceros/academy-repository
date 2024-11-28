@@ -4,24 +4,21 @@ fun main() {
    var gameLoop = true
 
     while(gameLoop){
-        println("Enter value for X")
+        println("შეიყვანე X-ის მნიშვნელობა")
         val stringX = readlnOrNull() ?: break
-        println("Enter value for Y")
+        println("შეიყვანე Y-ის მნიშვნელობა")
         val stringY = readlnOrNull() ?: break
 
-        val numberX = stringX.filter { it.isDigit() }
-        val numberY = stringY.filter { it.isDigit() }
+        val numberX = stringX.filter{ it.isDigit() }.toDoubleOrNull() ?: 0.0
+        val numberY = stringY.filter { it.isDigit() }.toDoubleOrNull() ?: 0.0
 
-        val doubleFormatX = numberX.toDoubleOrNull() ?: 0.0
-        val doubleFormatY = numberY.toDoubleOrNull() ?: 0.0
+        val z : Double = numberX / numberY
 
-        val z = doubleFormatX / doubleFormatY
+        println("$numberX გაყოფილი $numberY-ზე  უდრის $z\n" +
+                "ცდი ხელახლა? გთხოვთ შეიყვანოთ Y ან N >>> <Y/N>")
+        val answer = readlnOrNull() ?: break
 
-        println("X divided by Y  is $z\n" +
-                "Try again? <Y/N>")
-        val input = readln().lowercase()
-
-        // ending the game if the input is negative
-        gameLoop = input == "y"
+        gameLoop = answer.lowercase() == "y"
     }
 }
+
