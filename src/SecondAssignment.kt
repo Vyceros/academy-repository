@@ -4,17 +4,15 @@ fun main() {
 
     println(mathematics.greatCommonDivisor(10,3))
     println(mathematics.leastCommonFactor(12,15))
-    println(mathematics.containsDollarSign("fdg123ewaz$4$"))
+    println(mathematics.containsDollarSign("fdg123ewaz$4"))
     println(mathematics.recursiveEven())
     val flipped = mathematics.flipNumber(12)
     println(flipped)
-    println(mathematics.findPalindrome("oho123"))
-
-
+    println(mathematics.findPalindrome("      oho1    23"))
 
 }
 
-class MathematicsOperations()
+class MathematicsOperations
 {
     fun greatCommonDivisor(intOne : Int, intTwo : Int) : Int
     {
@@ -27,10 +25,12 @@ class MathematicsOperations()
         }
 
     }
+
     fun leastCommonFactor(intOne : Int, intTwo : Int) : Int
     {
         return (intOne * intTwo) / greatCommonDivisor(intOne,intTwo)
     }
+
     fun leastCommonFactor2(intOne : Int, intTwo : Int) : Int
     {
         val biggerNumber = maxOf(intOne,intTwo)
@@ -46,16 +46,18 @@ class MathematicsOperations()
         }
 
     }
+
     fun containsDollarSign(input : String) : Boolean
     {
-        for(char in input)
-        {
-            if(char == '$') return true
-        }
-        return false
+        return input.contains('$')
+//        for(char in input)
+//        {
+//            if(char == '$') return true
+//        }
+//        return false
 
-//        return input.contains('$')
     }
+
     fun recursiveEven(ceiling : Int = 100, number : Int = 0, sum : Int = 0) : Int{
         if(number >= ceiling)
         {
@@ -70,6 +72,7 @@ class MathematicsOperations()
         }
 
     }
+
     fun flipNumber(number : Int) : Int
     {
         var tempDigit = 0
@@ -87,14 +90,19 @@ class MathematicsOperations()
         }
         return reversed
     }
+
     fun findPalindrome(input : String) : Boolean
     {
-        val formatString = input.filter { it -> it.isLetter() }.trim().lowercase()
-        val stringLength = formatString.length
-        for(i in 0 .. stringLength / 2)
-        {
-            if(formatString[i] != formatString[stringLength - i - 1]) return false
-        }
-        return true
+        val formatString = input.filter { it.isLetter() }.trim().lowercase()
+        return formatString == formatString.reversed()
+
+
+//        val formatString = input.filter { it -> it.isLetter() }.trim().lowercase()
+//        val stringLength = formatString.length
+//        for(i in 0 .. stringLength / 2)
+//        {
+//            if(formatString[i] != formatString[stringLength - i - 1]) return false
+//        }
+//        return true
     }
 }
