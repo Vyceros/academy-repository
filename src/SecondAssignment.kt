@@ -4,11 +4,13 @@ fun main() {
 
     println(mathematics.greatCommonDivisor(10,3))
     println(mathematics.leastCommonFactor(12,15))
-    println(mathematics.containsDollarSign("ei1321#$$"))
-    println(mathematics.recursiveEven(100))
+    println(mathematics.containsDollarSign("fdg123ewaz$4$"))
+    println(mathematics.recursiveEven())
     val flipped = mathematics.flipNumber(12)
-    print(flipped)
-    println(mathematics.findPalindrome(122))
+    println(flipped)
+    println(mathematics.findPalindrome("oho123"))
+
+
 
 }
 
@@ -46,9 +48,15 @@ class MathematicsOperations()
     }
     fun containsDollarSign(input : String) : Boolean
     {
-        return input.contains('$')
+        for(char in input)
+        {
+            if(char == '$') return true
+        }
+        return false
+
+//        return input.contains('$')
     }
-    fun recursiveEven(ceiling : Int, number : Int = 0, sum : Int = 0) : Int{
+    fun recursiveEven(ceiling : Int = 100, number : Int = 0, sum : Int = 0) : Int{
         if(number >= ceiling)
         {
             return sum
@@ -79,8 +87,14 @@ class MathematicsOperations()
         }
         return reversed
     }
-    fun findPalindrome(number : Int) : Boolean
+    fun findPalindrome(input : String) : Boolean
     {
-        return number == flipNumber(number)
+        val formatString = input.filter { it -> it.isLetter() }.trim().lowercase()
+        val stringLength = formatString.length
+        for(i in 0 .. stringLength / 2)
+        {
+            if(formatString[i] != formatString[stringLength - i - 1]) return false
+        }
+        return true
     }
 }
