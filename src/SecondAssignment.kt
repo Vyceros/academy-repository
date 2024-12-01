@@ -1,9 +1,12 @@
+import kotlin.math.abs
+import kotlin.math.absoluteValue
+
 fun main() {
 
     val mathematics = MathematicsOperations()
 
-    println(mathematics.greatCommonDivisor(10,3))
-    println(mathematics.leastCommonFactor(12,15))
+    println(mathematics.greatCommonDivisor(-54, 24))
+    println(mathematics.leastCommonFactor(-54, 24))
     println(mathematics.containsDollarSign("fdg123ewaz$4"))
     println(mathematics.recursiveEven())
     val flipped = mathematics.flipNumber(12)
@@ -12,34 +15,26 @@ fun main() {
 
 }
 
-class MathematicsOperations
-{
-    fun greatCommonDivisor(intOne : Int, intTwo : Int) : Int
-    {
-        if(intTwo == 0)
-        {
-            return intOne
-        }else
-        {
-            return greatCommonDivisor(intTwo, intOne % intTwo)
-        }
+class MathematicsOperations {
+    fun greatCommonDivisor(intOne: Int, intTwo: Int): Int {
+
+
+        return if (intTwo == 0) intOne.absoluteValue else greatCommonDivisor(intTwo, intOne % intTwo)
+    }
+
+    fun leastCommonFactor(intOne: Int, intTwo: Int): Int {
+
+
+        return if (intOne * intTwo == 0) 0 else (intOne * intTwo).absoluteValue / greatCommonDivisor(intOne, intTwo)
 
     }
 
-    fun leastCommonFactor(intOne : Int, intTwo : Int) : Int
-    {
-        return (intOne * intTwo) / greatCommonDivisor(intOne,intTwo)
-    }
-
-    fun leastCommonFactor2(intOne : Int, intTwo : Int) : Int
-    {
-        val biggerNumber = maxOf(intOne,intTwo)
+    fun leastCommonFactor2(intOne: Int, intTwo: Int): Int {
+        val biggerNumber = maxOf(intOne, intTwo)
         var leastCommon = biggerNumber
 
-        while(true)
-        {
-            if (leastCommon % intOne == 0 && leastCommon % intTwo ==0)
-            {
+        while (true) {
+            if (leastCommon % intOne == 0 && leastCommon % intTwo == 0) {
                 return leastCommon
             }
             leastCommon++
@@ -47,8 +42,7 @@ class MathematicsOperations
 
     }
 
-    fun containsDollarSign(input : String) : Boolean
-    {
+    fun containsDollarSign(input: String): Boolean {
         return input.contains('$')
 //        for(char in input)
 //        {
@@ -58,41 +52,38 @@ class MathematicsOperations
 
     }
 
-    fun recursiveEven(ceiling : Int = 100, number : Int = 0, sum : Int = 0) : Int{
-        if(number >= ceiling)
-        {
+    fun recursiveEven(ceiling: Int = 100, number: Int = 0, sum: Int = 0): Int {
+        if (number >= ceiling) {
             return sum
-        }else if(number % 2 == 0)
-        {
-            return recursiveEven(ceiling,number + 1,sum + number
+        } else if (number % 2 == 0) {
+            return recursiveEven(
+                ceiling, number + 1, sum + number
             )
-        }else
-        {
-            return recursiveEven(ceiling,number + 1,sum)
+        } else {
+            return recursiveEven(ceiling, number + 1, sum)
         }
 
     }
 
-    fun flipNumber(number : Int) : Int
-    {
-        var tempDigit = 0
-        var tempNumber = number
-        var reversed = 0
-        while(tempNumber != 0)
-        {
+    fun flipNumber(number: Int): Int = number.toString().reversed().toInt()
+//    {
+//        var tempDigit = 0
+//        var tempNumber = number
+//        var reversed = 0
+//        while(tempNumber != 0)
+//        {
+//
+//            tempDigit = tempNumber % 10
+//
+//            reversed = reversed * 10 + tempDigit
+//
+//            tempNumber /= 10
+//
+//        }
+//        return reversed
+//    }
 
-            tempDigit = tempNumber % 10
-
-            reversed = reversed * 10 + tempDigit
-
-            tempNumber /= 10
-
-        }
-        return reversed
-    }
-
-    fun findPalindrome(input : String) : Boolean
-    {
+    fun findPalindrome(input: String): Boolean {
         val formatString = input.filter { it.isLetter() }.trim().lowercase()
         return formatString == formatString.reversed()
 
