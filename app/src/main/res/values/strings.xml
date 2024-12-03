@@ -3,4 +3,6 @@
     <string name="text_result">შედეგი:</string>
     <string name="input_your_number">Input your number</string>
     <string name="convert">Convert</string>
+    <string name="georgian">Georgian</string>
+    <string name="english">English</string>
 </resources>

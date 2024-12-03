@@ -7,13 +7,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-val singleDigits = NumberArraysGeorgian().singleDigit
-val twoDigits = NumberArraysGeorgian().twoDigits
-val tenMultiples = NumberArraysGeorgian().tenMultiples
-val tenCompounds = NumberArraysGeorgian().tensPlaceCompound
-val threeDigits = NumberArraysGeorgian().threeDigits
-
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,15 +15,30 @@ class MainActivity : AppCompatActivity() {
         val editText: EditText = findViewById(R.id.etInputField)
         val btnConfirmation: Button = findViewById(R.id.btnConverter)
         val textResultView: TextView = findViewById(R.id.tvResultText)
+        val btnToggle: Button = findViewById(R.id.btnLanguageToggle)
 
-        btnConfirmation.setOnClickListener {
-            val converter = ConvertToGeorgian()
-            val stringRepresent = editText.text.toString()
-            textResultView.text = converter.convertToGeorgian(stringRepresent.toInt())
+         btnToggle.setOnClickListener {
+            btnToggle.isActivated = !btnToggle.isActivated
         }
 
+
+
+        btnConfirmation.setOnClickListener {
+            val numberInput = editText.text.toString()
+            val numberRepresentation = numberInput.toIntOrNull()
+
+            if (btnToggle.isActivated) {
+                val converter = ConvertToGeorgian()
+                textResultView.text = converter.convertToGeorgian(numberRepresentation)
+            } else {
+                val converter = ConvertToEnglish()
+                textResultView.text = converter.convertToEnglish(numberRepresentation)
+            }
+        }
+
+
     }
-    //nullable shemdeg leqciaze, collections
+    //nullable shemdeg leqciaze, collections, let, ||apply, run, also
 }
 
 
