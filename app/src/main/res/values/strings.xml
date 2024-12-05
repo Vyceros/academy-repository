@@ -14,4 +14,5 @@
     <string name="is_not_a_valid_email">%1$s is not a valid email</string>
     <string name="user_name_must_be_at_least_10_letters">User name must be at least 10 letters</string>
     <string name="button_again">Again</string>
+    <string name="errors">Errors</string>
 </resources>

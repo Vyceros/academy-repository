@@ -34,6 +34,7 @@
             android:layout_marginTop="16dp"
             android:hint="@string/input_email"
             android:inputType="textEmailAddress"
+            android:minHeight="48dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
@@ -47,6 +48,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:hint="@string/input_username"
+            android:minHeight="48dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
@@ -61,6 +63,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:hint="@string/user_first_name"
+            android:minHeight="48dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
@@ -69,12 +72,12 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etLastNameInput"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:hint="@string/user_last_name"
+            android:minHeight="48dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
@@ -91,6 +94,7 @@
             android:hint="@string/user_age"
             android:inputType="number"
 
+            android:minHeight="48dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="16sp"
@@ -100,10 +104,10 @@
     <LinearLayout
         android:id="@+id/resultContainer"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvHeaderSecond"
@@ -181,15 +185,25 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvErrorScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/errors"
+        android:textColor="@color/error_text"
+        android:textSize="32sp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="0dp"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
@@ -233,6 +247,5 @@
 
 
     </LinearLayout>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

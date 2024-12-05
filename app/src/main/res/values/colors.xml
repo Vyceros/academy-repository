@@ -5,4 +5,5 @@
     <color name="background">#2D1A49</color>
     <color name="clear_button">#D71010</color>
     <color name="save_button">#00FF2D</color>
+    <color name="error_text">#FF0000</color>
 </resources>
