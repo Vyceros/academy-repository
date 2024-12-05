@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FourthAssignment</string>
+    <string name="profile_info">Profile Info</string>
+    <string name="input_email">Email</string>
+    <string name="input_username">Username</string>
+    <string name="user_first_name">First Name</string>
+    <string name="user_last_name">Last Name</string>
+    <string name="user_age">Age</string>
+    <string name="button_save">Save</string>
+    <string name="button_clear">Clear</string>
+    <string name="email_is_invalid">Email is invalid</string>
+    <string name="username_minimum_lenthg">username must be at least 10 characters</string>
+    <string name="empty_input_warning">Fill every form please.</string>
+    <string name="is_not_a_valid_email">%1$s is not a valid email</string>
+    <string name="user_name_must_be_at_least_10_letters">User name must be at least 10 letters</string>
+</resources>
