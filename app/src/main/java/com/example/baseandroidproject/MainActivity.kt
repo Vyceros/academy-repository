@@ -158,8 +158,5 @@ class MainActivity : AppCompatActivity() {
         return user
     }
 
-    private fun drawSnackbar() {
-
-    }
 
 }
