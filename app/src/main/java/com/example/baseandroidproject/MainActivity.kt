@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import com.example.baseandroidproject.databinding.ActivityMainBinding
@@ -101,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
             val user = userStorage.getUser(emailToSearch)
 
-            if (user == null) {
+            if (user == null || emailToSearch.isEmpty()) {
                 binding.tvUserNotFound.visibility = View.VISIBLE
             } else {
                 binding.tvEmailDisplay.text = user.email
