@@ -9,10 +9,11 @@
     <string name="email_validation_error">email is not in valid format</string>
     <string name="enter_age">Enter Age</string>
     <string name="age_validation_error">not a valid age</string>
-    <string name="creating_user">Creating user...</string>
+    <string name="creating_user">Creating user</string>
     <string name="users_count_text_view">Users: 0</string>
     <string name="user_save_failed_snackbar">User already exists</string>
     <string name="user_not_found_text">User Not Found!</string>
     <string name="validation_didnt_pass_error">validations didn\'t pass</string>
     <string name="return_to_save_screen_button">Return</string>
+    <string name="enter_valid_email_first">Enter valid email first</string>
 </resources>

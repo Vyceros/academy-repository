@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveButtonClick() {
-        val user = initializeUser()
 
         binding.btnSave.setOnClickListener {
+            val user = initializeUser()
 
             if (!validateUser()) {
                 Snackbar.make(
@@ -80,11 +80,7 @@ class MainActivity : AppCompatActivity() {
 
             binding.tvUserCount.text = userStorage.getUserCount()
 
-            binding.inputContainer.forEach {
-                if (it is EditText) {
-                    it.text.clear()
-                }
-            }
+//
         }
 
     }
@@ -95,21 +91,33 @@ class MainActivity : AppCompatActivity() {
         binding.btnGetUserInfo.setOnClickListener {
 
 
-            val emailToSearch = binding.searchView.text.toString()
+            val emailToSearch = binding.searchView.text.toString().trim()
+
+            if (emailToSearch.isEmpty() || !InputValidations().validateEmail(emailToSearch)) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.enter_valid_email_first),
+                    Snackbar.LENGTH_SHORT
+                ).setAnchorView(binding.tvPlaceHolder)
+                    .setTextColor(Color.BLACK)
+                    .setBackgroundTint(Color.RED)
+                    .setActionTextColor(Color.BLACK)
+                    .setAction("Close") {}
+                    .show()
+                return@setOnClickListener
+            }
+            binding.inputContainer.visibility = View.GONE
+            binding.displayInfoContainer.visibility = View.VISIBLE
 
             val user = userStorage.getUser(emailToSearch)
 
-            if (user == null && emailToSearch.isNotBlank()) {
-
-                binding.inputContainer.visibility = View.GONE
-
-                binding.displayInfoContainer.visibility = View.VISIBLE
-
+            if (user == null)
+            {
                 binding.tvUserNotFound.visibility = View.VISIBLE
             } else {
-                binding.tvEmailDisplay.text = user?.email
-                binding.tvFullNameDisplay.text = user?.fullName
-                binding.tvAgeDisplay.text = user?.age
+                binding.tvEmailDisplay.text = user.email
+                binding.tvFullNameDisplay.text = user.fullName
+                binding.tvAgeDisplay.text = user.age
             }
 
             binding.inputContainer.forEach { child ->
@@ -126,6 +134,16 @@ class MainActivity : AppCompatActivity() {
         binding.btnGoBack.setOnClickListener {
             binding.displayInfoContainer.visibility = View.GONE
             binding.inputContainer.visibility = View.VISIBLE
+
+            binding.tvAgeDisplay.clearText()
+            binding.tvEmailDisplay.clearText()
+            binding.tvFullNameDisplay.clearText()
+
+            binding.inputContainer.forEach {
+                if (it is EditText) {
+                    it.text.clear()
+                }
+            }
         }
     }
 

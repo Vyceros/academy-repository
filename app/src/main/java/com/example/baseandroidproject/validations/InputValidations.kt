@@ -5,13 +5,14 @@ import androidx.core.text.isDigitsOnly
 
 class InputValidations {
     fun validateEmail(email: String?): Boolean {
-        return email?.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() } ?: false
+        return email?.trim()?.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() } ?: false
     }
 
     fun validateUserName(userName: String?): Boolean {
         return when {
             userName.isNullOrEmpty() -> false
             userName.length < 10 -> false
+            userName.any { it.isDigit() } -> false
             else -> {
                 true
             }
