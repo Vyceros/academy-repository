@@ -22,7 +22,7 @@ class UserStorage {
 
     fun userExists(emailToCheck: String): Boolean {
         val user = getUser(emailToCheck)
-        return user in users
+        return user != null
     }
 
 

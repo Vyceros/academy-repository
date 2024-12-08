@@ -35,48 +35,57 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveButtonClick() {
+        val user = initializeUser()
+
         binding.btnSave.setOnClickListener {
-            val user = initializeUser()
-            if (validateUser()) {
-                userStorage.addUser(user)
 
+            if (!validateUser()) {
                 Snackbar.make(
                     binding.root,
-                    getString(R.string.creating_user), Toast.LENGTH_SHORT
-                ).setAnchorView(binding.tvPlaceHolder)
-                    .setTextColor(Color.WHITE)
-                    .setBackgroundTint(Color.GREEN)
-                    .setActionTextColor(Color.BLACK)
-                    .setAction("Close") {}
-                    .show()
-
-                binding.inputContainer.forEach {
-                    if (it is EditText) {
-                        it.text.clear()
-                    }
-                }
-            } else if (userStorage.userExists(user.email.toString())) {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.user_save_failed_snackbar), Toast.LENGTH_SHORT
+                    getString
+                        (R.string.validation_didnt_pass_error), Snackbar.LENGTH_SHORT
                 ).setAnchorView(binding.tvPlaceHolder)
                     .setTextColor(Color.BLACK)
                     .setBackgroundTint(Color.RED)
+                    .setActionTextColor(Color.BLACK)
+                    .setAction("Close") {}
+                    .show()
+            } else if (userStorage.userExists
+                    (user.email.toString())
+            ) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.user_save_failed_snackbar), Snackbar.LENGTH_SHORT
+                ).setAnchorView(binding.tvPlaceHolder)
+                    .setTextColor(Color.BLACK)
+                    .setBackgroundTint(Color.RED)
+
                     .setActionTextColor(Color.BLACK)
                     .setAction("Close") {}
                     .show()
             } else {
+                userStorage.addUser(user)
                 Snackbar.make(
                     binding.root,
-                    getString(R.string.validation_didnt_pass_error), Toast.LENGTH_SHORT
+                    getString
+                        (R.string.creating_user), Snackbar.LENGTH_SHORT
                 ).setAnchorView(binding.tvPlaceHolder)
+
                     .setTextColor(Color.BLACK)
-                    .setBackgroundTint(Color.RED)
+                    .setBackgroundTint(Color.GREEN)
                     .setActionTextColor(Color.BLACK)
                     .setAction("Close") {}
                     .show()
             }
+
+
             binding.tvUserCount.text = userStorage.getUserCount()
+
+            binding.inputContainer.forEach {
+                if (it is EditText) {
+                    it.text.clear()
+                }
+            }
         }
 
     }
@@ -101,16 +110,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             binding.inputContainer.forEach { child ->
-                if(child is EditText)
-                {
+                if (child is EditText) {
                     child.error = null
                 }
             }
         }
     }
 
-    private fun returnButtonClick()
-    {
+    private fun returnButtonClick() {
         binding.btnGoBack.setOnClickListener {
             binding.displayInfoContainer.visibility = View.GONE
             binding.inputContainer.visibility = View.VISIBLE
@@ -151,5 +158,8 @@ class MainActivity : AppCompatActivity() {
         return user
     }
 
+    private fun drawSnackbar() {
+
+    }
 
 }
