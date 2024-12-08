@@ -4,5 +4,11 @@
     <string name="enter_full_name">Enter Full Name</string>
     <string name="save_button_text">Save</string>
     <string name="default_user_count"><![CDATA[Users -> 0]]></string>
-    <string name="search_hint">Search</string>
+    <string name="search_hint">Enter User email</string>
+    <string name="get_user_info">Get user info</string>
+    <string name="full_name_validation_error">full name is not in valid format</string>
+    <string name="email_validation_error">email is not in valid format</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="age_validation_error">not a valid age</string>
+    <string name="creating_user">Creating user...</string>
 </resources>
