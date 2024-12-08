@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:importantForAutofill="no"
             android:background="@drawable/search_view_background"
             android:hint="@string/search_hint"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="8dp"
@@ -116,15 +116,25 @@
             android:text="@string/users_count_text_view"
             android:textColor="@color/white"
             android:textSize="32sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPlaceHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="64dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/displayInfoContainer"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvEmailDisplay"
@@ -155,14 +165,25 @@
 
         <TextView
             android:id="@+id/tvUserNotFound"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/user_not_found_text"
             android:textColor="@color/white"
             android:textSize="48sp"
-            />
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGoBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_background_shape"
+            android:text="@string/return_to_save_screen_button"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

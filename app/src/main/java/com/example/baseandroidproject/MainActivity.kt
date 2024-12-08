@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import androidx.core.view.forEach
 import com.example.baseandroidproject.databinding.ActivityMainBinding
 import com.example.baseandroidproject.validations.InputValidations
@@ -18,8 +16,8 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var user: User
+    private val userStorage = UserStorage()
 
-    private var usersList = mutableListOf<User?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,23 +28,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun initializeListeners() {
         saveButtonClick()
         searchButtonClick()
-
+        returnButtonClick()
     }
 
     private fun saveButtonClick() {
         binding.btnSave.setOnClickListener {
             val user = initializeUser()
-            if (validateUser() && user !in usersList) {
-                usersList.add(user)
+            if (validateUser()) {
+                userStorage.addUser(user)
 
                 Snackbar.make(
                     binding.root,
                     getString(R.string.creating_user), Toast.LENGTH_SHORT
-                ).setAnchorView(binding.btnGetUserInfo)
+                ).setAnchorView(binding.tvPlaceHolder)
                     .setTextColor(Color.WHITE)
                     .setBackgroundTint(Color.GREEN)
                     .setActionTextColor(Color.BLACK)
@@ -54,28 +51,37 @@ class MainActivity : AppCompatActivity() {
                     .show()
 
                 binding.inputContainer.forEach {
-                    if (it is EditText){
+                    if (it is EditText) {
                         it.text.clear()
                     }
                 }
-            }else{
+            } else if (userStorage.userExists(user.email.toString())) {
                 Snackbar.make(
                     binding.root,
                     getString(R.string.user_save_failed_snackbar), Toast.LENGTH_SHORT
-                ).setAnchorView(binding.btnGetUserInfo)
+                ).setAnchorView(binding.tvPlaceHolder)
+                    .setTextColor(Color.BLACK)
+                    .setBackgroundTint(Color.RED)
+                    .setActionTextColor(Color.BLACK)
+                    .setAction("Close") {}
+                    .show()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.validation_didnt_pass_error), Toast.LENGTH_SHORT
+                ).setAnchorView(binding.tvPlaceHolder)
                     .setTextColor(Color.BLACK)
                     .setBackgroundTint(Color.RED)
                     .setActionTextColor(Color.BLACK)
                     .setAction("Close") {}
                     .show()
             }
-            binding.tvUserCount.text = usersList.size.toString()
+            binding.tvUserCount.text = userStorage.getUserCount()
         }
-
 
     }
 
-    private fun searchButtonClick(){
+    private fun searchButtonClick() {
         binding.btnGetUserInfo.setOnClickListener {
 
             binding.inputContainer.visibility = View.GONE
@@ -84,17 +90,30 @@ class MainActivity : AppCompatActivity() {
 
             val emailToSearch = binding.searchView.text.toString()
 
-            val user = usersList.find {it?.email == emailToSearch}
+            val user = userStorage.getUser(emailToSearch)
 
-            if(user == null)
-            {
+            if (user == null) {
                 binding.tvUserNotFound.visibility = View.VISIBLE
-            }else
-            {
+            } else {
                 binding.tvEmailDisplay.text = user.email
                 binding.tvFullNameDisplay.text = user.fullName
                 binding.tvAgeDisplay.text = user.age
             }
+
+            binding.inputContainer.forEach { child ->
+                if(child is EditText)
+                {
+                    child.error = null
+                }
+            }
+        }
+    }
+
+    private fun returnButtonClick()
+    {
+        binding.btnGoBack.setOnClickListener {
+            binding.displayInfoContainer.visibility = View.GONE
+            binding.inputContainer.visibility = View.VISIBLE
         }
     }
 
@@ -117,6 +136,7 @@ class MainActivity : AppCompatActivity() {
 
         if (!validator.validateAge(user.age)) {
             binding.etAgeInput.error = getString(R.string.age_validation_error)
+
             validationStatus = false
         }
         return validationStatus

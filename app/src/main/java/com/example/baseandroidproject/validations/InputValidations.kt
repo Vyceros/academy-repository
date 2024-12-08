@@ -3,7 +3,7 @@ package com.example.baseandroidproject.validations
 import android.util.Patterns
 import androidx.core.text.isDigitsOnly
 
-class InputValidations() {
+class InputValidations {
     fun validateEmail(email: String?): Boolean {
         return email?.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() } ?: false
     }
