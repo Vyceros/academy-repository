@@ -90,22 +90,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchButtonClick() {
+
+
         binding.btnGetUserInfo.setOnClickListener {
 
-            binding.inputContainer.visibility = View.GONE
-
-            binding.displayInfoContainer.visibility = View.VISIBLE
 
             val emailToSearch = binding.searchView.text.toString()
 
             val user = userStorage.getUser(emailToSearch)
 
-            if (user == null || emailToSearch.isEmpty()) {
+            if (user == null && emailToSearch.isNotBlank()) {
+
+                binding.inputContainer.visibility = View.GONE
+
+                binding.displayInfoContainer.visibility = View.VISIBLE
+
                 binding.tvUserNotFound.visibility = View.VISIBLE
             } else {
-                binding.tvEmailDisplay.text = user.email
-                binding.tvFullNameDisplay.text = user.fullName
-                binding.tvAgeDisplay.text = user.age
+                binding.tvEmailDisplay.text = user?.email
+                binding.tvFullNameDisplay.text = user?.fullName
+                binding.tvAgeDisplay.text = user?.age
             }
 
             binding.inputContainer.forEach { child ->
@@ -114,6 +118,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
     }
 
     private fun returnButtonClick() {
