@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_full_name">Enter Full Name</string>
+    <string name="save_button_text">Save</string>
+    <string name="default_user_count"><![CDATA[Users -> 0]]></string>
+    <string name="search_hint">Search</string>
 </resources>
