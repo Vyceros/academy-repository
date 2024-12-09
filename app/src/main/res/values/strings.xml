@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="enter_anagram_hint">Enter anagram</string>
+    <string name="button_save_text">Save</string>
+    <string name="button_output_text">Output</string>
+    <string name="clear_button_text">Clear</string>
+    <string name="text_view_result">Count</string>
+    <string name="text_view_anagrams">Result</string>
 </resources>
