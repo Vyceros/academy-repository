@@ -25,7 +25,8 @@
             android:background="@drawable/input_backgrounds"
             android:layout_marginHorizontal="16dp"
             android:textSize="24sp"
-            android:hint="@string/enter_anagram_hint"/>
+            android:hint="@string/enter_anagram_hint"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <Button
             android:id="@+id/btnSave"
@@ -35,7 +36,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginHorizontal="16dp"
-            android:text="@string/button_save_text"/>
+            android:text="@string/button_save_text"
+            tools:ignore="VisualLintButtonSize" />
 
         <Button
             android:id="@+id/btnOutput"
@@ -45,7 +47,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
             android:textSize="16sp"
-            android:text="@string/button_output_text"/>
+            android:text="@string/button_output_text"
+            tools:ignore="VisualLintButtonSize" />
 
     </LinearLayout>
 

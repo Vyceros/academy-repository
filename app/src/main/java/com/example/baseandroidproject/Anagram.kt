@@ -13,10 +13,17 @@ class AnagramStorage {
         return "Count: ${groupingWord().size}"
     }
 
+    fun unsortedResult() : List<String>{
+        return storage.toList()
+    }
 
     fun groupingWord(): List<List<String>> {
         return storage.groupBy {
             it.toCharArray().sorted().joinToString("")
         }.values.toList()
+    }
+
+    fun reset(){
+        storage.clear()
     }
 }

@@ -2,11 +2,7 @@ package com.example.baseandroidproject
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import com.example.baseandroidproject.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -32,11 +28,13 @@ class MainActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             val anagram = initializeAnagram().trim()
 
+
             if (anagram.isNotEmpty()) {
                 anagramStorage.saveToStorage(anagram)
             } else {
                 Snackbar.make(binding.main, "empty", Snackbar.LENGTH_SHORT).show()
             }
+
         }
     }
 
@@ -52,12 +50,11 @@ class MainActivity : AppCompatActivity() {
 
             val resultText = if (groupedAnagrams.isNotEmpty())
             {
-                groupedAnagrams.joinToString("\n ") { anagroup ->
-                    "[${anagroup.joinToString(", ")}]"
+                groupedAnagrams.joinToString("\n ") { anagroup -> "[${anagroup.joinToString(", ")}]"
                 }
             }
             else {
-                "nothing man"
+                "empty"
             }
 
             binding.resultContainer.visibility = View.VISIBLE
@@ -73,7 +70,9 @@ class MainActivity : AppCompatActivity() {
             binding.resultContainer.visibility = View.GONE
             binding.inputContainer.visibility = View.VISIBLE
 
+            anagramStorage.reset()
 
+            binding.tvAnagrams.text = ""
         }
     }
 
