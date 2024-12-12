@@ -4,4 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="button_background_color">#1B1B1B</color>
     <color name="transparent">#001B1B1B</color>
+    <color name="parent_background_color">#EDE9E9</color>
+    <color name="text_blurred">#4D1D1D4D</color>
+    <color name="tv_south_america">#CAC8C8</color>
+    <color name="tv_overview">#1B1B1B</color>
+    <color name="tv_details">#1B1B1B9E</color>
+    <color name="bottom_buttons_color">#EDEDED</color>
+    <color name="tv_bottom_buttons">#7E7E7E</color>
 </resources>

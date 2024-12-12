@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
     <string name="button_text_book_now">Book Now</string>
+    <string name="clock_button_icon_description">Clock button icon</string>
+    <string name="cloud_button_description">Cloud button description</string>
+    <string name="star_button_description">Star button description</string>
+    <string name="book_now_button_descripion">Book now button descripion</string>
+    <string name="go_back_button_description">Go back button description</string>
+    <string name="favorite_button_description">Favorite button description</string>
+    <string name="andes_mountain">Andes Mountain</string>
+    <string name="south_america_tv">South, America</string>
+    <string name="tv_price_number_value">230</string>
+    <string name="tv_price_label">Price</string>
+    <string name="tv_overview_text">Overview</string>
+    <string name="tv_details_text">Details</string>
+    <string name="eight_hours_text">8 hours</string>
+    <string name="tv_celsius_temp">16 °C</string>
+    <string name="tv_stars_text">4.5</string>
+    <string name="tv_description_text">"This vast mountain range is renowned for its remarkable diversity in terms of topography and climate. It features towering peaks, active volcanoes, deep canyons, expansive plateaus, and lush valleys. The Andes are also home to "</string>
+    <string name="btn_book_now_text">Book Now</string>
 </resources>

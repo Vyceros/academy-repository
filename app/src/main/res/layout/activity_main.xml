@@ -1,41 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="wrap_content"
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMountain"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/mountain_background"
-        app:layout_constraintBottom_toTopOf="@+id/btnBookNow"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mountain" />
 
+    <ImageButton
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_margin="32dp"
+        android:background="@drawable/image_view_buttons"
+        android:contentDescription="@string/go_back_button_description"
+        android:minHeight="44dp"
+        android:src="@drawable/icon_arrow_left"
+        app:layout_constraintStart_toStartOf="@id/ivMountain"
+        app:layout_constraintTop_toTopOf="@id/ivMountain" />
 
+    <ImageButton
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_margin="32dp"
+        android:background="@drawable/image_view_buttons"
+        android:contentDescription="@string/favorite_button_description"
+        android:minHeight="44dp"
+        android:src="@drawable/archive"
+        app:layout_constraintEnd_toEndOf="@id/ivMountain"
+        app:layout_constraintTop_toTopOf="@id/ivMountain" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/andes_mountain_text"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMountain"
+        app:layout_constraintEnd_toEndOf="@+id/ivMountain"
+        app:layout_constraintStart_toStartOf="@+id/ivMountain">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAndesMountain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/inter_semibold"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSouthAmerica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/location_marker"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/tv_south_america"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/tv_south_america"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPriceNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/tv_south_america"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="@color/tv_overview"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivMountain" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/inter_semibold"
+        android:textColor="@color/tv_details"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOverview"
+        app:layout_constraintStart_toEndOf="@id/tvOverview"
+        app:layout_constraintTop_toBottomOf="@+id/ivMountain" />
+
+    <ImageButton
+        android:id="@+id/btnClockIcon"
+        android:layout_width="44dp"
+        android:clickable="false"
+        android:layout_height="44dp"
+        android:background="@drawable/bottom_buttons_background"
+        android:contentDescription="@string/clock_button_icon_description"
+        android:minHeight="44dp"
+        android:src="@drawable/icon_clock"
+        app:layout_constraintStart_toStartOf="@id/ivMountain"
+        app:layout_constraintTop_toBottomOf="@id/tvOverview" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEightHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/tv_bottom_buttons"
+        app:layout_constraintBottom_toBottomOf="@+id/btnClockIcon"
+        app:layout_constraintStart_toEndOf="@id/btnClockIcon"
+        app:layout_constraintTop_toTopOf="@+id/btnClockIcon" />
+
+    <ImageButton
+        android:id="@+id/btnCloudIcon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="32dp"
+        android:clickable="false"
+        android:background="@drawable/bottom_buttons_background"
+        android:contentDescription="@string/cloud_button_description"
+        android:minHeight="44dp"
+        android:src="@drawable/icon_cloud"
+        app:layout_constraintStart_toEndOf="@+id/tvEightHours"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverview" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCelsiusTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
+        android:textColor="@color/tv_bottom_buttons"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCloudIcon"
+
+        app:layout_constraintStart_toEndOf="@+id/btnCloudIcon"
+        app:layout_constraintTop_toTopOf="@+id/btnCloudIcon" />
+
+    <ImageButton
+        android:id="@+id/btnStarIcon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:clickable="false"
+        android:background="@drawable/bottom_buttons_background"
+        android:contentDescription="@string/star_button_description"
+        android:minHeight="44dp"
+        android:src="@drawable/star_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvCelsiusTemp"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverview" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
+        android:textColor="@color/tv_bottom_buttons"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStarIcon"
+        app:layout_constraintStart_toEndOf="@+id/btnStarIcon"
+        app:layout_constraintTop_toTopOf="@+id/btnStarIcon" />
+
+
+    <ScrollView
+        android:id="@+id/scrollViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBookNow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCloudIcon">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDescription"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="18sp" />
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnBookNow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="28dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button_background_design"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:minHeight="64dp"
+        android:contentDescription="@string/book_now_button_descripion"
         android:drawableEnd="@drawable/send_button_icon"
+        android:minHeight="64dp"
         android:paddingStart="92dp"
         android:paddingEnd="92dp"
-        android:singleLine="true"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
