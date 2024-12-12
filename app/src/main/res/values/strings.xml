@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="button_text_book_now">Book Now</string>
 </resources>
