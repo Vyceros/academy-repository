@@ -1,5 +1,6 @@
 package com.example.baseandroidproject
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.baseandroidproject.databinding.ActivityMainBinding
