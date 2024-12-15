@@ -28,9 +28,12 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun onLogginButtonClick(){
         binding.btnLogin.setOnClickListener {
-            loginUser()
+            if(!binding.etLogInEmail.text.isNullOrEmpty() && !binding.etLogInPassword.text.isNullOrEmpty()){
+                loginUser()
+            }else{
+                Toast.makeText(this,"please fill in the inputs",Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
 
     private fun loginUser() {
@@ -38,11 +41,12 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.etLogInPassword.text.toString()
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (it.isSuccessful) {
+            if (it.isSuccessful)
+            {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Login failed: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "login failed: ${it.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
