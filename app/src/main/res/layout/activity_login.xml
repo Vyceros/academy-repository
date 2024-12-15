@@ -9,6 +9,7 @@
     tools:context=".LoginActivity">
 
     <ImageButton
+        android:background="@color/white"
         android:id="@+id/btnGoBack"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

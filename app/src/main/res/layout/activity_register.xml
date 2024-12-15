@@ -10,6 +10,7 @@
 
     <ImageButton
         android:id="@+id/btnGoBack"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/back_logo"
