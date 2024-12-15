@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="welcome_string">Welcome! %1$s</string>
+    <string name="welcome_banner">Welcome! %1$s</string>
+    <string name="welcome_banner_2">Hello! %1$s</string>
+    <string name="jane_example_com">jane@example.com</string>
+    <string name="hidden_password">********</string>
+    <string name="log_in">Log In</string>
+    <string name="btn_log_in">Log In</string>
+    <string name="btn_register">Register</string>
+    <string name="register">Register</string>
+    <string name="username_hint">the_jane</string>
+    <string name="terms_services">By signing up, you agree to
+        Photo\'s <u>Terms of Service</u> and <u>Privacy Policy</u></string>
+    <string name="btn_next">Next</string>
+    <string name="go_back_button">Go back button</string>
+    <string name="log_in_header">Log in</string>
 </resources>
