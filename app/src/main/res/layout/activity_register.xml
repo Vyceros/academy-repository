@@ -6,14 +6,14 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvLoginHeader"
+        android:id="@+id/tvRegisterHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:text="Log in"
+        android:text="Register"
         android:textSize="36sp"
         android:layout_marginHorizontal="16dp"
         app:fontFamily="@font/comfortaa_bold"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etLogInEmail"
+        android:id="@+id/etRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -32,10 +32,10 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLoginHeader" />
+        app:layout_constraintTop_toBottomOf="@id/tvRegisterHeader" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etLogInPassword"
+        android:id="@+id/etRegisterPassword"
         android:layout_width="match_parent"
         android:inputType="textPassword"
         android:layout_height="wrap_content"
@@ -46,19 +46,20 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etLogInEmail" />
+        app:layout_constraintTop_toBottomOf="@id/etRegisterEmail" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegisterNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/button_register_design"
         android:fontFamily="@font/roboto"
-        android:text="Log In"
+        android:text="Next"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLogInPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etRegisterPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
