@@ -10,6 +10,7 @@ fun validateName(firstName: String, lastName: String): Boolean {
     return when {
         firstName.isBlank() && lastName.isBlank() -> false
         firstName.length < 3 && lastName.length < 6 -> false
+        !firstName.all { it.isLetter() } && !lastName.all { it.isLetter() } -> false
         else -> {
             true
         }
