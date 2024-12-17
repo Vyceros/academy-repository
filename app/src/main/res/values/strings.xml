@@ -8,4 +8,17 @@
     <string name="remove_user">Remove User</string>
     <string name="update_user">Update User</string>
     <string name="add_user">Add User</string>
+    <string name="toast_showing_user_created">%1$s created successfully</string>
+    <string name="user_created_successfully_snackbar">User Created Successfully</string>
+    <string name="failed_user_already_exists">Failed. User already exists</string>
+    <string name="user_update_failed_snackbar">User does not exist</string>
+    <string name="user_updated_successfully_snackbar">User updated successfully</string>
+    <string name="user_to_update_first_name_search">Enter email to update</string>
+    <string name="age_must_be_positive_number">Age must be positive number!</string>
+    <string name="wrong_format_enter_email">Wrong format! Enter email</string>
+    <string name="first_name_last_name_validation_error">First name must be at least 3 letters, last name 6</string>
+    <string name="enter_email_to_delete">Enter email to delete</string>
+    <string name="btn_go_back">Go Back</string>
+    <string name="active_count">Active count : %1$s</string>
+    <string name="deleted_count">Deleted count : %1$s</string>
 </resources>
