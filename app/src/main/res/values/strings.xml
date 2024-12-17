@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="et_first_name">First Name</string>
+    <string name="et_last_name">Last Name</string>
+    <string name="et_email">Email</string>
+    <string name="et_age_hint">Age</string>
+    <string name="image_description">Geometric background picture</string>
+    <string name="remove_user">Remove User</string>
+    <string name="update_user">Update User</string>
+    <string name="add_user">Add User</string>
 </resources>
