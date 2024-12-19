@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="middle_text_or">or</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="already_have_an_account_warning">Already have an account?</string>
+    <string name="sign_in_hint">Sign in</string>
+    <string name="checkbox_remember_me_text">Remember me</string>
+    <string name="sign_up">Sign up</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="btn_sign_in_with_password">Sign in with password</string>
+    <string name="divider_or">or</string>
+    <string name="btn_continue_apple">Continue with Apple</string>
+    <string name="btn_continue_with_google">Continue with Google</string>
+    <string name="btn_continue_with_facebook">Continue with Facebook</string>
+    <string name="header_text_lets_you_in">Let\'s you in</string>
+    <string name="btn_facebook_description">Button to continue with Facebook</string>
+    <string name="btn_google_description">Button to continue with Google</string>
+    <string name="btn_apple_description">Button to continue with Apple</string>
+    <string name="btn_sign_up">Sign up</string>
+    <string name="et_email_hint">Create Your Account</string>
+    <string name="et_email_hint_">Email</string>
+    <string name="et_password_hint_">Password</string>
+    <string name="or_continue_with_suggestion">or continue with</string>
 </resources>
