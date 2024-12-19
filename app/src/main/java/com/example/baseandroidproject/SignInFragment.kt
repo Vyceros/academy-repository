@@ -38,6 +38,10 @@ class SignInFragment : Fragment() {
         binding.btnSignWithPassword.setOnClickListener {
             transactToNextFragment()
         }
+
+        binding.btnGoBack.setOnClickListener{
+            onGoBackButtonClick()
+        }
     }
 
     private fun transactToNextFragment(){
@@ -46,6 +50,10 @@ class SignInFragment : Fragment() {
         transaction.replace(R.id.main,RegisterFragment(),"SignInFragment")
         transaction.addToBackStack("SignInFragment")
         transaction.commit()
+    }
+
+    private fun onGoBackButtonClick(){
+        requireActivity().finish()
     }
 
 }

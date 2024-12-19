@@ -19,7 +19,7 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRegsisterBinding.inflate(inflater,container,false)
+        _binding = FragmentRegsisterBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -27,9 +27,22 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
     }
+
+    private fun init() {
+        binding.btnGoBack.setOnClickListener {
+            onGoBackButtonClick()
+        }
+    }
+
+    private fun onGoBackButtonClick() {
+        parentFragmentManager.popBackStack()
+    }
+
 }

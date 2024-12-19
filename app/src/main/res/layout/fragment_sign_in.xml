@@ -7,11 +7,20 @@
     android:orientation="vertical"
     tools:context=".SignInFragment">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnGoBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:contentDescription="@string/go_back_button_description"
+        android:src="@drawable/arrow_go_back" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCenterLogo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         app:srcCompat="@drawable/main_logo" />
 
     <androidx.appcompat.widget.AppCompatTextView
