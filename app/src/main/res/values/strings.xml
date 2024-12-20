@@ -11,4 +11,5 @@
     <string name="fields_are_empty_snackbar">Fields are empty</string>
     <string name="btn_add_user_">Add User</string>
     <string name="no_use_found_warning">No user Found</string>
+    <string name="clear_button">Clear</string>
 </resources>

@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        binding.btnClear.setOnClickListener {
+            clearButton()
+        }
     }
 
     private fun displayUsers(users: List<User>) {
@@ -56,6 +60,9 @@ class MainActivity : AppCompatActivity() {
         displayUsers(userSearch)
     }
 
+    private fun clearButton(){
+        binding.tvUsers.text = ""
+    }
     private fun onAddUserButton() {
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()

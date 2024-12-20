@@ -12,6 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnClear"
+            android:layout_width="match_parent"
+            android:text="@string/clear_button"
+
+            android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.SearchView
             android:id="@+id/etUserSearch"
             android:inputType="text"
@@ -29,7 +35,6 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddUser"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
             android:text="@string/btn_add_user"
             android:layout_height="wrap_content"/>
 

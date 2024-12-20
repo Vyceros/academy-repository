@@ -80,26 +80,29 @@ class SignUpFragment : Fragment() {
     }
 
     private fun formatDate(date: String): String {
-        if (date.all { it.isDigit() }) {
-            val daysPlace = date.substring(0, 2)
+        if (date.length == 8 && date.all { it.isDigit() }) {
+            val daysPlace = date.substring(0, 2).toInt()
             val monthPlace = date.substring(2, 4).toInt()
             val year = date.substring(4, 8)
-            val monthStringRepresent = when (monthPlace) {
-                1 -> "იანვარი"
-                2 -> "თებერვალი"
-                3 -> "მარტი"
-                4 -> "აპრილი"
-                5 -> "მაისი"
-                6 -> "ივნისი"
-                7 -> "ივლისი"
-                8 -> "აგვისტო"
-                9 -> "სექტემბერი"
-                10 -> "ოქტომბერი"
-                11 -> "ნოემბერი"
-                12 -> "დეკემბერი"
-                else -> {"Not valid format, enter DAY/MONTH/YEAR"}
+            if (daysPlace in 1..31 && monthPlace in 1..12) {
+                val monthStringRepresent = when (monthPlace) {
+                    1 -> "იანვარი"
+                    2 -> "თებერვალი"
+                    3 -> "მარტი"
+                    4 -> "აპრილი"
+                    5 -> "მაისი"
+                    6 -> "ივნისი"
+                    7 -> "ივლისი"
+                    8 -> "აგვისტო"
+                    9 -> "სექტემბერი"
+                    10 -> "ოქტომბერი"
+                    11 -> "ნოემბერი"
+                    12 -> "დეკემბერი"
+                    else -> {"Not valid format, enter DAY/MONTH/YEAR"}
+                }
+                return "$daysPlace $monthStringRepresent $year"
             }
-            return "$daysPlace $monthStringRepresent $year"
+
         }
         return ""
 
