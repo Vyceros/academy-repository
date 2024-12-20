@@ -54,12 +54,10 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     private fun searchUser(search: String) {
         val userSearch = UserStorage.searchUser(search)
         displayUsers(userSearch)
     }
-
     private fun clearButton(){
         binding.tvUsers.text = ""
     }

@@ -65,7 +65,7 @@ class SignUpFragment : Fragment() {
 
         val formatDate = formatDate(birthday)
         val user = User(
-            id = 1,
+            id = 0,
             firstName, lastName, formatDate, address, email
         )
 

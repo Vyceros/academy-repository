@@ -42,13 +42,14 @@ object UserStorage {
             email = "tebzi@gmail.com",
         )
     )
+    private var temporaryId = 35
 
     fun addUser(user: User): Boolean {
         val alreadyExistingUser =
             listUsers.find { it.id == user.id || it.email.uppercase() == user.email.uppercase() }
         if (alreadyExistingUser == null)
         {
-            user.id++
+            user.id = ++temporaryId
             listUsers.add(user)
             return true
         }
@@ -58,11 +59,16 @@ object UserStorage {
     fun searchUser(search: String): List<User> {
         val lowerSearch = search.lowercase()
         return listUsers.filter { user ->
-            user.firstName.lowercase().contains(lowerSearch)
+            user.id.toString().contains(lowerSearch)
+                    ||user.firstName.lowercase().contains(lowerSearch)
                     || user.lastName.lowercase().contains(lowerSearch)
                     || user.email.lowercase().contains(lowerSearch)
                     || user.birthday.lowercase().contains(lowerSearch)
                     || user.address.lowercase().contains(lowerSearch)
         }
+    }
+
+    fun getAll(): MutableList<User> {
+        return listUsers
     }
 }
