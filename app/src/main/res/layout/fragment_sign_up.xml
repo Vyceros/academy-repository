@@ -29,7 +29,7 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etBirthDate"
-        android:inputType="datetime"
+        android:inputType="date"
         android:layout_marginTop="16dp"
         android:hint="@string/et_birth_date_hint"
         android:textColorHint="@color/black"
@@ -50,6 +50,7 @@
         android:id="@+id/etEmail"
         android:hint="@string/et_email_hint"
         android:textColorHint="@color/black"
+        android:inputType="textEmailAddress"
         android:textColor="@color/black"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
