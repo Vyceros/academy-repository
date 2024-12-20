@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_add_user">Add User</string>
+    <string name="et_first_name_hint">First name</string>
+    <string name="et_last_name_hint">Last name</string>
+    <string name="et_birth_date_hint">Birth date</string>
+    <string name="et_address_hint">Address</string>
+    <string name="et_email_hint">Email</string>
+    <string name="fields_are_empty_snackbar">Fields are empty</string>
+    <string name="btn_add_user_">Add User</string>
+    <string name="no_use_found_warning">No user Found</string>
 </resources>
