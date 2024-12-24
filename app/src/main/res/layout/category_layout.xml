@@ -6,20 +6,20 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_marginTop="6dp"
         android:id="@+id/categoryContainer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
         android:background="@drawable/category_background"
-        android:padding="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

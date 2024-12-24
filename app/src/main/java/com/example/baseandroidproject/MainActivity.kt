@@ -14,11 +14,11 @@ class MainActivity : AppCompatActivity() {
 
     private var itemsList = mutableListOf(
         ShopItem(id = 1, "Belt suit blazer", R.drawable.image3, "$200", "Party"),
-        ShopItem(id = 1, "Belt suit blazer", R.drawable.image_2, "$200", "All"),
-        ShopItem(id = 1, "Belt suit blazer", R.drawable.image3, "$200", "All"),
-        ShopItem(id = 1, "Belt suit blazer", R.drawable.image_4, "$200", "All"),
-        ShopItem(id = 1, "Belt suit blazer", R.drawable.image3, "$200", "All"),
-        ShopItem(id = 1, "Belt suit blazer", R.drawable.image_4, "$200", "All"),
+        ShopItem(id = 2, "Belt suit blazer", R.drawable.image_2, "$200", "Camping"),
+        ShopItem(id = 3, "Belt suit blazer", R.drawable.image3, "$200", "Category1"),
+        ShopItem(id = 4, "Belt suit blazer", R.drawable.image_4, "$200", "Category1"),
+        ShopItem(id = 5, "Belt suit blazer", R.drawable.image3, "$200", "Party"),
+        ShopItem(id = 6, "Belt suit blazer", R.drawable.image_4, "$200", "All"),
     )
     private var filteredList = mutableListOf<ShopItem>()
     private var categoryList =

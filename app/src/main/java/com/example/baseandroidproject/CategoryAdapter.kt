@@ -12,7 +12,7 @@ class CategoryAdapter(private val categories: List<String>) :
 
     private var selectedCategory = 0
 
-    fun onClickListener(listener : (String) -> Unit){
+    fun onClickListener(listener: (String) -> Unit) {
         this.onItemClick = listener
     }
 
@@ -24,6 +24,13 @@ class CategoryAdapter(private val categories: List<String>) :
                 if (isSelected) R.drawable.category_background_selected
                 else R.drawable.category_background
             )
+            with(binding.root.context){
+                binding.tvCategory.setTextColor(
+                   if (isSelected) getColor(R.color.white)
+                    else getColor(R.color.default_category_color)
+                )
+            }
+
             binding.root.setOnClickListener {
 
                 val oldPosition = selectedCategory
