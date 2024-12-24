@@ -1,5 +1,6 @@
 package com.example.baseandroidproject
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,7 @@ import com.example.baseandroidproject.data.ShopItem
 import com.example.baseandroidproject.databinding.ShopItemsLayoutBinding
 
 class ShopItemAdapter(
-    private val items: List<ShopItem>
+    private var items: List<ShopItem>
 ) : RecyclerView.Adapter<ShopItemAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(private val binding: ShopItemsLayoutBinding) :
@@ -37,5 +38,10 @@ class ShopItemAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bindItem(items[position])
+    }
+
+    fun filterItem(newItems: List<ShopItem>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="shop_item_image_description">Shop Item Image</string>
+    <string name="heart_description">Heart favorite icon maybe</string>
 </resources>

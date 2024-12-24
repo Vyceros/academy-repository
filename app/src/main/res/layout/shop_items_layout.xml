@@ -1,16 +1,36 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
-    android:padding="8dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/ivProduct"
-        android:contentDescription="@string/shop_item_image_description"
-        android:background="@drawable/product_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="210dp"
+        android:scaleType="fitEnd"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/product_background"
+        android:contentDescription="@string/shop_item_image_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/btnHeart"
+        android:contentDescription="@string/heart_description"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/heart_background"
+        android:padding="8dp"
+        android:src="@drawable/heart"
+        app:layout_constraintBottom_toBottomOf="@id/ivProduct"
+        app:layout_constraintStart_toStartOf="@id/ivProduct" />
+
 
     <TextView
         android:id="@+id/tvName"
@@ -18,7 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivProduct" />
 
     <TextView
         android:id="@+id/tvPrice"
@@ -27,6 +49,8 @@
         android:layout_margin="8dp"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
