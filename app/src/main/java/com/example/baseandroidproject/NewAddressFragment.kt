@@ -41,7 +41,6 @@ class NewAddressFragment : Fragment() {
         }
     }
 
-
     private fun addNewButton() {
         binding.btnAddNew.setOnClickListener {
             with(binding){
@@ -57,6 +56,7 @@ class NewAddressFragment : Fragment() {
                 title = binding.etTitle.text.toString(),
                 address = binding.etAddress.text.toString(),
                 icon = R.drawable.back_button
+
             )
             AddressStorage.list.add(address)
             Bundle().apply {

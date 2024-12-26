@@ -9,4 +9,7 @@
     <string name="et_address_hint">Your address</string>
     <string name="et_location_title_hint">Your location title (Home, Office)</string>
     <string name="tv_new_address">Add new address</string>
+    <string name="address_not_active_warning">address must be active to edit</string>
+    <string name="edit_address_btn">Edit address</string>
+    <string name="edit_current_address">Edit current address</string>
 </resources>

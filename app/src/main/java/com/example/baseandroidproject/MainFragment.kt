@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.data.Address
 import com.example.baseandroidproject.data.AddressStorage
 import com.example.baseandroidproject.databinding.FragmentMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainFragment : Fragment() {
@@ -45,7 +46,7 @@ class MainFragment : Fragment() {
             val isSubmit = bundle.getBoolean("submitted")
             if (isSubmit) {
                 addressAdapter.submitList(AddressStorage.list)
-                d("submitListHitpoint","submit list")
+                d("submitListHitpoint", "submit list")
             }
         }
     }
@@ -63,12 +64,11 @@ class MainFragment : Fragment() {
             adapter = addressAdapter
         }
 
-
-        addressAdapter.onClick { address ->
+        addressAdapter.onDeleteClick { address ->
             deleteAddress(address)
         }
 
-        addressAdapter.onClick { address ->
+        addressAdapter.onEditClick { address ->
             goToEditScreen(address)
 
         }
@@ -92,18 +92,29 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun goToEditScreen(address: Address){
+    private fun goToEditScreen(address: Address) {
+        if (address.isSelected) {
+            val bundle = Bundle().apply {
+                putString("title", address.title)
+                putString("address", address.address)
+                putInt("id",address.id)
+            }
+            val editFragment = EditFragment().apply {
+                arguments = bundle
+            }
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.main, editFragment, "EditAddress")
+                addToBackStack("EditAddress")
+                commit()
+            }
+        } else {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.address_not_active_warning), Snackbar.LENGTH_SHORT
+            ).show()
+        }
 
-        val bundle = Bundle().apply {
-            putString("title",address.title)
-            putString("address",address.address)
-        }
-        parentFragmentManager.beginTransaction().apply {
-            replace(R.id.main, NewAddressFragment(), "EditAddress")
-            addToBackStack("EditAddress")
-            arguments = bundle
-            commit()
-        }
+
     }
 
 

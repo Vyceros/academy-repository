@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.baseandroidproject.data.Address
+import com.example.baseandroidproject.data.AddressStorage
 import com.example.baseandroidproject.databinding.ItemDeliveryAddressBinding
 
 
@@ -24,9 +25,14 @@ class AddressAdapter :
     ListAdapter<Address, AddressAdapter.AddressViewHolder>(AddressDiffUtil()) {
 
     private var onAddressClick: ((Address) -> Unit)? = null
+    private var onEditClick: ((Address) -> Unit)? = null
 
-    fun onClick(listener: (Address) -> Unit) {
+    fun onDeleteClick(listener: (Address) -> Unit) {
         this.onAddressClick = listener
+    }
+
+    fun onEditClick(listener: (Address) -> Unit) {
+        this.onEditClick = listener
     }
 
 
@@ -48,14 +54,22 @@ class AddressAdapter :
                 ivIconImage.setImageResource(chooseIcon(address.title))
                 tvLocation.text = address.title
                 tvAddress.text = address.address
+                rbSelection.isChecked = address.isSelected
 
                 root.setOnLongClickListener {
                     onAddressClick?.invoke(address)
                     true
                 }
 
+                rbSelection.setOnClickListener {
+                    AddressStorage.list.forEach {
+                        it.isSelected = it == address
+                    }
+                    notifyItemChanged(adapterPosition)
+                }
+
                 tvEditButton.setOnClickListener {
-                    onAddressClick?.invoke(address)
+                    onEditClick?.invoke(address)
                 }
             }
         }
@@ -68,4 +82,6 @@ class AddressAdapter :
             R.drawable.random_location
         }
     }
+
+
 }
