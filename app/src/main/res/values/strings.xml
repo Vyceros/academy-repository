@@ -12,4 +12,5 @@
     <string name="address_not_active_warning">address must be active to edit</string>
     <string name="edit_address_btn">Edit address</string>
     <string name="edit_current_address">Edit current address</string>
+    <string name="empty_input_warning">Inputs are empty</string>
 </resources>

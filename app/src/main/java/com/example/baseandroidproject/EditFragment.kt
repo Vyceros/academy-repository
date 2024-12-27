@@ -33,13 +33,9 @@ class EditFragment : Fragment() {
     }
 
     private fun populateEditTextOnMove() {
-        val bundle = arguments
-        val title = bundle?.getString("title") ?: ""
-        val address = bundle?.getString("address") ?: ""
-
-        with(binding) {
-            etAddress.setText(address)
-            etTitle.setText(title)
+        arguments?.let {
+            binding.etAddress.setText(it.getString("address",""))
+            binding.etTitle.setText(it.getString("title",""))
         }
     }
 
@@ -51,12 +47,14 @@ class EditFragment : Fragment() {
 
     private fun onEditClick() {
         binding.btnEdit.setOnClickListener {
-            val id = arguments?.getInt("id")
-            val address = AddressStorage.list.find {
+            val id = arguments?.getInt("id") ?: return@setOnClickListener
+            AddressStorage.list.find {
                 it.id == id
+            }.apply {
+                binding.etAddress.text.toString()
+                binding.etTitle.text.toString()
             }
-            address?.address = binding.etAddress.text.toString()
-            address?.title = binding.etTitle.text.toString()
+
 
             parentFragmentManager.popBackStack()
         }

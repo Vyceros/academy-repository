@@ -37,17 +37,18 @@ class NewAddressFragment : Fragment() {
 
     private fun goBackButton() {
         binding.btnGoBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            parentFragmentManager.popBackStack()
         }
     }
 
     private fun addNewButton() {
         binding.btnAddNew.setOnClickListener {
-            with(binding){
+            with(binding) {
                 if (
                     etAddress.text.isNullOrBlank() || etTitle.text.isNullOrBlank()
-                ){
-                    Snackbar.make(binding.root,"Inputs are empty",Snackbar.LENGTH_SHORT).show()
+                ) {
+                    Snackbar.make(binding.root,
+                        getString(R.string.empty_input_warning), Snackbar.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
@@ -59,10 +60,9 @@ class NewAddressFragment : Fragment() {
 
             )
             AddressStorage.list.add(address)
-            Bundle().apply {
-                putBoolean("submitted",true)
-                parentFragmentManager.setFragmentResult("submitted",this)
-            }
+            parentFragmentManager.setFragmentResult(
+                "submitted",
+                Bundle().apply { putBoolean("submitted", true) })
             parentFragmentManager.popBackStack()
         }
     }
