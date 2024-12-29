@@ -8,4 +8,8 @@
     <string name="tv_pending_filter">Pending</string>
     <string name="tv_cancelled_filter">Cancelled</string>
     <string name="tv_order_number">Order #1524</string>
+    <string name="btn_details">Details</string>
+    <string name="order_id">Order #%1$s</string>
+    <string name="tracking_number">Tracking number: %1$s</string>
+    <string name="subtotal">Subtotal: $%1$s</string>
 </resources>
