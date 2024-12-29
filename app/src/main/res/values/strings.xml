@@ -12,4 +12,13 @@
     <string name="order_id">Order #%1$s</string>
     <string name="tracking_number">Tracking number: %1$s</string>
     <string name="subtotal">Subtotal: $%1$s</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="et_quantity_hint">Quantity</string>
+    <string name="tv_order_details">Order details</string>
+    <string name="id">ID: %1$s</string>
+    <string name="track_number">Track number: %1$s</string>
+    <string name="price">Total price: $%1$s</string>
+    <string name="btn_cancel_order">Cancel order</string>
+    <string name="btn_deliver_order">Deliver order</string>
+    <string name="go_back_button">Go back</string>
 </resources>

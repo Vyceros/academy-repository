@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.data.Order
 import com.example.baseandroidproject.data.OrderStatus
@@ -20,24 +21,49 @@ class MainFragment : Fragment() {
 
     private val orderList =
         mutableListOf(
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending),
-            Order(1231322312, 12292024L, "2312932EqQWR", 1, 2342, OrderStatus.Pending)
+            Order(
+                date = System.currentTimeMillis(),
+                trackNumber = "IK28372EQE21",
+                quantity = 1,
+                totalPrice = 2342,
+                status = OrderStatus.Pending
+            ),
+            Order(
+                date = System.currentTimeMillis(),
+                trackNumber = "IK28372EQE21",
+                quantity = 1,
+                totalPrice = 2342,
+                status = OrderStatus.Pending
+            ),
+            Order(
+                date = System.currentTimeMillis(),
+                trackNumber = "IK28372EQE21",
+                quantity = 1,
+                totalPrice = 2342,
+                status = OrderStatus.Pending
+            ),
+            Order(
+                date = System.currentTimeMillis(),
+                trackNumber = "IK28372EQE21",
+                quantity = 1,
+                totalPrice = 2342,
+                status = OrderStatus.Pending
+            ),
+            Order(
+                date = System.currentTimeMillis(),
+                trackNumber = "IK28372EQE21",
+                quantity = 1,
+                totalPrice = 2342,
+                status = OrderStatus.Pending
+            ),
+            Order(
+                date = System.currentTimeMillis(),
+                trackNumber = "IK28372EQE21",
+                quantity = 1,
+                totalPrice = 2342,
+                status = OrderStatus.Pending
+            ),
         )
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +90,15 @@ class MainFragment : Fragment() {
             adapter = orderAdapter
         }
         orderAdapter.submitList(orderList)
+
+        orderAdapter.onDetail { details ->
+            onDetailClick(details)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listenForFragmentResult()
     }
 
     private fun filterListeners() {
@@ -81,5 +116,38 @@ class MainFragment : Fragment() {
     private fun filterOrders(status: OrderStatus) {
         val filteredList = orderList.filter { it.status == status }
         orderAdapter.submitList(filteredList)
+    }
+
+    private fun onDetailClick(order: Order) {
+        parentFragmentManager.setFragmentResult(
+            "details",
+            bundleOf(
+                "id" to order.orderId.toString(),
+                "tracking" to order.trackNumber,
+                "status" to order.status.toString(),
+                "price" to order.totalPrice.toString()
+            )
+        )
+
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer, DetailsFragment(), "Details")
+            addToBackStack("Details")
+            commit()
+        }
+    }
+
+    private fun listenForFragmentResult() {
+        parentFragmentManager.setFragmentResultListener("statusUpdate", this) { _, bundle ->
+            val id = bundle.getString("id") ?: ""
+            val updatedStatus = bundle.getString("status") ?: ""
+
+            orderList.find { it.orderId.toString() == id }?.let { order ->
+
+                order.status = OrderStatus.valueOf(updatedStatus)
+
+                orderAdapter.submitList(orderList.toList())
+                filterOrders(OrderStatus.Pending)
+            }
+        }
     }
 }
