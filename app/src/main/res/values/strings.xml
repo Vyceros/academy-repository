@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_my_orders">My Orders</string>
+    <string name="tv_delivered_filter">Delivered</string>
+    <string name="btn_notification_desc">Notifications</string>
+    <string name="btn_lines_desc">Dropdown list</string>
+    <string name="tv_pending_filter">Pending</string>
+    <string name="tv_cancelled_filter">Cancelled</string>
+    <string name="tv_order_number">Order #1524</string>
 </resources>
