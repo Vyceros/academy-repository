@@ -34,7 +34,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvName"
-        android:text="Admin"
+        android:text="@string/admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -45,7 +45,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStatus"
-        android:text="Online"
+        android:text="@string/online"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"

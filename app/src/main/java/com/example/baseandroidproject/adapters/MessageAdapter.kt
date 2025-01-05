@@ -64,7 +64,7 @@ class MessageAdapter : ListAdapter<User, RecyclerView.ViewHolder>(MessageDiffUti
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 2 == 0) SENDER_MESSAGE_BUBBLE else RECEIVER_MESSAGE_BUBBLE
+        return if (getItem(position).position % 2 == 0  ) SENDER_MESSAGE_BUBBLE else RECEIVER_MESSAGE_BUBBLE
 
     }
 

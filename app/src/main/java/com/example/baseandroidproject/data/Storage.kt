@@ -5,7 +5,7 @@ object Storage {
 
     fun sendMessage(user : User){
         user.let {
-            messageList.add(it)
+            messageList.add(0,it)
         }
     }
 }

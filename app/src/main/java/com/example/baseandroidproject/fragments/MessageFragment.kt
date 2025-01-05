@@ -29,10 +29,7 @@ class MessageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recycler.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = messageAdapter
-        }
+        setupRecycler()
         listeners()
     }
 
@@ -41,20 +38,33 @@ class MessageFragment : Fragment() {
         _binding = null
     }
 
+    private fun setupRecycler() {
+        binding.recycler.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = messageAdapter
+
+        }
+    }
+
     private fun listeners() {
         binding.btnBack.setOnClickListener {
             requireActivity().finish()
         }
 
         binding.btnSendText.setOnClickListener {
-            val user = User(
-                messageBody = binding.etInputText.text.toString(),
-                messageDate = System.currentTimeMillis()
-            )
-            Storage.sendMessage(user)
-
-            messageAdapter.submitList(Storage.messageList.toMutableList())
-            binding.etInputText.text?.clear()
+            onSendButton()
         }
+    }
+
+    private fun onSendButton() {
+        val user = User(
+            messageBody = binding.etInputText.text.toString(),
+            messageDate = System.currentTimeMillis(),
+            position = Storage.messageList.size
+        )
+        Storage.sendMessage(user)
+
+        messageAdapter.submitList(Storage.messageList.toMutableList())
+        binding.etInputText.text?.clear()
     }
 }

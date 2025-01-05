@@ -7,4 +7,6 @@
     <string name="desc_options_menu">Options menu</string>
     <string name="desc_exit_application">Exit application</string>
     <string name="today">Today %1$s</string>
+    <string name="admin">Admin</string>
+    <string name="online">Online</string>
 </resources>
