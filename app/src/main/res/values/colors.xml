@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#E6E8EC</color>
+    <color name="faded_black">#CC000000</color>
+    <color name="input_message_hint">#818183</color>
 </resources>

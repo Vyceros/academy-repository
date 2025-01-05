@@ -2,4 +2,9 @@
     <string name="app_name">BaseAndroidProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="input_et_hint">Type your message here</string>
+    <string name="desc_send_text">Send text</string>
+    <string name="desc_options_menu">Options menu</string>
+    <string name="desc_exit_application">Exit application</string>
+    <string name="today">Today %1$s</string>
 </resources>
