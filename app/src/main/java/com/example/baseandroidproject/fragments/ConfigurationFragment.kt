@@ -36,7 +36,7 @@ class ConfigurationFragment : Fragment() {
     private fun startGame() {
         val size = binding.etBoardSize.text.toString().toIntOrNull()
 
-        if (size != null && size > 0) {
+        if (size != null && size >= 3 && size <= 5) {
             val bundle = Bundle().apply {
                 putInt("gameSize", size)
             }

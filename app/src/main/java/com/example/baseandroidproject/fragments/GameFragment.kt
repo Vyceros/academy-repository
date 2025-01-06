@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.transition.Visibility
 import com.example.baseandroidproject.R
 import com.example.baseandroidproject.adapter.GameAdapter
 import com.example.baseandroidproject.databinding.FragmentGameBinding
@@ -16,8 +17,9 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
 
-    private var size = 3
+    private var size = 9
     private var startPlayer = "X"
+    private lateinit var gameAdapter : GameAdapter
     private lateinit var boardCheckTracking: Array<Array<String?>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,8 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.gameBoardRecyclerView.visibility = View.VISIBLE
+        binding.tvWinnerWinnerChickenDinner.text = ""
         boardGameSetup()
     }
 
@@ -45,13 +49,13 @@ class GameFragment : Fragment() {
     }
 
     private fun boardGameSetup() {
-        val adapter = GameAdapter(size) { row, col, button ->
+        gameAdapter = GameAdapter(size) { row, col, button ->
             onButtonClick(row, col, button)
         }
 
         with(binding.gameBoardRecyclerView) {
             layoutManager = GridLayoutManager(context, size)
-            this.adapter = adapter
+            adapter = gameAdapter
 
         }
     }
@@ -60,19 +64,24 @@ class GameFragment : Fragment() {
         if (!button.isClickable) return
 
         if (startPlayer == "X") {
-            button.setBackgroundResource(R.drawable.x)
+            button.setImageResource(R.drawable.x)
             boardCheckTracking[row][col] = "X"
         } else {
-            button.setBackgroundResource(R.drawable.o)
+            button.setImageResource(R.drawable.o)
             boardCheckTracking[row][col] = "O"
         }
 
         button.isClickable = false
 
         if (checkWinner(row, col)) {
-            showWinner(startPlayer)
+            binding.tvWinnerWinnerChickenDinner.text = getString(R.string.won, startPlayer)
+            binding.gameBoardRecyclerView.visibility = View.GONE
         } else {
-            startPlayer = if (startPlayer == "X") "O" else "X"
+            if (isDraw()){
+                Snackbar.make(binding.root,"No one won",Snackbar.LENGTH_SHORT).show()
+            }else{
+                startPlayer = if (startPlayer == "X") "O" else "X"
+            }
         }
     }
 
@@ -96,8 +105,14 @@ class GameFragment : Fragment() {
         return false
     }
 
-    private fun showWinner(winner: String) {
-        Snackbar.make(binding.root, "$winner won", Snackbar.LENGTH_SHORT).show()
+//    private fun showWinner(winner: String) {
+//        Snackbar.make(binding.root, "$winner won", Snackbar.LENGTH_SHORT).show()
+//    }
+
+    private fun isDraw(): Boolean{
+        return boardCheckTracking.all { rows ->
+            rows.all{it != null}
+        }
     }
 }
 

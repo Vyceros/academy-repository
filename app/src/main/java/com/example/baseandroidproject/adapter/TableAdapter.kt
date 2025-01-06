@@ -9,7 +9,7 @@ import com.example.baseandroidproject.databinding.ImageButtonBinding
 
 class GameAdapter(
     private val size: Int,
-    private val onCellClick: (row: Int, col: Int, button: ImageButton) -> Unit
+    private val onButtonClick: (row: Int, col: Int, button: ImageButton) -> Unit
 ) : RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
 
     inner class GameViewHolder(private val binding: ImageButtonBinding) :
@@ -20,7 +20,7 @@ class GameAdapter(
         fun bind(row: Int, col: Int) {
             button.setBackgroundResource(R.color.red)
             button.isClickable = true
-            button.setOnClickListener { onCellClick(row, col, button) }
+            button.setOnClickListener { onButtonClick(row, col, button) }
         }
     }
 
@@ -30,11 +30,6 @@ class GameAdapter(
             parent,
             false
         )
-        val screenWidth = parent.width
-        val buttonSize = (screenWidth / size)
-
-        binding.button.layoutParams.height = buttonSize
-
         return GameViewHolder(binding)
     }
 
