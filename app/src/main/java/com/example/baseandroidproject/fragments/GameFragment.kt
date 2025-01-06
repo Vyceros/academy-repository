@@ -19,7 +19,7 @@ class GameFragment : Fragment() {
 
     private var size = 9
     private var startPlayer = "X"
-    private lateinit var gameAdapter : GameAdapter
+    private lateinit var gameAdapter: GameAdapter
     private lateinit var boardCheckTracking: Array<Array<String?>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +39,10 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.gameBoardRecyclerView.visibility = View.VISIBLE
+        binding.btnPlayAgain.visibility = View.GONE
         binding.tvWinnerWinnerChickenDinner.text = ""
         boardGameSetup()
+        playAgain()
     }
 
     override fun onDestroyView() {
@@ -76,10 +78,11 @@ class GameFragment : Fragment() {
         if (checkWinner(row, col)) {
             binding.tvWinnerWinnerChickenDinner.text = getString(R.string.won, startPlayer)
             binding.gameBoardRecyclerView.visibility = View.GONE
+            binding.btnPlayAgain.visibility = View.VISIBLE
         } else {
-            if (isDraw()){
-                Snackbar.make(binding.root,"No one won",Snackbar.LENGTH_SHORT).show()
-            }else{
+            if (isDraw()) {
+                Snackbar.make(binding.root, "No one won", Snackbar.LENGTH_SHORT).show()
+            } else {
                 startPlayer = if (startPlayer == "X") "O" else "X"
             }
         }
@@ -105,13 +108,20 @@ class GameFragment : Fragment() {
         return false
     }
 
-//    private fun showWinner(winner: String) {
-//        Snackbar.make(binding.root, "$winner won", Snackbar.LENGTH_SHORT).show()
-//    }
 
-    private fun isDraw(): Boolean{
+    private fun isDraw(): Boolean {
         return boardCheckTracking.all { rows ->
-            rows.all{it != null}
+            rows.all { it != null }
+        }
+    }
+
+    private fun playAgain() {
+        binding.btnPlayAgain.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.main, ConfigurationFragment(),null)
+                addToBackStack(null)
+                commit()
+            }
         }
     }
 }

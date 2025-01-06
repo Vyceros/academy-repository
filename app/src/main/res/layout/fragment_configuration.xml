@@ -12,7 +12,7 @@
         android:hint="@string/enter_board_size"
         android:inputType="number" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStartGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

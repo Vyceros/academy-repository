@@ -4,4 +4,5 @@
     <string name="start_game">Start Game</string>
     <string name="enter_board_size">Enter board size</string>
     <string name="won">%1$s Won!!!!</string>
+    <string name="play_again">Play again</string>
 </resources>
