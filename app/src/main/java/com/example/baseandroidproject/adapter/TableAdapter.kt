@@ -30,6 +30,11 @@ class GameAdapter(
             parent,
             false
         )
+        val screenWidth = parent.width
+        val buttonSize = (screenWidth / size)
+
+        binding.button.layoutParams.height = buttonSize
+
         return GameViewHolder(binding)
     }
 
