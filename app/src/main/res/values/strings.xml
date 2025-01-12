@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_my_orders">My Orders</string>
+    <string name="btn_search">Search button</string>
+    <string name="btn_pending">Other...</string>
+    <string name="btn_active">Active</string>
+    <string name="btn_completed">Completed</string>
+    <string name="tv_chair_name">Modern Wingback</string>
+    <string name="btn_review_desc">Review</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_cancek">Cancel</string>
+    <string name="very_good_product_amp_fast_delivery"><![CDATA[Very good product & fast delivery!]]></string>
+    <string name="how_is_your_order">How is your order?</string>
 </resources>
