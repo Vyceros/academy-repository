@@ -7,7 +7,7 @@ object Storage {
             status = OrderStatus.Active,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -15,7 +15,7 @@ object Storage {
             status = OrderStatus.Completed,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -23,7 +23,7 @@ object Storage {
             status = OrderStatus.Active,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -31,7 +31,7 @@ object Storage {
             status = OrderStatus.Completed,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -39,7 +39,7 @@ object Storage {
             status = OrderStatus.Active,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -47,7 +47,7 @@ object Storage {
             status = OrderStatus.Completed,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -55,7 +55,7 @@ object Storage {
             status = OrderStatus.Completed,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 12.00,
             quantity = 12
         ),
         Order(
@@ -63,7 +63,7 @@ object Storage {
             status = OrderStatus.Active,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -71,7 +71,7 @@ object Storage {
             status = OrderStatus.Completed,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
         Order(
@@ -79,7 +79,7 @@ object Storage {
             status = OrderStatus.Active,
             orderReview = "Blahbahaha",
             color = "Black",
-            price = 12,
+            price = 120.00,
             quantity = 12
         ),
     )

@@ -3,14 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_color"
+    android:background="@drawable/bottom_sheet_bg"
     android:padding="16dp">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/bottomSheetHandle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
+        android:layout_marginTop="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Leave a Review"
+        android:text="@string/leave_a_review"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -18,10 +27,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivProduct"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        app:srcCompat="@drawable/chair"
+        android:layout_height="100dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/item_image_bg"
         android:scaleType="centerCrop"
@@ -34,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivProduct"
         app:layout_constraintTop_toTopOf="@id/ivProduct" />
@@ -58,7 +69,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/tvColorCircle"
         app:layout_constraintTop_toBottomOf="@id/tvProductName" />
 
@@ -69,7 +80,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/tvProductColor"
         app:layout_constraintTop_toBottomOf="@id/tvProductName" />
 
@@ -93,7 +104,7 @@
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tvProductColor"
         app:layout_constraintTop_toBottomOf="@id/tvProductColor" />
@@ -104,24 +115,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:textStyle="bold"
         android:text="@string/how_is_your_order"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivProduct" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPlease"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        android:text="Please give us your rating and also your review"
-        app:layout_constraintTop_toBottomOf="@id/tvGreetingReview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@string/please_give_us_your_rating_and_also_your_review"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvGreetingReview" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/ratingBar"
@@ -140,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/black"
+        android:background="@drawable/bottom_sheet_et_bg"
         android:hint="@string/very_good_product_amp_fast_delivery"
         android:padding="12dp"
         android:textColor="@color/white"
@@ -160,8 +171,8 @@
             android:id="@+id/btnCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:background="@drawable/button_bottomsheet_cancel"
             android:text="@string/btn_cancek"
@@ -171,9 +182,9 @@
             android:id="@+id/btnSubmit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
             android:background="@drawable/button_bottomsheet_submit"
             android:text="@string/btn_submit"
             android:textColor="@color/black" />

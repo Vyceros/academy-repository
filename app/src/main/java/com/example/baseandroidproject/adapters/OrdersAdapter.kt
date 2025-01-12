@@ -47,6 +47,9 @@ class OrdersAdapter(private val onReviewClick : (String) -> Unit) : ListAdapter<
                     else -> {
                         tvProductStatus.text = "Completed"
                         btnReview.text = "Leave Review"
+                        btnReview.setOnClickListener {
+                            onReviewClick(order.id.toString())
+                        }
                     }
                 }
             }

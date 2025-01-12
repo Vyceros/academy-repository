@@ -8,6 +8,6 @@ data class Order(
     val color : String,
     val quantity : Int,
     val status : OrderStatus,
-    val price : Int,
+    val price : Double,
     var orderReview : String?
 )

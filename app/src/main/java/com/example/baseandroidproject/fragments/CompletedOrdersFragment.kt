@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.baseandroidproject.adapters.BottomDialog
 import com.example.baseandroidproject.data.OrderStatus
 import com.example.baseandroidproject.data.Storage
 import com.example.baseandroidproject.databinding.FragmentCompletedOrdersBinding
@@ -47,7 +48,7 @@ class CompletedOrdersFragment : Fragment() {
     private fun setUpRecycler() {
         ordersAdapter = OrdersAdapter(
             onReviewClick = { id ->
-
+                openUpBottomDialog(id)
             }
         )
         binding.recycler.apply {
@@ -56,7 +57,12 @@ class CompletedOrdersFragment : Fragment() {
         }
     }
 
-    private fun openUpBottomDialog(){
-
+    private fun openUpBottomDialog(id : String){
+        val bottomDialogSheet = BottomDialog().apply {
+            arguments = Bundle().apply {
+                putString("orderId",id)
+            }
+        }
+        bottomDialogSheet.show(childFragmentManager,bottomDialogSheet.tag)
     }
 }
