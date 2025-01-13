@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.baseandroidproject.R
 import com.example.baseandroidproject.data.Storage
 import com.example.baseandroidproject.databinding.BottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -49,8 +50,8 @@ class BottomDialog : BottomSheetDialogFragment() {
             with(binding) {
                 tvProductName.text = order.name
                 tvProductColor.text = order.color
-                tvProductQuantity.text = order.quantity.toString()
-                tvProductPrice.text = order.price.toString()
+                tvProductQuantity.text = getString(R.string.qty, order.quantity.toString())
+                tvProductPrice.text = getString(R.string.order_price, order.price.toString())
                 tvProductStatus.text = order.status.toString()
                 tvColorCircle.background.setTint(Color.parseColor(order.color))
             }
@@ -64,13 +65,20 @@ class BottomDialog : BottomSheetDialogFragment() {
         }
         binding.btnSubmit.setOnClickListener {
             val order = Storage.listOfOrders.find { it.id.toString() == orderId }
-            order?.orderReview = binding.etReview.text.toString()
-            showSnackbar()
-            dismiss()
+            with(binding) {
+                if (ratingBar.rating >= 1 && etReview.text.toString().isNotEmpty()) {
+                    order?.orderReview = etReview.text.toString()
+                    dismiss()
+                } else {
+                    Snackbar.make(
+                        binding.divider1,
+                        "Give us some stars and proper review",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
         }
     }
 
-    private fun showSnackbar() {
-        Snackbar.make(binding.root, "Review added, thanks.", Snackbar.LENGTH_SHORT).show()
-    }
 }

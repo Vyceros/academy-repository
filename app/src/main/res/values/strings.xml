@@ -15,4 +15,6 @@
     <string name="how_is_your_order">How is your order?</string>
     <string name="please_give_us_your_rating_and_also_your_review">Please give us your rating and also your review</string>
     <string name="leave_a_review">Leave a Review</string>
+    <string name="qty">| Qty = %1$s</string>
+    <string name="order_price">$%1$s</string>
 </resources>
