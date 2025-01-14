@@ -9,7 +9,6 @@ import com.example.baseandroidproject.R
 import com.example.baseandroidproject.data.Card
 import com.example.baseandroidproject.data.CardType
 import com.example.baseandroidproject.databinding.CardItemLayoutBinding
-import java.util.Calendar
 
 private class CardDiffUtil : DiffUtil.ItemCallback<Card>() {
     override fun areItemsTheSame(oldItem: Card, newItem: Card): Boolean {
@@ -31,15 +30,17 @@ class CardViewAdapter(
             with(binding) {
                 tvCardNumber.text = card.cardNumber
                 tvHolderName.text = card.name
-                tvValidDate.text = card.expiryDate.toString()
+                tvValidDate.text = card.expiryDate
 
                 when (card.cardType) {
                     CardType.Visa -> {
                         ivCard.setBackgroundResource(R.drawable.visacard)
+                        ivCard.setImageResource(R.drawable.visacard)
                     }
 
                     CardType.Mastercard -> {
                         ivCard.setBackgroundResource(R.drawable.mastercard)
+                        ivCard.setImageResource(R.drawable.mastercard)
                     }
                 }
 

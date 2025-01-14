@@ -9,5 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="com.example.baseandroidproject.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_newCardFragment"
+            app:destination="@id/newCardFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCardFragment"
+        android:name="com.example.baseandroidproject.fragments.NewCardFragment"
+        android:label="fragment_new_card"
+        tools:layout="@layout/fragment_new_card" />
 </navigation>

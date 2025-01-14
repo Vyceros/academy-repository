@@ -5,4 +5,26 @@
     <string name="tv_date_placeholder">MM/YY</string>
     <string name="tv_card_name_placeholder">Luka Kurashvili</string>
     <string name="tv_card_number_placeholder">**** **** **** ****</string>
+    <string name="tv_page_title">Payment</string>
+    <string name="add_new_card">Add New+</string>
+    <string name="tv_card_management_title">Card Management</string>
+    <string name="tv_check_out_options">or check out with</string>
+    <string name="btn_back_desc">Go back</string>
+    <string name="mastercard_option_desc">Mastercard</string>
+    <string name="visa_option_desc">Visa option</string>
+    <string name="paypal_option_desc">Paypal option</string>
+    <string name="alipay_option_desc">Alipay option</string>
+    <string name="amex_option_desc">Amex option</string>
+    <string name="tv_add_new_card">Add new card</string>
+    <string name="tv_cardholder_name">Cardholder Name</string>
+    <string name="et_name_placeholder">Suphie Pham</string>
+    <string name="tv_card_number">Card Number</string>
+    <string name="et_cardnumber_hint">54123731283931</string>
+    <string name="tv_expires">Expires</string>
+    <string name="tv_CVV">CVV</string>
+    <string name="et_expiration_hint">03/23</string>
+    <string name="et_cvv_hint">999</string>
+    <string name="btn_add_card_text">Add card</string>
+    <string name="visa">Visa</string>
+    <string name="mastercard">Mastercard</string>
 </resources>

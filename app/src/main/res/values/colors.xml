@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#ED0006</color>
+    <color name="payment_stroke">#4F373737</color>
+    <color name="blue">#1F72CD</color>
+    <color name="dark_gray">#343434</color>
 </resources>
