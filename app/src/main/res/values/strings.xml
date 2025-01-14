@@ -27,4 +27,7 @@
     <string name="btn_add_card_text">Add card</string>
     <string name="visa">Visa</string>
     <string name="mastercard">Mastercard</string>
+    <string name="btn_delete_yes">Yes</string>
+    <string name="btn_delete_no">No</string>
+    <string name="tv_confirmation">Are you sure you want to delete this card</string>
 </resources>

@@ -127,6 +127,7 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etExpiryDate"
         android:layout_width="128dp"
+        android:enabled="false"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:inputType="text"

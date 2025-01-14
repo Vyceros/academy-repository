@@ -27,8 +27,8 @@ class CardViewModel : ViewModel() {
     }
 
 
-    private fun addCard(card: Card) {
-        cards.add(0, card)
+    fun addCard(card: Card) {
+        cards.add(card)
     }
 
     fun getCards(): List<Card> {

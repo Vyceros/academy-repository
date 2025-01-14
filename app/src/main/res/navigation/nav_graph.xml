@@ -14,10 +14,23 @@
             android:id="@+id/action_homeFragment_to_newCardFragment"
             app:destination="@id/newCardFragment"
             app:enterAnim="@android:anim/slide_in_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/newCardFragment"
         android:name="com.example.baseandroidproject.fragments.NewCardFragment"
         android:label="fragment_new_card"
         tools:layout="@layout/fragment_new_card" />
+
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        tools:layout="@layout/fragment_bottom_sheet"
+        android:name="com.example.baseandroidproject.fragments.BottomSheetFragment"
+        android:label="BottomSheetFragment" >
+
+        <argument android:name="id"
+            app:argType="string" />
+    </dialog>
 </navigation>

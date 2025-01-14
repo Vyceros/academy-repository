@@ -19,10 +19,6 @@ fun validateCardNumber(cardNumber: String): Boolean {
     }
 }
 
-// return card in format **** **** **** ****
-fun formatCardNumber(cardNumber: String): String {
-    return cardNumber.chunked(4).joinToString { " " }
-}
 
 //validate that name is not empty and is only letters
 fun validateName(name: String): Boolean {
@@ -49,11 +45,10 @@ fun validateCvv(cvv: String): Boolean {
 
 //Expiry date is Long. in Unix format, it gets current date and then adds 4 years on top of that
 //Because cards are expired after 4 years
-fun setExpiryDate(): Calendar {
-    val currentDate = Calendar.getInstance()
-    val simpleDateFormat = SimpleDateFormat("MM/yy", Locale.getDefault())
-    currentDate.add(Calendar.YEAR, 4)
-    simpleDateFormat.format(currentDate)
+fun setExpiryDate(): String {
 
-    return currentDate
+    val currentDate = Calendar.getInstance()
+    currentDate.add(Calendar.YEAR, 4)
+    val dateFormat = SimpleDateFormat("MM/yy", Locale.getDefault())
+    return dateFormat.format(currentDate.time)
 }
