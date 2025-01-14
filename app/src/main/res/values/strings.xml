@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_date_placeholder">MM/YY</string>
+    <string name="tv_card_name_placeholder">Luka Kurashvili</string>
+    <string name="tv_card_number_placeholder">**** **** **** ****</string>
 </resources>
