@@ -77,9 +77,10 @@ class ProfileViewModel : ViewModel() {
    ]
 ]"""
     }
+
     //decoding from json to data class
-    fun parser() : List<List<ProfileDto>> {
-        val json = Json{
+    fun parser(): List<List<ProfileDto>> {
+        val json = Json {
             explicitNulls = false
         }
         return json.decodeFromString(DATA_JSON)
@@ -87,8 +88,27 @@ class ProfileViewModel : ViewModel() {
 
     fun saveData() = listOfMap.add(inputMap)
 
-    fun fetchData(id : Int?): ProfileDto? {
-
-        return parser().flatten().find { it.fieldId == id }
+    //Single field
+    fun validateField(fieldId: Int?): String? {
+        val item = parser().flatten().find { it.fieldId == fieldId }
+        return if (item?.required == true && inputMap[fieldId].isNullOrEmpty()) {
+            "${item.hint} is required"
+        } else {
+            null
+        }
     }
+
+    //this groups the fields
+    fun validateFields(): List<String> {
+        val errors = mutableListOf<String>()
+        parser().flatten().forEach { item ->
+            val error = validateField(item.fieldId)
+            if (error != null) {
+                errors.add(error)
+            }
+        }
+        return errors
+    }
+
+
 }

@@ -16,7 +16,7 @@ import com.example.baseandroidproject.helpers.showDatePickerDialog
 import com.example.baseandroidproject.helpers.showGenderDropDown
 
 class InputItemAdapter(private val items: List<ProfileDto>,
-    private val onInputChanged : (Int?, String) -> Unit) :
+    private val onInputChanged : (Int?, String) -> Unit):
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -30,6 +30,7 @@ class InputItemAdapter(private val items: List<ProfileDto>,
         fun bind() {
             val item = items[adapterPosition]
             with(binding) {
+
                 root.isEnabled = item.isActive == true
                 etInput.hint = item.hint
                 divider.isVisible = adapterPosition < items.lastIndex
@@ -50,6 +51,7 @@ class InputItemAdapter(private val items: List<ProfileDto>,
                 etInput.doAfterTextChanged{
                     onInputChanged.invoke(item.fieldId, it.toString())
                 }
+
             }
         }
     }

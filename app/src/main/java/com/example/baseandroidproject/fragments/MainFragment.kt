@@ -1,8 +1,8 @@
 package com.example.baseandroidproject.fragments
 
+import android.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.baseandroidproject.R
 import com.example.baseandroidproject.adapters.InputItemGroupAdapter
 import com.example.baseandroidproject.databinding.FragmentMainBinding
 import com.example.baseandroidproject.viewModels.ProfileViewModel
@@ -12,9 +12,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     private val viewModel: ProfileViewModel by viewModels()
     private val groupAdapter by lazy {
-        InputItemGroupAdapter(viewModel.parser(), onInputChanged = { fieldId, value ->
-            viewModel.inputMap[fieldId] = value
-        })
+        InputItemGroupAdapter(viewModel.parser(),
+            onInputChanged = { fieldId, value ->
+            viewModel.inputMap[fieldId] = value })
     }
 
     override fun setup() {
@@ -27,9 +27,21 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     private fun saveData() {
-        viewModel.saveData()
-        Snackbar.make(binding.root, getString(R.string.data_saved), Snackbar.LENGTH_SHORT).show()
+        val errors = viewModel.validateFields()
+        if (errors.isNotEmpty()) {
+            val errorMessage = errors.joinToString("\n")
+            AlertDialog.Builder(context)
+                .setTitle("required fields")
+                .setMessage(errorMessage)
+                .setPositiveButton("OK") { dialog, onClick -> dialog.dismiss() }
+                .show()
+        } else {
+            viewModel.saveData()
+            Snackbar.make(binding.root,"Data saved",Snackbar.LENGTH_SHORT).show()
+        }
     }
+
+
 
 
 }
