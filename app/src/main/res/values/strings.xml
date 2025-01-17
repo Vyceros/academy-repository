@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register">Register</string>
+    <string name="e_auth">E AUTH</string>
+    <string name="data_saved">Data saved</string>
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>
