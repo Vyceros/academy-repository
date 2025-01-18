@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Weclome</string>
+    <string name="register_btn_desc">Navigates to the register screen</string>
+    <string name="btn_register_tex">Register</string>
+    <string name="btn_login_text">Login</string>
+    <string name="button_login_description">Navigates to the login screen</string>
 </resources>
