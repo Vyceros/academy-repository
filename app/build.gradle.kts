@@ -53,4 +53,5 @@ dependencies {
     implementation(libs.serialization.json)
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
+    implementation(libs.squareup.retrofit)
 }

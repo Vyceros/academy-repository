@@ -12,6 +12,7 @@ constraintlayout = "2.2.0"
 safeArgs = "2.8.5"
 serialization = "2.0.21"
 navVersion = "2.8.5"
+retrofit = "2.11.0"
 kotlinxSerializationJson = "1.7.3"
 
 [libraries]
@@ -27,6 +28,7 @@ navigation-fragment = { group = "androidx.navigation", name = "navigation-fragme
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navVersion" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 safeArgs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "safeArgs" }
+squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
