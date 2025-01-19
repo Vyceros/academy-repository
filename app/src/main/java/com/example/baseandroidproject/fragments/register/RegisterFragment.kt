@@ -27,14 +27,15 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val password = binding.etPassword.text.toString()
         viewModel.register(email,password)
     }
+
     private fun observer() {
         lifecycleScope.launch {
             viewModel.registerCall.collect{ response ->
                 if (response is ApiResponse.Success) {
-                    Snackbar.make(binding.root,"User successfuly registered",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root,"User successfully registered",Snackbar.LENGTH_SHORT).show()
                 }
                 if (response is ApiResponse.Error) {
-                    Snackbar.make(binding.root,"${response.message}",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root,"${response.error}",Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

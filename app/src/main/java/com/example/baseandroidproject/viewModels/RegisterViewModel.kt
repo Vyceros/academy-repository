@@ -1,7 +1,7 @@
 package com.example.baseandroidproject.viewModels
 
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.base.BaseViewModel
+import com.example.baseandroidproject.base.ResponseRepository
 import com.example.baseandroidproject.client.RetrofitClient
 import com.example.baseandroidproject.data.register.RegisterRequestDto
 import com.example.baseandroidproject.data.register.RegisterResponseDto
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RegisterViewModel : BaseViewModel() {
+class RegisterViewModel : ResponseRepository() {
         private val _registerCall = MutableStateFlow<ApiResponse<RegisterResponseDto>?>(null)
         val registerCall = _registerCall.asStateFlow()
 
@@ -23,5 +23,4 @@ class RegisterViewModel : BaseViewModel() {
                 _registerCall.value = response
             }
         }
-
 }
