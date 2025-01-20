@@ -17,7 +17,34 @@ data class MessageDto(
     val unreadMessages: Int,
     @Json(name = "is_typing")
     val isTyping: Boolean,
-    @Json(name = "last_message_type")
-    val lastMessageType: MessageType = MessageType.TEXT
+    @Json(name = "laste_message_type")
+    val lastMessageType: String
 )
+
+data class Message(
+    val id: Int,
+    val image: String?,
+    val owner: String,
+    val lastMessage: String,
+    val lastActive: String,
+    val unreadMessages: Int,
+    val isTyping: Boolean,
+    val lastMessageType: MessageType
+)
+
+fun MessageDto.toMessage(): Message {
+    return Message(
+        id = id,
+        image = image,
+        owner = owner,
+        lastMessage = lastMessage,
+        lastActive = lastActive,
+        unreadMessages = unreadMessages,
+        isTyping = isTyping,
+        lastMessageType = MessageType.parse(lastMessageType)
+    )
+}
+
+
+
 

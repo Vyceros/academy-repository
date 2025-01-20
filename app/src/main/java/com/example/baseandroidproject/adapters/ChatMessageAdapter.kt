@@ -7,26 +7,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.baseandroidproject.data.models.MessageDto
+import com.example.baseandroidproject.data.models.Message
 import com.example.tbcacademyhomework.R
 import com.example.tbcacademyhomework.databinding.MessageItemBinding
 
-private class MessageDiffUtils : DiffUtil.ItemCallback<MessageDto>() {
-    override fun areItemsTheSame(oldItem: MessageDto, newItem: MessageDto): Boolean {
+private class MessageDiffUtils : DiffUtil.ItemCallback<Message>() {
+    override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: MessageDto, newItem: MessageDto): Boolean {
+    override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
         return oldItem == newItem
     }
 }
 
 class ChatMessageAdapter :
-    ListAdapter<MessageDto, ChatMessageAdapter.MessageViewHolder>(MessageDiffUtils()) {
+    ListAdapter<Message, ChatMessageAdapter.MessageViewHolder>(MessageDiffUtils()) {
 
     inner class MessageViewHolder(private val binding: MessageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(message: MessageDto) {
+        fun bind(message: Message) {
             binding.tvMessage.text = message.lastMessage
             binding.tvMessageTime.text = message.lastActive
             binding.tvUnreadMessages.text = message.unreadMessages.toString()

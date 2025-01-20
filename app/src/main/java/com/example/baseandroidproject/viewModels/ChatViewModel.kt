@@ -2,7 +2,9 @@ package com.example.baseandroidproject.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.baseandroidproject.data.models.Message
 import com.example.baseandroidproject.data.models.MessageDto
+import com.example.baseandroidproject.data.models.toMessage
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,7 +13,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ChatViewModel : ViewModel() {
-    private val _messages = MutableStateFlow<List<MessageDto>?>(emptyList())
+    private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
+    private val messageListType =
+        Types.newParameterizedType(List::class.java, MessageDto::class.java)
+
+    private val jsonAdapter = moshi.adapter<List<MessageDto>>(messageListType)
+    private var messageList: List<Message>? = jsonAdapter.fromJson(JSON)?.map { it.toMessage() }
+    private val _messages = MutableStateFlow(messageList)
     val messages = _messages.asStateFlow()
 
 
@@ -62,19 +73,9 @@ class ChatViewModel : ViewModel() {
         """
     }
 
-    private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
-
-    private val messageListType =
-        Types.newParameterizedType(List::class.java, MessageDto::class.java)
-
-    private val jsonAdapter = moshi.adapter<List<MessageDto>>(messageListType)
-    private var messageList: List<MessageDto>? = null
 
     init {
-        val jsonString = JSON
-        messageList = jsonAdapter.fromJson(jsonString)
+
         search("")
     }
 
@@ -82,14 +83,6 @@ class ChatViewModel : ViewModel() {
         viewModelScope.launch {
             val newMessages = messageList?.filter { it.owner.contains(query) }
             _messages.emit(newMessages?.toList())
-        }
-    }
-
-    fun parseMessage() {
-        viewModelScope.launch {
-            val jsonString = JSON
-            val messages = jsonAdapter.fromJson(jsonString)
-            _messages.value = messages ?: emptyList()
         }
     }
 
