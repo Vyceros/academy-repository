@@ -81,10 +81,12 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvUnreadMessages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/unread_messages_background"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
