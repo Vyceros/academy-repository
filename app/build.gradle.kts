@@ -3,17 +3,17 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     id(libs.plugins.safeArgs.get().pluginId)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.example.baseandroidproject"
-    compileSdk = 35
+    namespace = "com.example.tbcacademyhomework"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.baseandroidproject"
-        minSdk = 27
-        targetSdk = 35
+        applicationId = "com.example.tbcacademyhomework"
+        minSdk = 26
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -36,22 +36,25 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.serialization.json)
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
-    implementation(libs.squareup.retrofit)
+    implementation(libs.glide)
+    ksp(libs.moshi.kotlin.codegen)
+    testImplementation(libs.junit)
+    implementation(libs.moshi.kotlin)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
