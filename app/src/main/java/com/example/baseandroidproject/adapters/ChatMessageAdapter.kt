@@ -2,6 +2,7 @@ package com.example.baseandroidproject.adapters
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -32,27 +33,31 @@ class ChatMessageAdapter :
             binding.tvMessageTime.text = message.lastActive
             binding.tvUnreadMessages.text = message.unreadMessages.toString()
             binding.tvName.text = message.owner
-
+            binding.tvIsWriting.text = if (message.isTyping) ".." else ""
             when (message.lastMessageType) {
                 MessageType.TEXT -> {
-                    binding.ivMessageType.visibility = android.view.View.GONE
+                    binding.ivMessageType.visibility = View.GONE
                 }
+
                 MessageType.VOICE -> {
-                    binding.ivMessageType.visibility = android.view.View.VISIBLE
+                    binding.ivMessageType.visibility = View.VISIBLE
+                    binding.tvUnreadMessages.visibility = View.GONE
                     binding.ivMessageType.setImageResource(R.drawable.recorder)
                 }
+
                 MessageType.FILE -> {
-                    binding.ivMessageType.visibility = android.view.View.VISIBLE
+                    binding.ivMessageType.visibility = View.VISIBLE
+                    binding.tvUnreadMessages.visibility = View.GONE
                     binding.ivMessageType.setImageResource(R.drawable.file_type)
                 }
-                else -> {
-                    binding.ivMessageType.visibility = android.view.View.GONE
-                }
             }
+
+
 
             message.image?.let {
                 Glide.with(binding.root.context)
                     .load(it)
+                    .error(R.drawable.ic_launcher_background)
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(binding.ivImage)
             }
