@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#06F809</color>
+    <color name="background">#22343C</color>
+    <color name="green_light">#40DF9F</color>
 </resources>

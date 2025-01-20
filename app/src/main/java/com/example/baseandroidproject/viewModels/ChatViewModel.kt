@@ -21,7 +21,9 @@ class ChatViewModel : ViewModel() {
         Types.newParameterizedType(List::class.java, MessageDto::class.java)
 
     private val jsonAdapter = moshi.adapter<List<MessageDto>>(messageListType)
+
     private var messageList: List<Message>? = jsonAdapter.fromJson(JSON)?.map { it.toMessage() }
+
     private val _messages = MutableStateFlow(messageList)
     val messages = _messages.asStateFlow()
 

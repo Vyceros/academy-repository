@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.baseandroidproject.data.enums.MessageType
 import com.example.baseandroidproject.data.models.Message
 import com.example.tbcacademyhomework.R
 import com.example.tbcacademyhomework.databinding.MessageItemBinding
@@ -31,6 +32,24 @@ class ChatMessageAdapter :
             binding.tvMessageTime.text = message.lastActive
             binding.tvUnreadMessages.text = message.unreadMessages.toString()
             binding.tvName.text = message.owner
+
+            when (message.lastMessageType) {
+                MessageType.TEXT -> {
+                    binding.ivMessageType.visibility = android.view.View.GONE
+                }
+                MessageType.VOICE -> {
+                    binding.ivMessageType.visibility = android.view.View.VISIBLE
+                    binding.ivMessageType.setImageResource(R.drawable.recorder)
+                }
+                MessageType.FILE -> {
+                    binding.ivMessageType.visibility = android.view.View.VISIBLE
+                    binding.ivMessageType.setImageResource(R.drawable.file_type)
+                }
+                else -> {
+                    binding.ivMessageType.visibility = android.view.View.GONE
+                }
+            }
+
             message.image?.let {
                 Glide.with(binding.root.context)
                     .load(it)
