@@ -20,4 +20,5 @@
     <string name="login_successful_message">Login Successful</string>
     <string name="login_exception_message">%1$s</string>
     <string name="repeat_password_placeholder">Repeat Password</string>
+    <string name="some_fields_are_not_valid">Some fields are not valid</string>
 </resources>

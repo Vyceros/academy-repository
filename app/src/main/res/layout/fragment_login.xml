@@ -7,7 +7,6 @@
     android:background="@color/white"
     tools:context=".fragments.login.LoginFragment">
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
@@ -22,10 +21,11 @@
 
     <ProgressBar
         android:id="@+id/loadingBar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        android:indeterminateTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,6 +52,7 @@
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:padding="12dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/main_accent"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +81,7 @@
         android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:padding="12dp"
+        android:textColor="@color/black"
         android:textColorHint="@color/main_accent"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,8 +117,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="32dp"
-        android:enabled="false"
         android:background="@drawable/primary_button_background"
+        android:enabled="false"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@color/white"

@@ -1,8 +1,8 @@
 package com.example.baseandroidproject.fragments.login
 
-import android.util.Patterns
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -27,8 +27,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun setup() {
         navController = findNavController()
         observers()
-        listeners()
-
+        receiveFragmentResult()
     }
 
     override fun listeners() {
@@ -83,10 +82,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun onSuccessResponse(token: String) {
-        if (binding.cbRememberMe.isChecked){
+        if (binding.cbRememberMe.isChecked) {
             navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(token))
-        }
-        else{
+        } else {
             navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
@@ -107,9 +105,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        val isPasswordValid = password.isNotEmpty()
+        with(binding) {
+            btnLogin.isEnabled =
+                viewModel.validatePassword(password) && viewModel.validateEmail(email)
+        }
+    }
 
-        binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
+    private fun receiveFragmentResult() {
+        setFragmentResultListener("registration") { _, bundle ->
+            val email = bundle.getString("email")
+            val password = bundle.getString("password")
+            binding.etEmail.setText(email)
+            binding.etPassword.setText(password)
+        }
     }
 }

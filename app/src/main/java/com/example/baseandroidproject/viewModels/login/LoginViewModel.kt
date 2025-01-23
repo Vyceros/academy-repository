@@ -6,6 +6,7 @@ import com.example.baseandroidproject.client.retrofit.RetrofitClient
 import com.example.baseandroidproject.data.login.LoginRequest
 import com.example.baseandroidproject.data.login.LoginResponse
 import com.example.baseandroidproject.data.response.ApiResponse
+import com.example.baseandroidproject.helpers.Validators
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +25,9 @@ class LoginViewModel : ApiResponseHandler() {
             }
         }
     }
+    private val validator = Validators()
 
+    fun validateEmail(email: String) : Boolean = validator.validateEmail(email)
 
+    fun validatePassword(password: String) : Boolean = validator.validatePassword(password)
 }
