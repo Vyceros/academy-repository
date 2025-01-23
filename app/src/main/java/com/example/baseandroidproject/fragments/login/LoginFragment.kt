@@ -1,9 +1,12 @@
 package com.example.baseandroidproject.fragments.login
 
+import android.util.Patterns
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import com.example.baseandroidproject.R
+import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.data.response.isErrorMessage
 import com.example.baseandroidproject.data.response.isExceptionMessage
@@ -22,6 +25,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private lateinit var navController: NavController
 
     override fun setup() {
+        navController = findNavController()
         observers()
         listeners()
 
@@ -31,6 +35,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
+
+        binding.btnRegister.setOnClickListener {
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
+
+        //button disabled by default, we validate fields and enable button if $validateFields() conditions are met
+        binding.etEmail.addTextChangedListener { validateFields() }
+        binding.etPassword.addTextChangedListener { validateFields() }
+
     }
 
     private fun loginUser() {
@@ -40,41 +53,63 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun observers() {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             viewModel.loginCall.collect { response ->
                 if (response != null) {
                     when {
                         response.isSuccessMessage() -> {
-                            Snackbar.make(
-                                binding.root,
-                                getString(R.string.login_successful_message),
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            response.data?.let { onSuccessResponse(it.token) }
+                            binding.loadingBar.isVisible = false
                         }
 
                         response.isErrorMessage() -> {
-                            Snackbar.make(
-                                binding.root,
-                                getString(R.string.error_message, response.message),
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            onErrorResponse(response.message.toString())
+                            binding.loadingBar.isVisible = false
                         }
 
                         response.isLoadingMessage() -> {
-                            Snackbar.make(binding.root, "Loading...", Snackbar.LENGTH_LONG).show()
+                            onLoadingResponse()
                         }
 
                         response.isExceptionMessage() -> {
-                            Snackbar.make(
-                                binding.root,
-                                getString(R.string.login_exception_message, response.message),
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            onExceptionResponse(response.message.toString())
+                            binding.loadingBar.isVisible = false
                         }
 
                     }
                 }
             }
         }
+    }
+
+    private fun onSuccessResponse(token: String) {
+        if (binding.cbRememberMe.isChecked){
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(token))
+        }
+        else{
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        }
+    }
+
+    private fun onErrorResponse(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun onLoadingResponse() {
+        binding.loadingBar.isVisible = true
+    }
+
+    private fun onExceptionResponse(message: String) {
+        Snackbar.make(binding.root, "Error $message", Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun validateFields() {
+        val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+
+        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val isPasswordValid = password.isNotEmpty()
+
+        binding.btnLogin.isEnabled = isEmailValid && isPasswordValid
     }
 }

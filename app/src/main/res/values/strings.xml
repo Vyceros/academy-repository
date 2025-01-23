@@ -19,4 +19,5 @@
     <string name="error_message">Error: %1$s</string>
     <string name="login_successful_message">Login Successful</string>
     <string name="login_exception_message">%1$s</string>
+    <string name="repeat_password_placeholder">Repeat Password</string>
 </resources>
