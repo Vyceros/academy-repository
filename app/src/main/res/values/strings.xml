@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">BaseAndroidProject</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome!</string>
+    <string name="placeholder_text">What would you like to do</string>
+    <string name="btn_logout">Logout</string>
+    <string name="mystery_button">Mystery Button</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="email_address_placeholder">Email Address</string>
+    <string name="email_hint">Email</string>
+    <string name="password_placeholder">Password</string>
+    <string name="password_hint">Password</string>
+    <string name="tv_forgot_password">Forgot Password?</string>
+    <string name="dont_have_account_hint">Don\'t have an account?</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="remember_me">Remember me</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>

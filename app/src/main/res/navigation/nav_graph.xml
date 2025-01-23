@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.baseandroidproject.fragments.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_authorization"
+            app:destination="@id/authorization" />
+    </fragment>
+    <navigation android:id="@+id/authorization"
+        app:startDestination="@id/loginFragment">
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.baseandroidproject.fragments.login.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/fragment_login" />
+        <fragment
+            android:id="@+id/registerFragment"
+            android:name="com.example.baseandroidproject.fragments.register.RegisterFragment"
+            android:label="fragment_register"
+            tools:layout="@layout/fragment_register" />
+        <action
+            android:id="@+id/action_global_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </navigation>
 </navigation>

@@ -36,6 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
     }
@@ -54,4 +55,5 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
     implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.retrofit.converter)
 }

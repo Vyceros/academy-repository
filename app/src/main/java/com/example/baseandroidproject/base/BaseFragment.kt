@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments
+package com.example.baseandroidproject.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +17,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     protected val binding get() = _binding!!
 
     abstract fun setup()
+    abstract fun listeners()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +31,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setup()
+        listeners()
     }
     override fun onDestroyView() {
         super.onDestroyView()

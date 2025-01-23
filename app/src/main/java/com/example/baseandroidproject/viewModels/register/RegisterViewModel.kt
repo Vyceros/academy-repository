@@ -1,0 +1,29 @@
+package com.example.baseandroidproject.viewModels.register
+
+import androidx.lifecycle.viewModelScope
+import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
+import com.example.baseandroidproject.client.retrofit.RetrofitClient
+import com.example.baseandroidproject.data.register.RegisterRequest
+import com.example.baseandroidproject.data.register.RegisterResponse
+import com.example.baseandroidproject.data.response.ApiResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+class RegisterViewModel : ApiResponseHandler() {
+    private val _registerCall = MutableStateFlow<ApiResponse<RegisterResponse>?>(null)
+    val registerCall = _registerCall.asStateFlow()
+
+
+    fun registerUser(email: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = handleApiCall {
+                RetrofitClient.apiService.register(RegisterRequest(email, password))
+            }
+            _registerCall.value = response
+        }
+
+    }
+
+}
