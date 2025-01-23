@@ -17,12 +17,13 @@ class LoginViewModel : ApiResponseHandler() {
 
     fun loginUser(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = handleApiCall {
-                RetrofitClient.apiService.login(LoginRequest(email, password))
+            handleApiCall {
+                RetrofitClient.apiService.login(LoginRequest(email,password))
+            }.collect{ response->
+                _loginCall.value = response
             }
-            _loginCall.value = response
         }
-
     }
+
 
 }

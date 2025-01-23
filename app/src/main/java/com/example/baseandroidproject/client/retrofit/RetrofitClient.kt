@@ -7,10 +7,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://reqres.in/"
+    private const val BASE_URL = "https://reqres.in"
     private const val CONTENT_TYPE = "application/json"
 
-    val retrofit = Retrofit.Builder()
+    val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(Json.asConverterFactory(MediaType.get(CONTENT_TYPE)))
         .build()

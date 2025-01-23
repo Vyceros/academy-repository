@@ -18,10 +18,12 @@ class RegisterViewModel : ApiResponseHandler() {
 
     fun registerUser(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = handleApiCall {
+           handleApiCall {
                 RetrofitClient.apiService.register(RegisterRequest(email, password))
-            }
-            _registerCall.value = response
+            }.collect{ response ->
+                _registerCall.value = response
+           }
+
         }
 
     }

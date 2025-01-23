@@ -3,8 +3,12 @@ package com.example.baseandroidproject.fragments.login
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import com.example.baseandroidproject.R
 import com.example.baseandroidproject.base.BaseFragment
-import com.example.baseandroidproject.data.response.ApiResponse
+import com.example.baseandroidproject.data.response.isErrorMessage
+import com.example.baseandroidproject.data.response.isExceptionMessage
+import com.example.baseandroidproject.data.response.isLoadingMessage
+import com.example.baseandroidproject.data.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
 import com.example.baseandroidproject.viewModels.login.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -19,9 +23,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     override fun setup() {
         observers()
-
+        listeners()
 
     }
+
     override fun listeners() {
         binding.btnLogin.setOnClickListener {
             loginUser()
@@ -37,11 +42,37 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun observers() {
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             viewModel.loginCall.collect { response ->
-                if (response is ApiResponse.Success) {
-                    Snackbar.make(binding.root, "${response.message}", Snackbar.LENGTH_LONG).show()
-                }
-                if (response is ApiResponse.Error) {
-                    Snackbar.make(binding.root, "${response.message}", Snackbar.LENGTH_LONG).show()
+                if (response != null) {
+                    when {
+                        response.isSuccessMessage() -> {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.login_successful_message),
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+
+                        response.isErrorMessage() -> {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.error_message, response.message),
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+
+                        response.isLoadingMessage() -> {
+                            Snackbar.make(binding.root, "Loading...", Snackbar.LENGTH_LONG).show()
+                        }
+
+                        response.isExceptionMessage() -> {
+                            Snackbar.make(
+                                binding.root,
+                                getString(R.string.login_exception_message, response.message),
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
                 }
             }
         }

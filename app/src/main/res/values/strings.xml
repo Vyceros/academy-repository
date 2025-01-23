@@ -16,4 +16,7 @@
     <string name="login">Login</string>
     <string name="remember_me">Remember me</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="error_message">Error: %1$s</string>
+    <string name="login_successful_message">Login Successful</string>
+    <string name="login_exception_message">%1$s</string>
 </resources>
