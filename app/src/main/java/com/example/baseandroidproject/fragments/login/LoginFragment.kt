@@ -5,7 +5,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.data.response.isErrorMessage
@@ -23,10 +22,8 @@ import kotlinx.coroutines.launch
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var navController: NavController
 
     override fun setup() {
-        navController = findNavController()
         observers()
         receiveFragmentResult()
     }
@@ -37,8 +34,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
 
         binding.btnRegister.setOnClickListener {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
-            
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+
         }
 
         //button disabled by default, we validate fields and enable button if $validateFields() conditions are met
@@ -89,13 +86,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun onSuccessResponse(token: String, email: String) {
+        val sessionManager = UserSessions(requireContext().applicationContext)
+
         if (binding.cbRememberMe.isChecked) {
-            val sessionManager = UserSessions(requireContext().applicationContext)
             sessionManager.addToSession(token)
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(token,email))
-        } else {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(email))
         }
+
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToHomeFragment(token, email)
+        )
     }
 
     private fun onErrorResponse(message: String) {

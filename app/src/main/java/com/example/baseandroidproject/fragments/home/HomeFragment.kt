@@ -10,7 +10,7 @@ import com.example.baseandroidproject.sessions.UserSessions
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    private val safeArgs : HomeFragmentArgs by navArgs()
+    private val safeArgs: HomeFragmentArgs by navArgs()
 
     override fun setup() {
         binding.tvUserEmail.text = safeArgs.email
@@ -26,12 +26,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-
-    private fun mysteryClick(){
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")))
+    private fun mysteryClick() {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+            )
+        )
     }
 
-    private fun logout(){
+    private fun logout() {
         val sessionManager = UserSessions(requireContext().applicationContext)
         sessionManager.clearSession()
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())

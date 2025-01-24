@@ -5,7 +5,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.R
 import com.example.baseandroidproject.base.BaseFragment
@@ -22,10 +21,8 @@ import kotlinx.coroutines.launch
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
     private val viewModel: RegisterViewModel by viewModels()
-    private lateinit var navController: NavController
 
     override fun setup() {
-        navController = findNavController()
         observers()
     }
 
@@ -35,7 +32,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
 
         binding.btnLogin.setOnClickListener {
-            navController.navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
         }
     }
 
@@ -112,6 +109,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 putString("email", binding.etEmail.text.toString())
                 putString("password", binding.etPassword.text.toString())
             })
-            navController.popBackStack()
+            findNavController().popBackStack()
     }
 }
