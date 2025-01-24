@@ -13,6 +13,7 @@ import com.example.baseandroidproject.data.response.isExceptionMessage
 import com.example.baseandroidproject.data.response.isLoadingMessage
 import com.example.baseandroidproject.data.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
+import com.example.baseandroidproject.sessions.UserSessions
 import com.example.baseandroidproject.viewModels.login.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +58,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 if (response != null) {
                     when {
                         response.isSuccessMessage() -> {
-                            response.data?.let { onSuccessResponse(it.token) }
+                            response.data?.let {
+                                onSuccessResponse(
+                                    it.token,
+                                    binding.etEmail.text.toString()
+                                )
+                            }
                             binding.loadingBar.isVisible = false
                         }
 
@@ -81,11 +87,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun onSuccessResponse(token: String) {
+    private fun onSuccessResponse(token: String, email: String) {
         if (binding.cbRememberMe.isChecked) {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(token))
+            val sessionManager = UserSessions(requireContext().applicationContext)
+            sessionManager.addToSession(token)
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(token,email))
         } else {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment(email))
         }
     }
 

@@ -19,11 +19,9 @@ abstract class ApiResponseHandler : ViewModel() {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         emit(ApiResponse.Success(it))
-                    } ?: emit(ApiResponse.Error("No data found"))
+                    }
                 } else {
-                    val errorBody = response.errorBody()?.string()
-                    val errorResponse = errorBody?.let { Json.decodeFromString<ErrorResponse>(it) }
-                    emit(ApiResponse.Error(errorResponse?.error))
+                    emit(ApiResponse.Error(response.parseResponse()))
                 }
             } catch (ex: UnknownHostException) {
                 emit(ApiResponse.Exception("Host not found, check internet connection"))
@@ -32,4 +30,14 @@ abstract class ApiResponseHandler : ViewModel() {
             }
         }
     }
+}
+
+
+private fun Response<*>.parseResponse(): String? {
+    val errorString = this.errorBody()?.string()
+    val parser = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
+    return errorString?.let { parser.decodeFromString<ErrorResponse>(it).error }
 }

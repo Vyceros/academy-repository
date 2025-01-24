@@ -16,6 +16,14 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            app:popUpToInclusive="true"
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="default@email.com" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

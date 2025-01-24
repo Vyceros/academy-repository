@@ -2,16 +2,18 @@ package com.example.baseandroidproject.fragments.home
 
 import android.content.Intent
 import android.net.Uri
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
+import com.example.baseandroidproject.sessions.UserSessions
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    private val args : HomeFragmentArgs by navArgs()
+    private val safeArgs : HomeFragmentArgs by navArgs()
 
     override fun setup() {
-        val token = args.token
+        binding.tvUserEmail.text = safeArgs.email
     }
 
     override fun listeners() {
@@ -20,7 +22,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
         binding.btnLogout.setOnClickListener {
-            //logout
+            logout()
         }
     }
 
@@ -29,12 +31,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")))
     }
 
-    private fun saveToken(){
-
-    }
-
     private fun logout(){
-
+        val sessionManager = UserSessions(requireContext().applicationContext)
+        sessionManager.clearSession()
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
     }
 
 }
