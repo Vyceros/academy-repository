@@ -4,7 +4,7 @@ import android.content.Context
 
 class UserSessions(context: Context) {
     companion object {
-        private const val NAME = "SESSION"
+        private const val NAME = "session"
         private const val TOKEN = "token"
     }
 

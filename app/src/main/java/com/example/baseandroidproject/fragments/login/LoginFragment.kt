@@ -38,6 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.btnRegister.setOnClickListener {
             navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            
         }
 
         //button disabled by default, we validate fields and enable button if $validateFields() conditions are met
