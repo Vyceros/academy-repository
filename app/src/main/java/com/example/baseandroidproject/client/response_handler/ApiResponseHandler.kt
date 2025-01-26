@@ -32,7 +32,6 @@ abstract class ApiResponseHandler : ViewModel() {
     }
 }
 
-
 private fun Response<*>.parseResponse(): String? {
     val errorString = this.errorBody()?.string()
     val parser = Json {

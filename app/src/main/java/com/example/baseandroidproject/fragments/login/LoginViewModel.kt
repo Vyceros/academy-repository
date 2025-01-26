@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.viewModels.login
+package com.example.baseandroidproject.fragments.login
 
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
@@ -7,12 +7,13 @@ import com.example.baseandroidproject.data.login.LoginRequest
 import com.example.baseandroidproject.data.login.LoginResponse
 import com.example.baseandroidproject.data.response.ApiResponse
 import com.example.baseandroidproject.helpers.Validators
+import com.example.baseandroidproject.sessions.DataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ApiResponseHandler() {
+class LoginViewModel(private val dataStore: DataStore) : ApiResponseHandler() {
     private val _loginCall = MutableStateFlow<ApiResponse<LoginResponse>?>(null)
     val loginCall = _loginCall.asStateFlow()
 
@@ -25,9 +26,23 @@ class LoginViewModel : ApiResponseHandler() {
             }
         }
     }
+
+    fun saveToken(token: String, email: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStore.addToken(token)
+            dataStore.addEmail(email)
+        }
+    }
+
+    fun saveEmail(email: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStore.addEmail(email)
+        }
+    }
+
     private val validator = Validators()
 
-    fun validateEmail(email: String) : Boolean = validator.validateEmail(email)
+    fun validateEmail(email: String): Boolean = validator.validateEmail(email)
 
-    fun validatePassword(password: String) : Boolean = validator.validatePassword(password)
+    fun validatePassword(password: String): Boolean = validator.validatePassword(password)
 }

@@ -1,44 +1,53 @@
 package com.example.baseandroidproject.fragments.home
 
-import android.content.Intent
-import android.net.Uri
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
-import com.example.baseandroidproject.sessions.UserSessions
+import com.example.baseandroidproject.fragments.home.home_recycler.UserListAdapter
+import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-
-    private val safeArgs: HomeFragmentArgs by navArgs()
+    private val viewModel by viewModels<HomeViewModel>()
+    private val adapter by lazy { UserListAdapter() }
 
     override fun setup() {
-        binding.tvUserEmail.text = safeArgs.email
+        viewModel.homeCall
+        setupRecycler()
+        observer()
     }
 
     override fun listeners() {
-        binding.btnMystery.setOnClickListener {
-            mysteryClick()
-        }
-
-        binding.btnLogout.setOnClickListener {
-            logout()
+        binding.ivToProfile.setOnClickListener{
+            navigateToProfile()
         }
     }
 
-    private fun mysteryClick() {
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-            )
-        )
+    private fun observer() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeCall.collect { response ->
+                    val data = response.data
+                    if (data != null) {
+                        adapter.submitList(data.data)
+                    }
+                }
+            }
+        }
     }
 
-    private fun logout() {
-        val sessionManager = UserSessions(requireContext().applicationContext)
-        sessionManager.clearSession()
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+    private fun setupRecycler(){
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.adapter = adapter
+
+    }
+
+    private fun navigateToProfile(){
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
     }
 
 }

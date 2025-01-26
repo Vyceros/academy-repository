@@ -14,6 +14,13 @@ serialization = "2.0.21"
 navVersion = "2.8.5"
 retrofit = "2.11.0"
 kotlinxSerializationJson = "1.7.3"
+glide = "4.16.0"
+dataStore = "1.1.2"
+roomKtx = "2.6.1"
+legacySupportV4 = "1.0.0"
+lifecycleLivedataKtx = "2.8.7"
+lifecycleViewmodelKtx = "2.8.7"
+fragmentKtx = "1.5.6"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +37,13 @@ serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-jso
 safeArgs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "safeArgs" }
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 squareup-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
+image-glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
+data-store = {group = "androidx.datastore", name = "datastore-preferences",version.ref = "dataStore"}
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

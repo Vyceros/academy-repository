@@ -13,7 +13,6 @@ import com.example.baseandroidproject.data.response.isExceptionMessage
 import com.example.baseandroidproject.data.response.isLoadingMessage
 import com.example.baseandroidproject.data.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentRegisterBinding
-import com.example.baseandroidproject.viewModels.register.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,7 +31,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+            findNavController().navigateUp()
         }
     }
 
@@ -109,6 +108,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 putString("email", binding.etEmail.text.toString())
                 putString("password", binding.etPassword.text.toString())
             })
-            findNavController().popBackStack()
+            findNavController().navigateUp()
     }
 }
