@@ -22,6 +22,7 @@ private class UserDiffUtils : DiffUtil.ItemCallback<User>() {
 }
 
 class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<User, UserListAdapter.UserViewHolder>(UserDiffUtils()) {
+
     inner class UserViewHolder(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user : User) {

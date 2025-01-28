@@ -3,6 +3,7 @@ package com.example.baseandroidproject.fragments.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory<T : ViewModel>(
     private val viewModelFactory: () -> T
