@@ -22,4 +22,6 @@
     <string name="repeat_password_placeholder">Repeat Password</string>
     <string name="some_fields_are_not_valid">Some fields are not valid</string>
     <string name="check_our_users">Check our users</string>
+    <string name="something_went_wrong">Something went wrong...</string>
+    <string name="an_error_occurred">An error occurred</string>
 </resources>

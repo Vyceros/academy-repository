@@ -20,6 +20,7 @@ interface AuthorizationService {
     suspend fun login(@Body loginRequest : LoginRequest) : Response<LoginResponse>
 
     @GET("/api/users")
-    suspend fun getUsers(@Query("page") page : Int ) : Response<UserPagedResponse>
+    suspend fun getUsers(@Query("page") page : Int,
+                         @Query ("per_page") perPage : Int) : Response<UserPagedResponse>
 
 }

@@ -2,17 +2,17 @@ package com.example.baseandroidproject.fragments.home.home_recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.baseandroidproject.R
 import com.example.baseandroidproject.data.users.User
 import com.example.baseandroidproject.databinding.UserItemBinding
 
-class UserDiffUtils : DiffUtil.ItemCallback<User>() {
+private class UserDiffUtils : DiffUtil.ItemCallback<User>() {
     override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
@@ -21,19 +21,24 @@ class UserDiffUtils : DiffUtil.ItemCallback<User>() {
 
 }
 
-class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDiffUtils()) {
+class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<User, UserListAdapter.UserViewHolder>(UserDiffUtils()) {
     inner class UserViewHolder(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            val user = getItem(adapterPosition)
+        fun bind(user : User) {
             binding.tvFirstName.text = user.firstName
             binding.tvLastName.text = user.lastName
             binding.tvEmail.text = user.email
+            binding.tvUserId.text = user.id.toString()
             Glide.with(binding.root)
                 .load(user.avatar)
                 .error(R.drawable.ic_launcher_foreground)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.ivAvatar)
+
+            binding.root.setOnLongClickListener {
+                toRefreshList.invoke()
+                true
+            }
         }
     }
 
@@ -43,6 +48,9 @@ class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(UserDi
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind()
+        val user = getItem(position)
+        user?.let {
+            holder.bind(it)
+        }
     }
 }

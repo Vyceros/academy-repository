@@ -63,4 +63,5 @@ dependencies {
     implementation(libs.squareup.retrofit.converter)
     implementation(libs.data.store)
     implementation(libs.image.glide)
+    implementation(libs.androidx.paging)
 }

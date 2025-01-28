@@ -1,28 +1,36 @@
 package com.example.baseandroidproject.fragments.home
 
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.baseandroidproject.R
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
 import com.example.baseandroidproject.fragments.home.home_recycler.UserListAdapter
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel by viewModels<HomeViewModel>()
-    private val adapter by lazy { UserListAdapter() }
+    private val adapter by lazy {
+        UserListAdapter(
+            toRefreshList = { onHold() }
+        )
+    }
 
     override fun setup() {
-        viewModel.homeCall
         setupRecycler()
         observer()
     }
 
     override fun listeners() {
-        binding.ivToProfile.setOnClickListener{
+        binding.ivToProfile.setOnClickListener {
             navigateToProfile()
         }
     }
@@ -30,24 +38,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun observer() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeCall.collect { response ->
-                    val data = response.data
-                    if (data != null) {
-                        adapter.submitList(data.data)
+                adapter.loadStateFlow.collectLatest { loadState ->
+                    binding.progressBar.isVisible =
+                        loadState.source.refresh is LoadState.Loading || loadState.source.append is LoadState.Loading
+
+                    if (loadState.source.append is LoadState.Error) {
+                        snackbar(getString(R.string.an_error_occurred))
                     }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.flow.collectLatest { response ->
+                    adapter.submitData(response)
                 }
             }
         }
     }
 
-    private fun setupRecycler(){
+    private fun setupRecycler() {
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = adapter
 
     }
 
-    private fun navigateToProfile(){
+    private fun navigateToProfile() {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+    }
+
+    private fun snackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun onHold() {
+        adapter.refresh()
     }
 
 }
