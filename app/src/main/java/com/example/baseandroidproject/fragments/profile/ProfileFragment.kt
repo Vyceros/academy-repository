@@ -26,9 +26,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun listeners() {
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
-            findNavController().navigate(ProfileFragmentDirections.actionHomeFragmentToLoginFragment())
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
         }
-
         binding.btnSave.setOnClickListener {
             saveDetails()
         }
@@ -68,18 +67,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             ).collect { isSuccess ->
                 if (isSuccess) {
                     statusMessage("Success")
+
                 } else {
-                    statusMessage("Error")
+                    statusMessage("Make sure fields are correct")
                 }
             }
-        }
-    }
-
-    private fun validateFields() {
-        binding.btnSave.isEnabled = viewModel.run {
-            validateEmail(binding.etEmail.text.toString()) &&
-                    validateName(binding.etFirstName.text.toString()) &&
-                    validateName(binding.etLastName.text.toString())
         }
     }
 

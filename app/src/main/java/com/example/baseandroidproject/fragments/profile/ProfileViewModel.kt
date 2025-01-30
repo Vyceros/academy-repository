@@ -18,7 +18,7 @@ class ProfileViewModel(private val dataStore: ProtoDataStore) : ViewModel() {
     val userFlow = _userFlow.asStateFlow()
 
 
-    fun loadUserDetails(){
+    fun loadUserDetails() {
         viewModelScope.launch {
             dataStore.getUserDetail().firstOrNull()?.let {
                 _userFlow.value = it
@@ -30,8 +30,12 @@ class ProfileViewModel(private val dataStore: ProtoDataStore) : ViewModel() {
     fun updateUserDetails(firstName: String, lastName: String, email: String): Flow<Boolean> {
         return flow {
             try {
-                dataStore.updateUserDetail(firstName, lastName, email)
-                emit(true)
+                if (validateEmail(email) && validateName(firstName) && validateName(lastName)) {
+                    dataStore.updateUserDetail(firstName, lastName, email)
+                    emit(true)
+                }else{
+                    emit(false)
+                }
             } catch (er: Throwable) {
                 emit(false)
             }
@@ -46,8 +50,8 @@ class ProfileViewModel(private val dataStore: ProtoDataStore) : ViewModel() {
 
     private val validator = Validators()
 
-    fun validateEmail(email: String): Boolean = validator.validateEmail(email)
+    private fun validateEmail(email: String): Boolean = validator.validateEmail(email)
 
-    fun validateName(name: String): Boolean = validator.validateName(name)
+    private fun validateName(name: String): Boolean = validator.validateName(name)
 
 }

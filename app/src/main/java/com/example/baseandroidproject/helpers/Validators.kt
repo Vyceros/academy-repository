@@ -13,7 +13,7 @@ class Validators{
     }
 
     fun validateName(name: String): Boolean {
-        return name.isNotEmpty()
+        return name.isNotBlank()
     }
 
     fun validateRepeatPassword(password: String, repeatPassword: String): Boolean {
