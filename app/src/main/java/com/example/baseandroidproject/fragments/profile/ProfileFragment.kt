@@ -10,7 +10,6 @@ import com.example.baseandroidproject.databinding.FragmentProfileBinding
 import com.example.baseandroidproject.fragments.login.ViewModelFactory
 import com.example.baseandroidproject.sessions.ProtoDataStore
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -33,22 +32,30 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         binding.btnSave.setOnClickListener {
             saveDetails()
         }
+
         binding.btnLoad.setOnClickListener {
-            observeDetailsChange()
+            loadDetails()
         }
     }
 
-    private fun observeDetailsChange() {
+    private fun loadDetails() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userFlow.collectLatest { user ->
-                    with(binding) {
-                        tvFirstname.text = user?.firstName
-                        tvLastname.text = user?.lastName
-                        tvEmail.text = user?.email
+                viewModel.loadUserDetails()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.userFlow.collect {
+                    it?.let {
+                        binding.tvEmail.text = it.email
+                        binding.tvFirstname.text = it.firstName
+                        binding.tvLastname.text = it.lastName
                     }
                 }
             }
+
         }
     }
 
