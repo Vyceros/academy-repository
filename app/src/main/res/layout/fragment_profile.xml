@@ -7,60 +7,120 @@
     android:orientation="vertical"
     tools:context=".fragments.profile.ProfileFragment">
 
-
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvWelcomeMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="@string/welcome"
-        android:textColor="@color/main_accent"
-        android:textSize="48sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvUserEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:text="@string/user_details"
         android:layout_gravity="center"
         android:textColor="@color/main_accent"
-        android:textStyle="bold"
-        android:textSize="32sp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvPlaceholder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="@string/placeholder_text"
-        android:textColor="@color/main_accent"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content"/>
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/detailsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/inputs_background"
+            android:hint="@string/first_name"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/inputs_background"
+            android:hint="@string/last_name"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/inputs_background"
+            android:hint="@string/email_hint"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/primary_button_background"
+        android:text="@string/save_details"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLoad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/primary_button_background"
+        android:text="@string/load_details"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/primary_button_background"
         android:text="@string/btn_logout"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnMystery"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/primary_button_background"
-        android:text="@string/mystery_button"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFirstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
 
 
 

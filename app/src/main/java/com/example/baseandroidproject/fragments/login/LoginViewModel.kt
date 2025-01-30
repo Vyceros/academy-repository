@@ -7,13 +7,13 @@ import com.example.baseandroidproject.data.login.LoginRequest
 import com.example.baseandroidproject.data.login.LoginResponse
 import com.example.baseandroidproject.data.response.ApiResponse
 import com.example.baseandroidproject.helpers.Validators
-import com.example.baseandroidproject.sessions.DataStore
+import com.example.baseandroidproject.sessions.ProtoDataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val dataStore: DataStore) : ApiResponseHandler() {
+class LoginViewModel(private val dataStore: ProtoDataStore) : ApiResponseHandler() {
     private val _loginCall = MutableStateFlow<ApiResponse<LoginResponse>?>(null)
     val loginCall = _loginCall.asStateFlow()
 
@@ -29,14 +29,7 @@ class LoginViewModel(private val dataStore: DataStore) : ApiResponseHandler() {
 
     fun saveToken(token: String, email: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            dataStore.addToken(token)
-            dataStore.addEmail(email)
-        }
-    }
-
-    fun saveEmail(email: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            dataStore.addEmail(email)
+            dataStore.updateUserDetail(token = token, email = email)
         }
     }
 

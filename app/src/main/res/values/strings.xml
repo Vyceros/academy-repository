@@ -24,4 +24,9 @@
     <string name="check_our_users">Check our users</string>
     <string name="something_went_wrong">Something went wrong...</string>
     <string name="an_error_occurred">An error occurred</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="save_details">Save Details</string>
+    <string name="load_details">Load Details</string>
+    <string name="user_details">User Details</string>
 </resources>

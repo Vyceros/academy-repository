@@ -12,6 +12,10 @@ class Validators{
         return password.isNotEmpty()
     }
 
+    fun validateName(name: String): Boolean {
+        return name.isNotEmpty()
+    }
+
     fun validateRepeatPassword(password: String, repeatPassword: String): Boolean {
         return password == repeatPassword
     }

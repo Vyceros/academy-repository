@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.home.home_recycler
+package com.example.baseandroidproject.fragments.home.recycler
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -28,7 +28,9 @@ class UsersPagingSource(private val apiSource: AuthorizationService) : PagingSou
             ) //Which page its on and how many items per page
             val usersList = response.body()?.data ?: emptyList()
             val nextKey = if (usersList.isEmpty()) null else page + 1
+
             delay(2000) //Slight delay to simulate pulling more data than its actually pulling because otherwise, its instant
+
             LoadResult.Page(
                 data = usersList,
                 prevKey = if (page == START_INDEX) null else page - 1,

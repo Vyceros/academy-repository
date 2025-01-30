@@ -14,7 +14,7 @@ import com.example.baseandroidproject.data.response.isExceptionMessage
 import com.example.baseandroidproject.data.response.isLoadingMessage
 import com.example.baseandroidproject.data.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
-import com.example.baseandroidproject.sessions.DataStore
+import com.example.baseandroidproject.sessions.ProtoDataStore
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -23,7 +23,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private val viewModel: LoginViewModel by viewModels{
         ViewModelFactory {
-            LoginViewModel(DataStore(requireContext().applicationContext))
+            LoginViewModel(ProtoDataStore(requireContext().applicationContext))
         }
     }
 
@@ -89,8 +89,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun onSuccessfulLogin(token: String) {
         if (binding.cbRememberMe.isChecked) {
             viewModel.saveToken(token, binding.etEmail.text.toString())
-        }else{
-            viewModel.saveEmail(binding.etEmail.text.toString())
         }
 
         findNavController().navigate(

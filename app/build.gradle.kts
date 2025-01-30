@@ -1,7 +1,10 @@
+import com.google.protobuf.gradle.id
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+    id("com.google.protobuf") version "0.9.4"
     id(libs.plugins.safeArgs.get().pluginId)
     alias(libs.plugins.kotlin.serialization)
 }
@@ -40,6 +43,23 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    protobuf{
+        protoc{
+            artifact = "com.google.protobuf:protoc:3.24.1"
+        }
+        generateProtoTasks{
+            all().forEach{task ->
+                task.builtins {
+                    id("java") {
+                        option("lite")
+                    }
+                    id("kotlin"){
+                        option("lite")
+                    }
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -64,4 +84,8 @@ dependencies {
     implementation(libs.data.store)
     implementation(libs.image.glide)
     implementation(libs.androidx.paging)
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.javalite)
+    implementation(libs.protobuf.kotlin.lite)
 }
+

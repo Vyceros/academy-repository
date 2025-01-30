@@ -13,7 +13,7 @@ import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.client.retrofit.RetrofitClient
 import com.example.baseandroidproject.client.services.AuthorizationService
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
-import com.example.baseandroidproject.fragments.home.home_recycler.UserListAdapter
+import com.example.baseandroidproject.fragments.home.recycler.UserListAdapter
 import com.example.baseandroidproject.fragments.login.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest

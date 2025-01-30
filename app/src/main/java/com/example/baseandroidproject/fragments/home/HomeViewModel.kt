@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
 import com.example.baseandroidproject.client.services.AuthorizationService
-import com.example.baseandroidproject.fragments.home.home_recycler.UsersPagingSource
+import com.example.baseandroidproject.fragments.home.recycler.UsersPagingSource
 
 class HomeViewModel(private val apiSource: AuthorizationService) : ApiResponseHandler() {
 
@@ -21,7 +21,4 @@ class HomeViewModel(private val apiSource: AuthorizationService) : ApiResponseHa
         UsersPagingSource(apiSource)
     }.flow.cachedIn(viewModelScope)
 
-    companion object{
-
-    }
 }

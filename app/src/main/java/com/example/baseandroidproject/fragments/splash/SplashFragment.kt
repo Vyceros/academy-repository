@@ -6,13 +6,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.databinding.FragmentSplashBinding
 import com.example.baseandroidproject.fragments.login.ViewModelFactory
-import com.example.baseandroidproject.sessions.DataStore
+import com.example.baseandroidproject.sessions.ProtoDataStore
 import kotlinx.coroutines.launch
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding::inflate) {
     private val viewModel: SplashViewModel by viewModels {
         ViewModelFactory {
-            SplashViewModel(DataStore(requireContext().applicationContext))
+            SplashViewModel(ProtoDataStore(requireContext().applicationContext))
         }
     }
 
@@ -25,11 +25,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
 
     private fun checkForToken() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.tokenCall.collect { token ->
-                if (!token.isNullOrEmpty()) {
+            viewModel.retrieveToken().collect { user ->
+                if (!user.token.isNullOrEmpty()) {
                     findNavController().navigate(
                         SplashFragmentDirections.actionSplashFragmentToHomeFragment(
-                            token
+                            user.token
                         )
                     )
                 } else {

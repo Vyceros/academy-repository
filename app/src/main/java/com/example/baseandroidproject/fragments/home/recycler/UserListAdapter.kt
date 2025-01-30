@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.home.home_recycler
+package com.example.baseandroidproject.fragments.home.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
