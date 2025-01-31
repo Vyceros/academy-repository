@@ -90,6 +90,7 @@ abstract class BaseFragment<VB : ViewBinding>(
 
 //region vmm
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory<VM : ViewModel>(
     private val viewModelClass: Class<VM>,
     private val creator: () -> VM
@@ -100,7 +101,7 @@ class ViewModelFactory<VM : ViewModel>(
 
             return creator() as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class: ${viewModelClass.name}")
+        throw IllegalArgumentException("unknown ViewModel: ${viewModelClass.name}")
     }
 }
 
@@ -122,14 +123,15 @@ class UserMapper : Mapper<UserEntity, UserDTO> {
     }
 }
 
-// Usage
+
 val userEntity = UserEntity("111", "luka kurashvili")
 val userDTO = UserMapper().map(userEntity)
 
 fun main(){
     println(userDTO)
     val mixedList = listOf(1,5.3,"racxa","kotlini",'c')
-
+    val stringProvider : DataProvider<String> = StringProvider()
+    val anyProvider: DataProvider<Any> = stringProvider
     val stringList = filterByType<String>(mixedList)
     println(stringList)
 }
@@ -139,4 +141,22 @@ inline fun <reified T> filterByType(list: List<Any>): List<T> {
 
     return list.filterIsInstance<T>()
 
+}
+
+interface DataProvider<out T> {
+    fun getData(): T
+}
+
+class StringProvider : DataProvider<String> {
+    override fun getData(): String = "Helloo bro"
+}
+
+interface DataConsumer<in T> {
+    fun saveData(data: T)
+}
+
+class AnySaver : DataConsumer<Any> {
+    override fun saveData(data: Any) {
+        println("Saving data: $data")
+    }
 }

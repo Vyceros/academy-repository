@@ -1,58 +1,58 @@
 package com.example.baseandroidproject.generics
 
 
-////region WHY DO WE NEED THEM
-//
-//fun main() {
-//    /**
-//     *NOT TYPE SAFE
-//     * TYPE IS NOT ENFORCED AT COMPILE TIME.
-//     * DOESNT GIV ERRORS HERE BUT WILL THROW AN EXCEPTION IN RUNTIME
-//     * **/
-//
-//    val anyBox = AnyBox()
-//    anyBox.setValue(1)
-//    val anyValue = anyBox.getValue()
-//
-//    /**
-//     * TYPE SAFE
-//     * TYPE IS STRICTLY ENFORCED AT COMPILE TIME
-//     * NO ROOM FOR ERROR IN RUNTIME
-//     * **/
-//    val genericBox = Box<Int>()
-//    genericBox.setValue(1)
-//    val genericValue = genericBox.getValue()
-//
-////No need for type casting
-//
-//
-//}
-//
-//class Box<T>() {
-//    private var value: T? = null
-//
-//    fun setValue(value: T) {
-//        this.value = value
-//    }
-//
-//    fun getValue(): T? {
-//        return value
-//    }
-//}
-//
-//class AnyBox() {
-//    private var value: Any? = null
-//
-//    fun setValue(value: Any) {
-//        this.value = value
-//    }
-//
-//    fun getValue(): Any? {
-//        return value
-//    }
-//}
-//
-////endregion
+//region WHY DO WE NEED THEM
+
+fun main() {
+    /**
+     *NOT TYPE SAFE
+     * TYPE IS NOT ENFORCED AT COMPILE TIME.
+     * DOESNT GIV ERRORS HERE BUT WILL THROW AN EXCEPTION IN RUNTIME
+     * **/
+
+    val anyBox = AnyBox()
+    anyBox.setValue(1)
+    val anyValue = anyBox.getValue()
+
+    /**
+     * TYPE SAFE
+     * TYPE IS STRICTLY ENFORCED AT COMPILE TIME
+     * NO ROOM FOR ERROR IN RUNTIME
+     * **/
+    val genericBox = Box<Int>()
+    genericBox.setValue(1)
+    val genericValue = genericBox.getValue()
+
+//No need for type casting
+
+
+}
+
+class Box<T> {
+    private var value: T? = null
+
+    fun setValue(value: T) {
+        this.value = value
+    }
+
+    fun getValue(): T? {
+        return value
+    }
+}
+
+class AnyBox {
+    private var value: Any? = null
+
+    fun setValue(value: Any) {
+        this.value = value
+    }
+
+    fun getValue(): Any? {
+        return value
+    }
+}
+
+//endregion
 
 ////region interfaces
 //fun main() {
@@ -182,28 +182,28 @@ package com.example.baseandroidproject.generics
 //
 ////endregion
 
-//region reified
-
-fun main() {
-    val intList : List<Int> = listOf(1,2,3)
-    val stringList : List<String> = listOf("one","two","tthree")
-    checkTypeAtRuntime<String>(stringList)
-
-    //type erased at runtime, List<Int> becomes just ArrayList
-    println(intList.javaClass)
-}
-
-inline fun <reified T> checkTypeAtRuntime(list: List<T>){
-    if (T::class == String::class){
-        println("List is of type String")
-    }
-}
-
-//when do we use it?
-
-
-
-//endregion
+////region reified
+//
+//fun main() {
+//    val intList : List<Int> = listOf(1,2,3)
+//    val stringList : List<String> = listOf("one","two","tthree")
+//    checkTypeAtRuntime<String>(stringList)
+//
+//    //type erased at runtime, List<Int> becomes just ArrayList
+//    println(intList.javaClass)
+//}
+//
+//inline fun <reified T> checkTypeAtRuntime(list: List<T>){
+//    if (T::class == String::class){
+//        println("List is of type String")
+//    }
+//}
+//
+////when do we use it?
+//
+//
+//
+////endregion
 
 
 
