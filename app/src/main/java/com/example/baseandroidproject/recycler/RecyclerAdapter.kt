@@ -28,7 +28,13 @@ class RecyclerAdapter : ListAdapter<UserEntity, RecyclerAdapter.UserViewHolder>(
             with(binding) {
                 tvName.text = "${user.firstName} ${user.lastName}"
                 tvAboutMessage.text = user.about
-                tvStatus.text = user.activationStatus
+                tvStatus.text = when {
+                    user.activationStatus.toDouble() < 1 -> "Not Activated"
+                    user.activationStatus.toDouble() == 1.0 -> "Activated"
+                    user.activationStatus.toDouble() == 2.0 -> "Active minutes ago"
+                    user.activationStatus.toDouble() in 3.0..23.0 -> "Active few hours ago"
+                    else -> "Active long time ago"
+                }
 
                 Glide.with(ivAvatar)
                     .load(user.avatar)
