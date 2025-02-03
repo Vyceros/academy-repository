@@ -1,5 +1,6 @@
 package com.example.baseandroidproject.fragments.home
 
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import com.example.baseandroidproject.persistence.remote.Resource
 import com.example.baseandroidproject.persistence.remote.RetrofitClient
 import com.example.baseandroidproject.recycler.RecyclerAdapter
 import com.example.baseandroidproject.remote_mediator.UserRepository
+import com.example.baseandroidproject.utils.InternetChecker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun setup() {
         viewModelFactory()
+        observeOnlineStatus()
         setupRecycler()
         observe()
     }
@@ -32,7 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val userService = RetrofitClient.apiService
 
         viewModel = ViewModelProvider(
-            this, ViewModelFactory { HomeViewModel(UserRepository(userService, dao)) }
+            this, ViewModelFactory { HomeViewModel(UserRepository(userService, dao),InternetChecker(requireContext())) }
         )[HomeViewModel::class.java]
     }
     private fun observe(){
@@ -44,6 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         Snackbar.make(binding.root, response.message, Snackbar.LENGTH_LONG).show()
                     }
                     is Resource.Loading -> binding.progressBar.isVisible = true
+
                     is Resource.Success -> {
                         binding.progressBar.isVisible = false
                         adapter.submitList(response.data)
@@ -53,6 +57,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    private fun observeOnlineStatus(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.onlineStatus.collect {
+                Log.d("networkStatus",it.toString())
+                binding.tvNetworkStatus.text = if (it) "ONLINE" else "OFFLINE"
+            }
+        }
+    }
     private fun setupRecycler() {
             val recycler = binding.recycler
             recycler.layoutManager = LinearLayoutManager(requireContext())
