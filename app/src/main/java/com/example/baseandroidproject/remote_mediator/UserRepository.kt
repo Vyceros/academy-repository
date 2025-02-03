@@ -10,7 +10,6 @@ class UserRepository(
     private val userService: UserService,
     private val userDao: UserDao
 ) {
-    //try to get data from internet and put it here
     suspend fun remoteToLocal() {
         val apiResponseData = userService.getUsers()
         val userEntities = apiResponseData.users.map { it.mapToEntity() }

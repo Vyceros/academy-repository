@@ -13,12 +13,11 @@ import java.net.UnknownHostException
 
 class HomeViewModel(
     private val repository: UserRepository,
-    private val internetChecker : InternetChecker
+    private val internetChecker: InternetChecker
 ) : ViewModel() {
+    private val _apiLoading = MutableStateFlow<Resource?>(null)
+    val apiLoading = _apiLoading.asStateFlow()
 
-
-    private val _resourceState = MutableStateFlow<Resource>(Resource.Loading)
-    val resourceState = _resourceState.asStateFlow()
 
     private val _onlineStatus = MutableStateFlow(false)
     val onlineStatus = _onlineStatus.asStateFlow()
@@ -33,42 +32,23 @@ class HomeViewModel(
             try {
                 repository.retrieveUsers().collect { users ->
                     if (users.isNotEmpty()) {
-                        _resourceState.value = Resource.Success(users)
+                        _apiLoading.value = Resource.Success(users)
                     } else {
+                        _apiLoading.value = Resource.Loading
                         repository.remoteToLocal()
                     }
                 }
             } catch (e: UnknownHostException) {
-                _resourceState.value = Resource.Error(e.message ?: "check your internet")
+                _apiLoading.value = Resource.Error(e.message ?: "check your internet")
+
             } catch (e: Exception) {
-                _resourceState.value = Resource.Error(e.message ?: "unknown error found")
+                _apiLoading.value = Resource.Error(e.message ?: "unknown error found")
             }
         }
     }
-    fun internetCheck() {
+
+    private fun internetCheck() {
         val internetStatus = internetChecker.isInternetAvailable()
         _onlineStatus.value = internetStatus
     }
-    /** private fun loadData() {
-    viewModelScope.launch {
-    try {
-    repository.remoteToLocal()
-
-    repository.retrieveUsers().catch {
-    _resourceState.value = Resource.Error(it.message ?: "unknown error found")
-    }.collect {
-    _resourceState.value = Resource.Success(it)
-    }
-    } catch (e: UnknownHostException) {
-    _resourceState.value = Resource.Error(e.message ?: "Check internet connection")
-
-    repository.retrieveUsers().catch {
-    _resourceState.value = Resource.Error(it.message ?: "unknown error found")
-    }.collect {
-    _resourceState.value = Resource.Success(it)
-    }
-    }
-    }
-    }
-     **/
 }

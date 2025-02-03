@@ -38,8 +38,8 @@ class RecyclerAdapter : ListAdapter<UserEntity, RecyclerAdapter.UserViewHolder>(
 
                 Glide.with(ivAvatar)
                     .load(user.avatar)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
                     .into(ivAvatar)
             }
         }
