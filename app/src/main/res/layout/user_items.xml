@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
+    android:background="@color/white"
+    android:elevation="4dp"
     android:layout_marginTop="32dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -22,6 +24,7 @@
         app:layout_constraintStart_toEndOf="@id/ivAvatar"
         app:layout_constraintTop_toTopOf="@id/ivAvatar"
         android:layout_width="0dp"
+        android:textColor="@color/red"
         android:layout_height="wrap_content"
         tools:text="DASDSDSADASDSA"
         android:layout_marginStart="16dp"
@@ -34,6 +37,7 @@
         app:layout_constraintStart_toStartOf="@id/tvName"
         app:layout_constraintTop_toBottomOf="@id/tvName"
         android:layout_width="0dp"
+        android:textColor="@color/red"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         tools:text="DASDSDSADASDSA"
@@ -42,9 +46,10 @@
     <TextView
         android:id="@+id/tvStatus"
         app:layout_constraintStart_toStartOf="@id/tvName"
-        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvAboutMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/red"
         tools:text="DASDSDSADASDSA"
         android:layout_marginTop="8dp"
         android:textSize="12sp" />

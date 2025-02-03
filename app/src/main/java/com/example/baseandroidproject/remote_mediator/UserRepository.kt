@@ -1,8 +1,10 @@
 package com.example.baseandroidproject.remote_mediator
 
 import com.example.baseandroidproject.persistence.local.UserDao
+import com.example.baseandroidproject.persistence.local.UserEntity
 import com.example.baseandroidproject.persistence.remote.UserService
 import com.example.baseandroidproject.utils.mapToEntity
+import kotlinx.coroutines.flow.Flow
 
 class UserRepository(
     private val userService: UserService,
@@ -15,5 +17,7 @@ class UserRepository(
         userDao.upsertUsers(userEntities)
     }
 
-    fun retrieveUsers() = userDao.getAllUsers()
+    fun retrieveUsers(): Flow<List<UserEntity>> {
+        return userDao.getAllUsers()
+    }
 }
