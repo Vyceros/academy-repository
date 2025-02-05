@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/passcodeFragment">
 
+    <fragment
+        android:id="@+id/passcodeFragment"
+        android:name="com.example.baseandroidproject.ui.home_fragment.PasscodeFragment"
+        android:label="fragment_passcode"
+        tools:layout="@layout/fragment_passcode" />
 </navigation>
