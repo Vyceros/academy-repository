@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    tools:context=".ui.home_fragment.PasscodeFragment">
+    android:background="@color/white"
+    tools:context=".ui.PasscodeFragment">
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -21,6 +21,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPasscodeFirst"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/ivPasscodeSecond"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
+        app:srcCompat="@drawable/passcode_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPasscodeSecond"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/ivPasscodeThird"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@id/ivPasscodeFirst"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
+        app:srcCompat="@drawable/passcode_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPasscodeThird"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/ivPasscodeFourth"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@id/ivPasscodeSecond"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
+        app:srcCompat="@drawable/passcode_circle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPasscodeFourth"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@id/ivPasscodeThird"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
+        app:srcCompat="@drawable/passcode_circle" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvEnterPasscode"
         android:layout_width="wrap_content"
@@ -33,188 +77,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSecurityTitle" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialOne"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_1"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDialTwo"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialTwo"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_2"
-        android:textColor="@color/black"
-        android:textSize="36sp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvForgotPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialThree"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_3"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialFour"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_4"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDialTwo"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialOne" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialFive"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_5"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialTwo" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialSix"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_6"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintTop_toBottomOf="@id/tvDialThree" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialSeven"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_7"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDialTwo"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialFour" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialEight"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_8"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialFour" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialNine"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_9"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintTop_toBottomOf="@id/tvDialSix" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivFingerPrint"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:scaleType="centerInside"
-        android:text="@string/_7"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvDialTwo"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialSeven"
-        app:srcCompat="@drawable/touch__id_1" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvDialZero"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:text="@string/_0"
-        android:textColor="@color/black"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialEight" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivBackspace"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/dial_background"
-        android:gravity="center"
-        android:scaleType="centerInside"
-        android:text="@string/_9"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tvDialTwo"
-        app:layout_constraintTop_toBottomOf="@id/tvDialNine"
-        app:srcCompat="@drawable/backspace_24px" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEnterPasscode" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvForgotPassword"
@@ -228,5 +99,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topLeftGradient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_left_gradient" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bottomLeftGradient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom_left_gradient" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bottomRightGradient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/bottom_right_gradient" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
