@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.ui.dialpad
+package com.example.baseandroidproject.data.dialpad
 
 sealed class DialPadType {
     data class Number(val value : String) : DialPadType()

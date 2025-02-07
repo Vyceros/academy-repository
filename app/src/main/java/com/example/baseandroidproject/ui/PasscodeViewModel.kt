@@ -2,8 +2,9 @@ package com.example.baseandroidproject.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.ui.dialpad.DialPad
-import com.example.baseandroidproject.ui.dialpad.DialPadType
+import com.example.baseandroidproject.data.Resource
+import com.example.baseandroidproject.data.dialpad.DialPad
+import com.example.baseandroidproject.data.dialpad.DialPadType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -19,18 +20,18 @@ class PasscodeViewModel : ViewModel() {
         private const val PASSCODE = "0934"
 
         private val dialPadButtons = listOf(
-            DialPad(1, DialPadType.Number("1")),
-            DialPad(2, DialPadType.Number("2")),
-            DialPad(3, DialPadType.Number("3")),
-            DialPad(4, DialPadType.Number("4")),
-            DialPad(5, DialPadType.Number("5")),
-            DialPad(6, DialPadType.Number("6")),
-            DialPad(7, DialPadType.Number("7")),
-            DialPad(8, DialPadType.Number("8")),
-            DialPad(9, DialPadType.Number("9")),
-            DialPad(10, DialPadType.FingerPrint),
-            DialPad(11, DialPadType.Number("0")),
-            DialPad(12, DialPadType.Backspace)
+            DialPad(type = DialPadType.Number("1")),
+            DialPad(type = DialPadType.Number("2")),
+            DialPad(type = DialPadType.Number("3")),
+            DialPad(type = DialPadType.Number("4")),
+            DialPad(type = DialPadType.Number("5")),
+            DialPad(type = DialPadType.Number("6")),
+            DialPad(type = DialPadType.Number("7")),
+            DialPad(type = DialPadType.Number("8")),
+            DialPad(type = DialPadType.Number("9")),
+            DialPad(type = DialPadType.FingerPrint),
+            DialPad(type = DialPadType.Number("0")),
+            DialPad(type = DialPadType.Backspace)
         )
     }
 
@@ -42,6 +43,7 @@ class PasscodeViewModel : ViewModel() {
         }
     }
 
+    fun generateDialPad() = dialPadButtons
 
     private fun checkForInput(input: String) {
         val currentInputState = _passCodeState.value
@@ -91,8 +93,6 @@ class PasscodeViewModel : ViewModel() {
         updatePasscodeState(updatedInput)
         _authenticateState.value = Resource.Default
     }
-
-    fun generateDialPad() = dialPadButtons
 
     private fun clearInput() {
         _passCodeState.value = PasscodeState()

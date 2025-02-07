@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.ui
+package com.example.baseandroidproject.data
 
 sealed class Resource {
     object Default : Resource()

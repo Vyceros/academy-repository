@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.ui
+package com.example.baseandroidproject.ui.dialpad
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.baseandroidproject.R
 import com.example.baseandroidproject.databinding.DialpadItemBinding
-import com.example.baseandroidproject.ui.dialpad.DialPad
-import com.example.baseandroidproject.ui.dialpad.DialPadType
+import com.example.baseandroidproject.data.dialpad.DialPad
+import com.example.baseandroidproject.data.dialpad.DialPadType
 
 
 class DialPadAdapter(

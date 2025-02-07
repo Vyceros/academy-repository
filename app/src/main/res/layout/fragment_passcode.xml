@@ -21,49 +21,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivPasscodeFirst"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@id/ivPasscodeSecond"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
-        app:srcCompat="@drawable/passcode_circle" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivPasscodeSecond"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/ivPasscodeThird"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@id/ivPasscodeFirst"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
-        app:srcCompat="@drawable/passcode_circle" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivPasscodeThird"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@id/ivPasscodeFourth"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@id/ivPasscodeSecond"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
-        app:srcCompat="@drawable/passcode_circle" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivPasscodeFourth"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="8dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPasscodeCircles"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toEndOf="@id/ivPasscodeThird"
-        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode"
-        app:srcCompat="@drawable/passcode_circle" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterPasscode" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvEnterPasscode"

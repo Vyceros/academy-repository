@@ -5,9 +5,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.baseandroidproject.R
 import com.example.baseandroidproject.base.BaseFragment
+import com.example.baseandroidproject.data.Resource
+import com.example.baseandroidproject.data.passcode.PasscodeCircle
 import com.example.baseandroidproject.databinding.FragmentPasscodeBinding
+import com.example.baseandroidproject.ui.dialpad.DialPadAdapter
+import com.example.baseandroidproject.ui.passcode_circle.PasscodeCircleAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,6 +25,10 @@ class PasscodeFragment : BaseFragment<FragmentPasscodeBinding>(FragmentPasscodeB
         )
     }
 
+    private val passcodeCircleAdapter by lazy {
+        PasscodeCircleAdapter()
+    }
+
     override fun setup() {
         setupRecyclerView()
         observe()
@@ -32,6 +39,12 @@ class PasscodeFragment : BaseFragment<FragmentPasscodeBinding>(FragmentPasscodeB
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = dialPadAdapter
         }
+
+        binding.rvPasscodeCircles.apply {
+            layoutManager = GridLayoutManager(requireContext(),4)
+            adapter = passcodeCircleAdapter
+        }
+
     }
 
     private fun observe() {
@@ -66,21 +79,8 @@ class PasscodeFragment : BaseFragment<FragmentPasscodeBinding>(FragmentPasscodeB
     }
 
     private fun updatePasscodeCircles(inputSize: Int) {
-        with(binding) {
-            ivPasscodeFirst.setImageResource(changePasscodeColor(inputSize >= 1))
-            ivPasscodeSecond.setImageResource(changePasscodeColor(inputSize >= 2))
-            ivPasscodeThird.setImageResource(changePasscodeColor(inputSize >= 3))
-            ivPasscodeFourth.setImageResource(changePasscodeColor(inputSize >= 4))
-        }
+        val circles = List(4) { position -> PasscodeCircle(fillState = position < inputSize) }
+        passcodeCircleAdapter.submitList(circles)
     }
-
-    private fun changePasscodeColor(isFilled: Boolean): Int {
-        return if (isFilled) {
-            R.drawable.passcode_circle_filled
-        } else {
-            R.drawable.passcode_circle
-        }
-    }
-
 
 }
