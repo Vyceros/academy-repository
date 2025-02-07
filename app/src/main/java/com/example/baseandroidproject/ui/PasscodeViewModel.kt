@@ -39,7 +39,7 @@ class PasscodeViewModel : ViewModel() {
         when (type) {
             is DialPadType.Number -> checkForInput(type.value)
             DialPadType.Backspace -> removeLastInput()
-            DialPadType.FingerPrint -> return
+            DialPadType.FingerPrint -> handleFingerPrint()
         }
     }
 
@@ -96,5 +96,11 @@ class PasscodeViewModel : ViewModel() {
 
     private fun clearInput() {
         _passCodeState.value = PasscodeState()
+    }
+
+    private fun handleFingerPrint(){
+        viewModelScope.launch {
+            _authenticateState.value = Resource.Success("Success")
+        }
     }
 }
