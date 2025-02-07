@@ -1,14 +1,19 @@
 package com.example.baseandroidproject.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.ui.dialpad.DialPad
 import com.example.baseandroidproject.ui.dialpad.DialPadType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class PasscodeViewModel : ViewModel() {
     private val _passCodeState = MutableStateFlow(PasscodeState())
     val passCodeState = _passCodeState.asStateFlow()
+
+    private val _authenticateState = MutableStateFlow<Resource>(Resource.Default)
+    val authenticateState = _authenticateState.asStateFlow()
 
     companion object {
         private const val PASSCODE = "0934"
@@ -33,53 +38,61 @@ class PasscodeViewModel : ViewModel() {
         when (type) {
             is DialPadType.Number -> checkForInput(type.value)
             DialPadType.Backspace -> removeLastInput()
-            DialPadType.FingerPrint -> handleBiometric()
+            DialPadType.FingerPrint -> return
         }
     }
 
-    private fun handleBiometric() {
-    }
 
-    fun checkForInput(input: String?) {
+    private fun checkForInput(input: String) {
         val currentInputState = _passCodeState.value
+
+        _authenticateState.value = Resource.Default
+
         if (currentInputState.currentInput.size >= currentInputState.maxLength) {
+            clearInput()
             return
         }
 
-        val updateInput = currentInputState.currentInput + input
-        val isFilled = updateInput.size == currentInputState.maxLength
+        val updatedInput = currentInputState.currentInput + input
+        val isFilled = updatedInput.size == currentInputState.maxLength
 
-        val isValid = if (isFilled) {
-            if (updateInput.joinToString("") == PASSCODE) {
-                true
-            } else {
-                clearInput()
-                return
-            }
+        if (isFilled) {
+            validatePasscode(updatedInput)
         } else {
-            false
+            updatePasscodeState(updatedInput)
         }
-        _passCodeState.value = currentInputState.copy(
-            currentInput = updateInput,
-            isFilledOut = isValid
+    }
+
+    private fun validatePasscode(input: List<String?>) {
+        viewModelScope.launch {
+            _authenticateState.value = Resource.Default
+
+            val passcode = input.joinToString("")
+            _authenticateState.value = if (passcode == PASSCODE) {
+                Resource.Success("Success")
+            } else {
+                Resource.Error("Invalid passcode")
+            }
+
+            clearInput()
+        }
+    }
+
+    private fun updatePasscodeState(input: List<String?>) {
+        _passCodeState.value = _passCodeState.value.copy(
+            currentInput = input,
+            isFilledOut = false
         )
     }
 
     private fun removeLastInput() {
         val currentInputState = _passCodeState.value
-        val updateInput = currentInputState.currentInput.dropLast(1)
-        _passCodeState.value = currentInputState.copy(
-            currentInput = updateInput,
-            isFilledOut = false
-        )
+        val updatedInput = currentInputState.currentInput.dropLast(1)
+        updatePasscodeState(updatedInput)
+        _authenticateState.value = Resource.Default
     }
 
     fun generateDialPad() = dialPadButtons
-
-    private fun checkCode(): Boolean {
-        val passCode = _passCodeState.value.currentInput.joinToString("")
-        return passCode == PASSCODE
-    }
 
     private fun clearInput() {
         _passCodeState.value = PasscodeState()

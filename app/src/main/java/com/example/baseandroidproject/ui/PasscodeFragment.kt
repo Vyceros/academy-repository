@@ -38,26 +38,43 @@ class PasscodeFragment : BaseFragment<FragmentPasscodeBinding>(FragmentPasscodeB
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.passCodeState.collectLatest { state ->
-                    updatePasscodeDisplay(state.currentInput.size)
+                    updatePasscodeCircles(state.currentInput.size)
+                }
+            }
+        }
 
-                    if (state.isFilledOut) {
-                        Snackbar.make(binding.root,"FILLED", Snackbar.LENGTH_SHORT).show()
-                    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.authenticateState.collectLatest { result ->
+                    handleResult(result)
                 }
             }
         }
     }
 
-    private fun updatePasscodeDisplay(inputSize: Int) {
-        with(binding) {
-            ivPasscodeFirst.setImageResource(getCircleResource(inputSize >= 1))
-            ivPasscodeSecond.setImageResource(getCircleResource(inputSize >= 2))
-            ivPasscodeThird.setImageResource(getCircleResource(inputSize >= 3))
-            ivPasscodeFourth.setImageResource(getCircleResource(inputSize >= 4))
+    private fun handleResult(result: Resource) {
+        when (result) {
+            is Resource.Default -> {}
+            is Resource.Success -> {
+                Snackbar.make(binding.root, result.message, Snackbar.LENGTH_SHORT).show()
+            }
+
+            is Resource.Error -> {
+                Snackbar.make(binding.root, result.message, Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun getCircleResource(isFilled: Boolean): Int {
+    private fun updatePasscodeCircles(inputSize: Int) {
+        with(binding) {
+            ivPasscodeFirst.setImageResource(changePasscodeColor(inputSize >= 1))
+            ivPasscodeSecond.setImageResource(changePasscodeColor(inputSize >= 2))
+            ivPasscodeThird.setImageResource(changePasscodeColor(inputSize >= 3))
+            ivPasscodeFourth.setImageResource(changePasscodeColor(inputSize >= 4))
+        }
+    }
+
+    private fun changePasscodeColor(isFilled: Boolean): Int {
         return if (isFilled) {
             R.drawable.passcode_circle_filled
         } else {
