@@ -7,27 +7,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.data.users.UserDto
 import com.example.baseandroidproject.databinding.UserItemBinding
+import com.example.baseandroidproject.storage.user_list.UserEntity
 
-private class UserDiffUtils : DiffUtil.ItemCallback<UserDto>() {
-    override fun areItemsTheSame(oldItem: UserDto, newItem: UserDto): Boolean {
+private class UserDiffUtils : DiffUtil.ItemCallback<UserEntity>() {
+    override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: UserDto, newItem: UserDto): Boolean {
+    override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<UserDto, UserListAdapter.UserViewHolder>(
+class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<UserEntity, UserListAdapter.UserViewHolder>(
     UserDiffUtils()
 ) {
 
     inner class UserViewHolder(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(userDto : UserDto) {
+        fun bind(userDto : UserEntity) {
             binding.tvFirstName.text = userDto.firstName
             binding.tvLastName.text = userDto.lastName
             binding.tvEmail.text = userDto.email

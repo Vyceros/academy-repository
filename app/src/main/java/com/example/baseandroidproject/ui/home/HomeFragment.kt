@@ -13,6 +13,7 @@ import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.client.retrofit.RetrofitClient
 import com.example.baseandroidproject.client.services.AuthorizationService
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
+import com.example.baseandroidproject.storage.ApplicationDatabase
 import com.example.baseandroidproject.ui.home.recycler.UserListAdapter
 import com.example.baseandroidproject.ui.login.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -20,9 +21,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val viewModel : HomeViewModel by viewModels{
-        ViewModelFactory{
-            HomeViewModel(RetrofitClient.apiService as AuthorizationService)
+    private val viewModel: HomeViewModel by viewModels {
+        ViewModelFactory {
+            HomeViewModel(
+                apiSource = RetrofitClient.apiService,
+                ApplicationDatabase.getInstance(requireContext().applicationContext)
+            )
         }
     }
     private val adapter by lazy {

@@ -9,7 +9,7 @@ import com.example.baseandroidproject.storage.user_details.UserDetailsEntity
 import com.example.baseandroidproject.storage.user_list.UserDao
 import com.example.baseandroidproject.storage.user_list.UserEntity
 
-@Database(entities = [UserEntity::class, UserDetailsEntity::class], version = 3)
+@Database(entities = [UserEntity::class, UserDetailsEntity::class], version = 4)
 abstract class ApplicationDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun userDetailsDao(): DetailsDao

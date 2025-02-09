@@ -9,7 +9,7 @@ class UserDetailsRepository(private val userDao: DetailsDao) {
     }
 
     suspend fun insertUserDetails(userDetailsEntity: UserDetailsEntity) {
-        userDao.insertUserDetails(userDetailsEntity)
+        userDao.insertUserToken(userDetailsEntity)
 
     }
 
