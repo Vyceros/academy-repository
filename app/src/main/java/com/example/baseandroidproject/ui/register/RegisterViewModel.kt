@@ -1,11 +1,11 @@
 package com.example.baseandroidproject.ui.register
 
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
-import com.example.baseandroidproject.client.retrofit.RetrofitClient
-import com.example.baseandroidproject.data.register.RegisterRequest
-import com.example.baseandroidproject.data.register.RegisterResponse
-import com.example.baseandroidproject.data.response.ApiResponse
+import com.example.baseandroidproject.data.remote.response_handler.ApiResponseHandler
+import com.example.baseandroidproject.data.remote.retrofit.RetrofitClient
+import com.example.baseandroidproject.data.remote.services.register.RegisterRequest
+import com.example.baseandroidproject.data.remote.services.register.RegisterResponse
+import com.example.baseandroidproject.data.remote.response.ApiResponse
 import com.example.baseandroidproject.helpers.Validators
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

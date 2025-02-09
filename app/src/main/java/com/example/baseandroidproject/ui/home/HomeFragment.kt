@@ -9,11 +9,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.base.BaseFragment
-import com.example.baseandroidproject.client.retrofit.RetrofitClient
-import com.example.baseandroidproject.client.services.AuthorizationService
+import com.example.baseandroidproject.ui.base.BaseFragment
+import com.example.baseandroidproject.data.remote.retrofit.RetrofitClient
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
-import com.example.baseandroidproject.storage.ApplicationDatabase
+import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
 import com.example.baseandroidproject.ui.home.recycler.UserListAdapter
 import com.example.baseandroidproject.ui.login.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -65,7 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.flow.collectLatest { response ->
+                viewModel.userFlow.collectLatest { response ->
                     adapter.submitData(response)
                 }
             }

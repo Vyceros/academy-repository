@@ -1,15 +1,15 @@
 package com.example.baseandroidproject.ui.login
 
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
-import com.example.baseandroidproject.client.retrofit.RetrofitClient
-import com.example.baseandroidproject.data.login.LoginRequest
-import com.example.baseandroidproject.data.login.LoginResponse
-import com.example.baseandroidproject.data.repositories.UserDetailsRepository
-import com.example.baseandroidproject.data.response.ApiResponse
-import com.example.baseandroidproject.data.response.isSuccessMessage
+import com.example.baseandroidproject.data.remote.response_handler.ApiResponseHandler
+import com.example.baseandroidproject.data.remote.retrofit.RetrofitClient
+import com.example.baseandroidproject.data.remote.services.login.LoginRequest
+import com.example.baseandroidproject.data.remote.services.login.LoginResponse
+import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
+import com.example.baseandroidproject.data.remote.response.ApiResponse
+import com.example.baseandroidproject.data.remote.response.isSuccessMessage
 import com.example.baseandroidproject.helpers.Validators
-import com.example.baseandroidproject.storage.user_details.UserDetailsEntity
+import com.example.baseandroidproject.data.local.storage.user_details.UserDetailsEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

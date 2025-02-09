@@ -1,6 +1,6 @@
 package com.example.baseandroidproject.ui.profile
 
-import com.example.baseandroidproject.base.BaseFragment
+import com.example.baseandroidproject.ui.base.BaseFragment
 import com.example.baseandroidproject.databinding.FragmentProfileBinding
 import com.google.android.material.snackbar.Snackbar
 

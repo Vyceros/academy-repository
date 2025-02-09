@@ -6,16 +6,16 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.baseandroidproject.base.BaseFragment
-import com.example.baseandroidproject.data.login.LoginResponse
-import com.example.baseandroidproject.data.repositories.UserDetailsRepository
-import com.example.baseandroidproject.data.response.ApiResponse
-import com.example.baseandroidproject.data.response.isErrorMessage
-import com.example.baseandroidproject.data.response.isExceptionMessage
-import com.example.baseandroidproject.data.response.isLoadingMessage
-import com.example.baseandroidproject.data.response.isSuccessMessage
+import com.example.baseandroidproject.ui.base.BaseFragment
+import com.example.baseandroidproject.data.remote.services.login.LoginResponse
+import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
+import com.example.baseandroidproject.data.remote.response.ApiResponse
+import com.example.baseandroidproject.data.remote.response.isErrorMessage
+import com.example.baseandroidproject.data.remote.response.isExceptionMessage
+import com.example.baseandroidproject.data.remote.response.isLoadingMessage
+import com.example.baseandroidproject.data.remote.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
-import com.example.baseandroidproject.storage.ApplicationDatabase
+import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 

@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.baseandroidproject.R
+import com.example.baseandroidproject.data.local.storage.user_list.UserEntity
 import com.example.baseandroidproject.databinding.UserItemBinding
-import com.example.baseandroidproject.storage.user_list.UserEntity
 
 private class UserDiffUtils : DiffUtil.ItemCallback<UserEntity>() {
     override fun areItemsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: UserEntity, newItem: UserEntity): Boolean {

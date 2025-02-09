@@ -7,11 +7,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.base.BaseFragment
-import com.example.baseandroidproject.data.response.isErrorMessage
-import com.example.baseandroidproject.data.response.isExceptionMessage
-import com.example.baseandroidproject.data.response.isLoadingMessage
-import com.example.baseandroidproject.data.response.isSuccessMessage
+import com.example.baseandroidproject.ui.base.BaseFragment
+import com.example.baseandroidproject.data.remote.response.isErrorMessage
+import com.example.baseandroidproject.data.remote.response.isExceptionMessage
+import com.example.baseandroidproject.data.remote.response.isLoadingMessage
+import com.example.baseandroidproject.data.remote.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers

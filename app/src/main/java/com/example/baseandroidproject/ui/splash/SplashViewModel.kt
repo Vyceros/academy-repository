@@ -1,8 +1,8 @@
 package com.example.baseandroidproject.ui.splash
 
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
-import com.example.baseandroidproject.data.repositories.UserDetailsRepository
+import com.example.baseandroidproject.data.remote.response_handler.ApiResponseHandler
+import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
 import kotlinx.coroutines.launch
 
 class SplashViewModel(private val userDetailsRepository: UserDetailsRepository) :

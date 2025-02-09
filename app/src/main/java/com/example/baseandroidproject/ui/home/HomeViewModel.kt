@@ -5,18 +5,18 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.baseandroidproject.client.response_handler.ApiResponseHandler
-import com.example.baseandroidproject.client.services.AuthorizationService
-import com.example.baseandroidproject.storage.ApplicationDatabase
-import com.example.baseandroidproject.storage.UserRemoteMediator
+import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
+import com.example.baseandroidproject.data.local.storage.UserRemoteMediator
+import com.example.baseandroidproject.data.remote.response_handler.ApiResponseHandler
+import com.example.baseandroidproject.data.remote.services.AuthorizationService
 
 class HomeViewModel(
-    private val apiSource: AuthorizationService,
+    apiSource: AuthorizationService,
     private val database: ApplicationDatabase
 ) : ApiResponseHandler() {
 
     @OptIn(ExperimentalPagingApi::class)
-    val flow = Pager(
+    val userFlow = Pager(
         config = PagingConfig(
             pageSize = 6,
             prefetchDistance = 1,
@@ -27,4 +27,5 @@ class HomeViewModel(
     ) {
         database.userDao().pagingSource()
     }.flow.cachedIn(viewModelScope)
+
 }
