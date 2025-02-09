@@ -1,9 +1,9 @@
     package com.example.baseandroidproject.data.local.storage.user_details
 
     import androidx.room.Dao
-    import androidx.room.Insert
-    import androidx.room.OnConflictStrategy
-    import androidx.room.Query
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
     @Dao
     interface DetailsDao {

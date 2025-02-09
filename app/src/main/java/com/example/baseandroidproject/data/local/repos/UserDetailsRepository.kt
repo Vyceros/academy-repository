@@ -13,4 +13,7 @@ class UserDetailsRepository(private val userDao: DetailsDao) {
 
     }
 
+    suspend fun deleteUserDetails() {
+        userDao.clearDetails()
+    }
 }

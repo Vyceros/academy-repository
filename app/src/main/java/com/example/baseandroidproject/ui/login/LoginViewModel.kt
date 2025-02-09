@@ -1,15 +1,15 @@
 package com.example.baseandroidproject.ui.login
 
 import androidx.lifecycle.viewModelScope
+import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
+import com.example.baseandroidproject.data.local.storage.user_details.UserDetailsEntity
+import com.example.baseandroidproject.data.remote.response.ApiResponse
+import com.example.baseandroidproject.data.remote.response.isSuccessMessage
 import com.example.baseandroidproject.data.remote.response_handler.ApiResponseHandler
 import com.example.baseandroidproject.data.remote.retrofit.RetrofitClient
 import com.example.baseandroidproject.data.remote.services.login.LoginRequest
 import com.example.baseandroidproject.data.remote.services.login.LoginResponse
-import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
-import com.example.baseandroidproject.data.remote.response.ApiResponse
-import com.example.baseandroidproject.data.remote.response.isSuccessMessage
 import com.example.baseandroidproject.helpers.Validators
-import com.example.baseandroidproject.data.local.storage.user_details.UserDetailsEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,14 +50,22 @@ class LoginViewModel(private val userDetailsRepository: UserDetailsRepository) :
         email: String,
         rememberMe: Boolean
     ) {
-        val userDetails = UserDetailsEntity(
-            token = if (rememberMe) token else null,
-            firstName = firstName,
-            lastName = lastName,
-            email = email
-
-        )
-        userDetailsRepository.insertUserDetails(userDetails)
+        if (rememberMe) {
+            val userDetails = UserDetailsEntity(
+                token = token,
+                firstName = firstName,
+                lastName = lastName,
+                email = email
+            )
+            userDetailsRepository.insertUserDetails(userDetails)
+        } else {
+            val userDetails = UserDetailsEntity(
+                token = null,
+                firstName = firstName,
+                lastName = lastName,
+                email = email
+            )
+            userDetailsRepository.insertUserDetails(userDetails)
+        }
     }
-
 }

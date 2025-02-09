@@ -22,20 +22,21 @@ class UserRemoteMediator(
         state: PagingState<Int, UserEntity>
     ): MediatorResult {
         return try {
+
             val loadKey = when (loadType) {
                 LoadType.REFRESH -> 1
                 LoadType.PREPEND -> {
                     return MediatorResult.Success(endOfPaginationReached = true)
                 }
-
                 LoadType.APPEND -> {
                     val lastUser = state.lastItemOrNull()
-                        ?: return MediatorResult.Success(endOfPaginationReached = true)
-
-                    (lastUser.id / state.config.pageSize) + 1
+                    val lastPage = lastUser?.id ?: 0
+                    (lastPage / state.config.pageSize) + 1
                 }
             }
+
             val users = apiSource.getUsers(page = loadKey, perPage = state.config.pageSize)
+
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     database.userDao().clearAll()
@@ -43,12 +44,17 @@ class UserRemoteMediator(
                 val userEntities = users.body()?.data?.map { it.toUserEntity() } ?: emptyList()
                 database.userDao().insertAll(userEntities)
             }
-            MediatorResult.Success(endOfPaginationReached = users.body()?.data.orEmpty().isEmpty())
+
+            val endOfPaginationReached =
+                users.body()?.data.isNullOrEmpty() || (users.body()?.data?.size
+                    ?: 0) < state.config.pageSize
+            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (ex: IOException) {
             MediatorResult.Error(ex)
         } catch (ex: HttpException) {
             MediatorResult.Error(ex)
         }
     }
-
 }
+
+

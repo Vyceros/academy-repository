@@ -6,16 +6,16 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.baseandroidproject.ui.base.BaseFragment
-import com.example.baseandroidproject.data.remote.services.login.LoginResponse
 import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
+import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
 import com.example.baseandroidproject.data.remote.response.ApiResponse
 import com.example.baseandroidproject.data.remote.response.isErrorMessage
 import com.example.baseandroidproject.data.remote.response.isExceptionMessage
 import com.example.baseandroidproject.data.remote.response.isLoadingMessage
 import com.example.baseandroidproject.data.remote.response.isSuccessMessage
+import com.example.baseandroidproject.data.remote.services.login.LoginResponse
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
-import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
+import com.example.baseandroidproject.ui.base.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -42,11 +42,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         with(binding) {
             btnLogin.setOnClickListener {
                 viewModel.loginUser(
-                    etEmail.text.toString(),
-                    etPassword.text.toString(),
-                    cbRememberMe.isChecked,
-                    "",
-                    ""
+                    email = etEmail.text.toString(),
+                    password = etPassword.text.toString(),
+                    rememberMe = cbRememberMe.isChecked,
+                    firstName = "",
+                    lastName = ""
                 )
             }
             btnRegister.setOnClickListener {
