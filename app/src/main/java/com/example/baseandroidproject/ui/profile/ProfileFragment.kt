@@ -10,7 +10,6 @@ import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
 import com.example.baseandroidproject.databinding.FragmentProfileBinding
 import com.example.baseandroidproject.ui.base.BaseFragment
 import com.example.baseandroidproject.ui.login.ViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -26,7 +25,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     override fun setup() {
-        observer() // Set up UI observation
     }
 
     override fun listeners() {
@@ -43,7 +41,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
     }
 
-    private fun observer() {
+
+
+    private fun loadDetails() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loadUserDetails()
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.userDetails.collect { userDetails ->
@@ -55,10 +61,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 }
             }
         }
-    }
-
-    private fun loadDetails() {
-        viewModel.loadUserDetails()
     }
 
     private fun saveDetails() {
@@ -74,7 +76,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
     }
 
-    private fun statusMessage(status: String) {
-        Snackbar.make(binding.root, status, Snackbar.LENGTH_SHORT).show()
-    }
 }
