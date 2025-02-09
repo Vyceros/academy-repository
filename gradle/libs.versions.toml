@@ -1,30 +1,32 @@
 [versions]
 agp = "8.6.1"
-datastoreVersion = "1.0.0"
-kotlin = "1.9.0"
+datastoreVersion = "1.1.2"
+kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.3"
+activity = "1.10.0"
 constraintlayout = "2.2.0"
 protobufJavalite = "3.21.11"
+roomRuntime = "2.6.1"
 protobufKotlinLite = "3.21.11"
-safeArgs = "2.8.5"
-serialization = "2.0.21"
-navVersion = "2.8.5"
+safeArgs = "2.8.6"
+serialization = "2.1.0"
+navVersion = "2.8.6"
 retrofit = "2.11.0"
-kotlinxSerializationJson = "1.7.3"
+kotlinxSerializationJson = "1.8.0"
 glide = "4.16.0"
 dataStore = "1.1.2"
 roomKtx = "2.6.1"
 legacySupportV4 = "1.0.0"
 lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
-fragmentKtx = "1.5.6"
+fragmentKtx = "1.8.5"
 androidPaging = "3.3.5"
+ksp = "2.1.0-1.0.29"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,15 +46,17 @@ serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-jso
 safeArgs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "safeArgs" }
 squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 squareup-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
-image-glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
-data-store = {group = "androidx.datastore", name = "datastore-preferences",version.ref = "dataStore"}
+image-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+data-store = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
-androidx-paging = {group = "androidx.paging", name = "paging-runtime", version.ref = "androidPaging"}
-
+androidx-paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "androidPaging" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 
 
 [plugins]
@@ -61,4 +65,6 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 safeArgs = { id = "androidx.navigation.safeargs.kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room-plugin = { id = "androidx.room", version.ref = "roomRuntime" }
 

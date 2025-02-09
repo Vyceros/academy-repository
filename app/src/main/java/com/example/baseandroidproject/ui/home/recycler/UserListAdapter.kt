@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.home.recycler
+package com.example.baseandroidproject.ui.home.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,31 +7,33 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.data.users.User
+import com.example.baseandroidproject.data.users.UserDto
 import com.example.baseandroidproject.databinding.UserItemBinding
 
-private class UserDiffUtils : DiffUtil.ItemCallback<User>() {
-    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+private class UserDiffUtils : DiffUtil.ItemCallback<UserDto>() {
+    override fun areItemsTheSame(oldItem: UserDto, newItem: UserDto): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+    override fun areContentsTheSame(oldItem: UserDto, newItem: UserDto): Boolean {
         return oldItem == newItem
     }
 
 }
 
-class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<User, UserListAdapter.UserViewHolder>(UserDiffUtils()) {
+class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<UserDto, UserListAdapter.UserViewHolder>(
+    UserDiffUtils()
+) {
 
     inner class UserViewHolder(private val binding: UserItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user : User) {
-            binding.tvFirstName.text = user.firstName
-            binding.tvLastName.text = user.lastName
-            binding.tvEmail.text = user.email
-            binding.tvUserId.text = user.id.toString()
+        fun bind(userDto : UserDto) {
+            binding.tvFirstName.text = userDto.firstName
+            binding.tvLastName.text = userDto.lastName
+            binding.tvEmail.text = userDto.email
+            binding.tvUserId.text = userDto.id.toString()
             Glide.with(binding.root)
-                .load(user.avatar)
+                .load(userDto.avatar)
                 .error(R.drawable.ic_launcher_foreground)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.ivAvatar)

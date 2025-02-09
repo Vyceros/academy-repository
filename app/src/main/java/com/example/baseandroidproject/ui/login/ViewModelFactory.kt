@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.login
+package com.example.baseandroidproject.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

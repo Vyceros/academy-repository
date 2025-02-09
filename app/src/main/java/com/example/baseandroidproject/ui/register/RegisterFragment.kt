@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.register
+package com.example.baseandroidproject.ui.register
 
 import android.os.Bundle
 import androidx.core.view.isVisible

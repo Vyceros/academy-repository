@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.register
+package com.example.baseandroidproject.ui.register
 
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.client.response_handler.ApiResponseHandler

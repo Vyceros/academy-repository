@@ -1,25 +1,25 @@
-package com.example.baseandroidproject.fragments.home.recycler
+package com.example.baseandroidproject.ui.home.recycler
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.baseandroidproject.client.services.AuthorizationService
-import com.example.baseandroidproject.data.users.User
+import com.example.baseandroidproject.data.users.UserDto
 import kotlinx.coroutines.delay
 
-class UsersPagingSource(private val apiSource: AuthorizationService) : PagingSource<Int, User>() {
+class UsersPagingSource(private val apiSource: AuthorizationService) : PagingSource<Int, UserDto>() {
 
     companion object {
         private const val START_INDEX = 1
     }
 
-    override fun getRefreshKey(state: PagingState<Int, User>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, UserDto>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UserDto> {
         val page = params.key ?: START_INDEX
         return try {
             val response = apiSource.getUsers(

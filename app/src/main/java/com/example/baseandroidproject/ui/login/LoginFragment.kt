@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments.login
+package com.example.baseandroidproject.ui.login
 
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -8,22 +8,28 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.base.BaseFragment
 import com.example.baseandroidproject.data.login.LoginResponse
+import com.example.baseandroidproject.data.repositories.UserDetailsRepository
 import com.example.baseandroidproject.data.response.ApiResponse
 import com.example.baseandroidproject.data.response.isErrorMessage
 import com.example.baseandroidproject.data.response.isExceptionMessage
 import com.example.baseandroidproject.data.response.isLoadingMessage
 import com.example.baseandroidproject.data.response.isSuccessMessage
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
-import com.example.baseandroidproject.sessions.ProtoDataStore
+import com.example.baseandroidproject.storage.ApplicationDatabase
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    private val viewModel: LoginViewModel by viewModels{
+    private val viewModel: LoginViewModel by viewModels {
         ViewModelFactory {
-            LoginViewModel(ProtoDataStore(requireContext().applicationContext))
+            LoginViewModel(
+                UserDetailsRepository(
+                    ApplicationDatabase.getInstance(requireContext().applicationContext)
+                        .userDetailsDao()
+                )
+            )
         }
     }
 
@@ -37,7 +43,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             btnLogin.setOnClickListener {
                 viewModel.loginUser(
                     etEmail.text.toString(),
-                    etPassword.text.toString()
+                    etPassword.text.toString(),
+                    cbRememberMe.isChecked
                 )
             }
             btnRegister.setOnClickListener {
@@ -63,9 +70,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         when {
             response.isSuccessMessage() -> {
-                response.data?.let { loginData ->
-                    onSuccessfulLogin(loginData.token)
-                }
+                onSuccessfulLogin()
             }
 
             response.isErrorMessage() -> {
@@ -86,15 +91,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
-    private fun onSuccessfulLogin(token: String) {
-        if (binding.cbRememberMe.isChecked) {
-            viewModel.saveToken(token, binding.etEmail.text.toString())
-        }
+    private fun onSuccessfulLogin() {
 
         findNavController().navigate(
             LoginFragmentDirections.actionLoginFragmentToHomeFragment()
         )
     }
+
 
     private fun validateLoginFields() {
         binding.btnLogin.isEnabled = viewModel.run {

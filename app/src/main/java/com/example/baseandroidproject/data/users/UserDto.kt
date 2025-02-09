@@ -12,11 +12,11 @@ data class UserPagedResponse(
     @SerialName("total_pages")
     val totalPages: Int,
     val support : Support,
-    val data: List<User>
+    val data: List<UserDto>
 )
 
 @Serializable
-data class User(
+data class UserDto(
     val id: Int,
     val email: String,
     @SerialName("first_name")
