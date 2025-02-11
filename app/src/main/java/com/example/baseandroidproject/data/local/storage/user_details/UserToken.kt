@@ -4,11 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "user_details")
-data class UserDetailsEntity(
+@Entity(tableName = "user_tokens")
+data class UserToken(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "token") val token: String?,
-    val email: String,
-    val firstName: String,
-    val lastName: String
+    @ColumnInfo(name = "token") val token: String?
 )

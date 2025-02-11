@@ -2,7 +2,7 @@ package com.example.baseandroidproject.ui.login
 
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.local.repos.UserDetailsRepository
-import com.example.baseandroidproject.data.local.storage.user_details.UserDetailsEntity
+import com.example.baseandroidproject.data.local.storage.user_details.UserToken
 import com.example.baseandroidproject.data.remote.response.ApiResponse
 import com.example.baseandroidproject.data.remote.response.isSuccessMessage
 import com.example.baseandroidproject.data.remote.response_handler.ApiResponseHandler
@@ -51,7 +51,7 @@ class LoginViewModel(private val userDetailsRepository: UserDetailsRepository) :
         rememberMe: Boolean
     ) {
         if (rememberMe) {
-            val userDetails = UserDetailsEntity(
+            val userDetails = UserToken(
                 token = token,
                 firstName = firstName,
                 lastName = lastName,
@@ -59,7 +59,7 @@ class LoginViewModel(private val userDetailsRepository: UserDetailsRepository) :
             )
             userDetailsRepository.insertUserDetails(userDetails)
         } else {
-            val userDetails = UserDetailsEntity(
+            val userDetails = UserToken(
                 token = null,
                 firstName = firstName,
                 lastName = lastName,

@@ -4,15 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.baseandroidproject.data.local.storage.user_details.DetailsDao
-import com.example.baseandroidproject.data.local.storage.user_details.UserDetailsEntity
+import com.example.baseandroidproject.data.local.storage.user_details.TokenDao
+import com.example.baseandroidproject.data.local.storage.user_details.UserToken
 import com.example.baseandroidproject.data.local.storage.user_list.UserDao
 import com.example.baseandroidproject.data.local.storage.user_list.UserEntity
 
-@Database(entities = [UserEntity::class, UserDetailsEntity::class], version = 4)
+@Database(entities = [UserEntity::class, UserToken::class], version = 4)
 abstract class ApplicationDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun userDetailsDao(): DetailsDao
+    abstract fun userDetailsDao(): TokenDao
 
     companion object {
         @Volatile
