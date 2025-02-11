@@ -1,6 +1,8 @@
 package com.example.baseandroidproject.data.remote.models.auth
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class AuthResponse(
-    val id : String? = null,
+    val id : Int? = null,
     val token : String
 )

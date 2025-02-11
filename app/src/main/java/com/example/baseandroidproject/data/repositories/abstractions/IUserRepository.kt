@@ -6,4 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository {
     fun getUsers(): Flow<PagingData<UserEntity>>
+
+    suspend fun insertUser(user: UserEntity)
+
+    suspend fun getUserById(id: Int): UserEntity?
+
 }

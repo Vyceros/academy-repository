@@ -13,47 +13,48 @@ import okio.IOException
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
-class RemoteMediator(
-    private val apiService: UserService,
-    private val database: AppDatabase
+class UserRemoteMediator(
+    private val database: AppDatabase,
+    private val apiService: UserService
 ) : RemoteMediator<Int, UserEntity>() {
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, UserEntity>
     ): MediatorResult {
         return try {
-            val page: Int = when (loadType) {
+            val loadKey = when (loadType) {
                 LoadType.REFRESH -> 1
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.PREPEND -> return MediatorResult.Success(
+                    endOfPaginationReached = true
+                )
+
                 LoadType.APPEND -> {
                     val lastUser = state.lastItemOrNull()
                     if (lastUser == null) {
-                        return MediatorResult.Success(endOfPaginationReached = true)
+                        1
                     } else {
-                        val nextPage = lastUser.id?.let {
-                            val currentPage = (it - 1) / state.config.pageSize + 1
-                            currentPage + 1
-                        } ?: 1
-                        nextPage
+                        (lastUser.id / state.config.pageSize) + 1
                     }
                 }
             }
-            val response = apiService.getUsers(page, state.config.pageSize)
+
+            val response = apiService.getUsers(loadKey, state.config.pageSize)
+            val users = response.body()?.data.orEmpty()
 
             database.withTransaction {
-                response.body()?.data?.let { list ->
-                    database.userDao().insertUsers(list.map { it.toUserEntity() })
+                if (loadType == LoadType.REFRESH) {
+                    database.userDao().clearAllUsers()
                 }
+                database.userDao().insertUsers(users.map { it.toUserEntity() })
             }
+
             MediatorResult.Success(
-                endOfPaginationReached = response.body()?.data.orEmpty().isEmpty()
+                endOfPaginationReached = users.isEmpty()
             )
-        } catch (ex: IOException) {
-            MediatorResult.Error(ex)
-        } catch (ex: HttpException) {
-            MediatorResult.Error(ex)
-        } catch (ex: Throwable) {
-            MediatorResult.Error(ex)
+        } catch (e: IOException) {
+            MediatorResult.Error(e)
+        } catch (e: HttpException) {
+            MediatorResult.Error(e)
         }
     }
 }
