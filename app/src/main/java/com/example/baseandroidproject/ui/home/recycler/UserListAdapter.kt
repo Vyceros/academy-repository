@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.data.local.storage.user_list.UserEntity
+import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.databinding.UserItemBinding
 
 private class UserDiffUtils : DiffUtil.ItemCallback<UserEntity>() {
@@ -21,7 +21,7 @@ private class UserDiffUtils : DiffUtil.ItemCallback<UserEntity>() {
 
 }
 
-class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapter<UserEntity, UserListAdapter.UserViewHolder>(
+class UserListAdapter : PagingDataAdapter<UserEntity, UserListAdapter.UserViewHolder>(
     UserDiffUtils()
 ) {
 
@@ -37,11 +37,6 @@ class UserListAdapter(private val toRefreshList : () -> Unit) : PagingDataAdapte
                 .error(R.drawable.ic_launcher_foreground)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(binding.ivAvatar)
-
-            binding.root.setOnLongClickListener {
-                toRefreshList.invoke()
-                true
-            }
         }
     }
 

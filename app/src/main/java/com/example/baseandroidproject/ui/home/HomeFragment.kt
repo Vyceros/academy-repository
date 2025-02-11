@@ -5,88 +5,67 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.baseandroidproject.R
-import com.example.baseandroidproject.ui.base.BaseFragment
-import com.example.baseandroidproject.data.remote.retrofit.RetrofitClient
+import com.example.baseandroidproject.data.local.AppDatabase
+import com.example.baseandroidproject.data.remote.RetrofitImpl
+import com.example.baseandroidproject.data.repositories.user_repository.UserRepository
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
-import com.example.baseandroidproject.data.local.storage.ApplicationDatabase
+import com.example.baseandroidproject.ui.base.BaseFragment
 import com.example.baseandroidproject.ui.home.recycler.UserListAdapter
-import com.example.baseandroidproject.ui.login.ViewModelFactory
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collectLatest
+import com.example.baseandroidproject.ui.view_model_factory.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     private val viewModel: HomeViewModel by viewModels {
         ViewModelFactory {
             HomeViewModel(
-                apiSource = RetrofitClient.apiService,
-                ApplicationDatabase.getInstance(requireContext().applicationContext)
+                UserRepository(
+                    userService = RetrofitImpl.usersService, database =
+                    AppDatabase.getInstance(requireContext().applicationContext)
+                )
             )
         }
     }
-    private val adapter by lazy {
-        UserListAdapter(
-            toRefreshList = { onHold() }
-        )
-    }
+
+    private lateinit var adapter : UserListAdapter
 
     override fun setup() {
+        adapter = UserListAdapter()
         setupRecycler()
-        observer()
+        observe()
+
     }
 
-    override fun listeners() {
-        binding.ivToProfile.setOnClickListener {
-            navigateToProfile()
-        }
-    }
-
-
-    private fun observer() {
+    private fun observe(){
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                adapter.loadStateFlow.collectLatest { loadState ->
-                    binding.progressBar.isVisible =
-                        loadState.source.refresh is LoadState.Loading
-                                || loadState.source.append is LoadState.Loading
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.items.collect {
+                    adapter.submitData(it)
+                }
+            }
+        }
 
-                    if (loadState.source.append is LoadState.Error) {
-                        snackbar(getString(R.string.an_error_occurred))
-                        adapter.refresh()
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                adapter.addLoadStateListener { state ->
+                    when(state.refresh){
+                        is LoadState.Error -> binding.progressBar.isVisible = false
+                        is LoadState.Loading -> binding.progressBar.isVisible = true
+                        is LoadState.NotLoading -> binding.progressBar.isVisible = false
                     }
                 }
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userFlow.collectLatest { response ->
-                    adapter.submitData(response)
-                }
-            }
-        }
+    }
+    override fun listeners() {
     }
 
-    private fun setupRecycler() {
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.recycler.adapter = adapter
-
-    }
-
-    private fun navigateToProfile() {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
-    }
-
-    private fun snackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun onHold() {
-        adapter.refresh()
+    private fun setupRecycler(){
+        val recycler = binding.recycler
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(requireContext())
     }
 
 }
