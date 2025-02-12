@@ -1,6 +1,5 @@
 package com.example.baseandroidproject.ui.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.local.entities.UserEntity
@@ -41,7 +40,6 @@ class LoginViewModel(
                     if (rememberMe) {
                         dataStore.addToken(token)
                         dataStore.addUserId(4)
-                        Log.d("LoginViewModel", "Stored user ID: 4")
                     }
 
 
@@ -62,14 +60,13 @@ class LoginViewModel(
         rememberMe: Boolean
     ) {
         if (rememberMe) {
-            userRepo.insertUser(
-                UserEntity(
-                    firstName = firstName,
-                    lastName = lastName,
-                    email = email,
-                    avatar = null
-                )
+            val user = UserEntity(
+                firstName = firstName,
+                lastName = lastName,
+                email = email,
+                avatar = null
             )
+            userRepo.insertUser(user)
         }
     }
 
