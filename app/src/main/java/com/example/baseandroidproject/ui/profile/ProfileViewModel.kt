@@ -1,6 +1,5 @@
 package com.example.baseandroidproject.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.local.entities.UserEntity
@@ -37,7 +36,6 @@ class ProfileViewModel(
     fun loadUserDetails() {
         viewModelScope.launch {
             dataStore.getUserId().collect { userId ->
-                Log.d("ProfileViewModel", "userId: $userId")
                 userId?.let { id ->
                     val user = userRepository.getUserById(id)
                     _userDetails.value = user
