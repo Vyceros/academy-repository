@@ -18,7 +18,8 @@ class DataStore(private val context : Context) {
 
     suspend fun clearStore(){
         context.dataStore.edit {
-            it.clear()
+            it.remove(TOKEN)
+            it.remove(USER_ID)
         }
     }
 

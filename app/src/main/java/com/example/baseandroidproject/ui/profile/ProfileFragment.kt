@@ -1,6 +1,5 @@
 package com.example.baseandroidproject.ui.profile
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -11,6 +10,7 @@ import com.example.baseandroidproject.data.sessions.DataStore
 import com.example.baseandroidproject.databinding.FragmentProfileBinding
 import com.example.baseandroidproject.ui.base.BaseFragment
 import com.example.baseandroidproject.ui.view_model_factory.ViewModelFactory
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -21,8 +21,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 userRepository = UserRepository(
                     userService = RetrofitImpl.usersService,
                     database = AppDatabase.getInstance(requireContext().applicationContext)
-                )
-            )
+                ))
         }
     }
 
@@ -41,17 +40,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
 
             btnLogout.setOnClickListener {
-                viewModel.logOut()
-                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+                logout()
             }
         }
-
     }
 
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.userDetails.collect { user ->
-                Log.d("ProfileFragment", "User details: $user")
                 user?.let {
                     with(binding) {
                         etEmail.setText(it.email)
@@ -62,6 +58,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
         }
     }
+
     private fun saveDetails() {
         with(binding) {
             val email = etEmail.text.toString()
@@ -70,6 +67,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
             viewModel.updateUserDetails(email, firstName, lastName)
         }
+    }
 
+    private fun logout(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.logOut()
+            delay(100)
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+        }
     }
 }

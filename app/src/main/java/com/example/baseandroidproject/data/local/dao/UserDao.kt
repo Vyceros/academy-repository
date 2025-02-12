@@ -2,6 +2,8 @@ package com.example.baseandroidproject.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.baseandroidproject.data.local.entities.UserEntity
@@ -15,7 +17,7 @@ interface UserDao {
     @Upsert
     suspend fun insertUsers(users: List<UserEntity>)
 
-    @Upsert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOneUser(user: UserEntity)
 
     @Query("DELETE FROM users")

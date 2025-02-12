@@ -34,11 +34,15 @@ class LoginViewModel(
             authRepository.loginUser(AuthRequest(email, password)).collect { response ->
                 _loginState.value = response
 
-                if (response is Resource.Success) {
-                    if (rememberMe){
-                        dataStore.addToken(response.data!!.token)
-                        response.data.id?.let { dataStore.addUserId(it) }
+                if (response is Resource.Success && response.data != null) {
+                    val token = response.data.token
+                    val userId = response.data.id ?: return@collect
+
+                    if (rememberMe) {
+                        dataStore.addToken(token)
+                        dataStore.addUserId(userId)
                     }
+
                     saveUserDetails(firstName, lastName, email, rememberMe)
                 }
             }

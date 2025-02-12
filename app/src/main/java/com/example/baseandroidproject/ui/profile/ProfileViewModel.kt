@@ -1,5 +1,6 @@
 package com.example.baseandroidproject.ui.profile
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.local.entities.UserEntity
@@ -16,9 +17,12 @@ class ProfileViewModel(
     private val _userDetails = MutableStateFlow<UserEntity?>(null)
     val userDetails = _userDetails
 
+
     fun logOut() {
         viewModelScope.launch {
+            Log.d("ProfileViewModel", "Starting logout process")
             dataStore.clearStore()
+
         }
     }
 
