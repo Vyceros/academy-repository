@@ -1,5 +1,6 @@
 package com.example.baseandroidproject.ui.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.local.entities.UserEntity
@@ -36,12 +37,13 @@ class LoginViewModel(
 
                 if (response is Resource.Success && response.data != null) {
                     val token = response.data.token
-                    val userId = response.data.id ?: return@collect
 
                     if (rememberMe) {
                         dataStore.addToken(token)
-                        dataStore.addUserId(userId)
+                        dataStore.addUserId(4)
+                        Log.d("LoginViewModel", "Stored user ID: 4")
                     }
+
 
                     saveUserDetails(firstName, lastName, email, rememberMe)
                 }

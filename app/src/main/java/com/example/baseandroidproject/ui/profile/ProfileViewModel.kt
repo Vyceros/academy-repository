@@ -20,7 +20,6 @@ class ProfileViewModel(
 
     fun logOut() {
         viewModelScope.launch {
-            Log.d("ProfileViewModel", "Starting logout process")
             dataStore.clearStore()
 
         }
@@ -38,6 +37,7 @@ class ProfileViewModel(
     fun loadUserDetails() {
         viewModelScope.launch {
             dataStore.getUserId().collect { userId ->
+                Log.d("ProfileViewModel", "userId: $userId")
                 userId?.let { id ->
                     val user = userRepository.getUserById(id)
                     _userDetails.value = user
