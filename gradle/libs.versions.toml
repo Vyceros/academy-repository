@@ -1,6 +1,8 @@
 [versions]
 agp = "8.6.1"
 datastorePreferences = "1.1.2"
+hiltAndroid = "2.51.1"
+hiltAndroidCompiler = "2.51.1"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -27,10 +29,13 @@ lifecycleViewmodelKtx = "2.8.7"
 fragmentKtx = "1.8.5"
 androidPaging = "3.3.5"
 ksp = "2.1.0-1.0.29"
+hilt = "2.51.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -67,4 +72,6 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 safeArgs = { id = "androidx.navigation.safeargs.kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room-plugin = { id = "androidx.room", version.ref = "roomRuntime" }
+dagger-hilt = {id = "com.google.dagger.hilt.android",version.ref = "hilt"}
+
 

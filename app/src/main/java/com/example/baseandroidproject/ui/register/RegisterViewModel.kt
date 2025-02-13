@@ -1,6 +1,5 @@
 package com.example.baseandroidproject.ui.register
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.remote.models.auth.AuthRequest
@@ -10,12 +9,15 @@ import com.example.baseandroidproject.data.resource.Resource
 import com.example.baseandroidproject.domain.utils.validateEmails
 import com.example.baseandroidproject.domain.utils.validatePasswords
 import com.example.baseandroidproject.domain.utils.validateRepeatPasswords
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
     private val _registerCall = MutableStateFlow<Resource<AuthResponse>?>(null)
     val registerCall = _registerCall.asStateFlow()
 
@@ -24,7 +26,6 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             authRepository.registerUser(AuthRequest(email = email,password)).collect { response ->
                 _registerCall.value = response
-                Log.d("response","${response.message}")
             }
         }
     }

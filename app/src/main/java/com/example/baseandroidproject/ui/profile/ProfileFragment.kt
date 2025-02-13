@@ -3,27 +3,15 @@ package com.example.baseandroidproject.ui.profile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.baseandroidproject.data.local.AppDatabase
-import com.example.baseandroidproject.data.remote.RetrofitImpl
-import com.example.baseandroidproject.data.repositories.user_repository.UserRepository
-import com.example.baseandroidproject.data.sessions.DataStore
 import com.example.baseandroidproject.databinding.FragmentProfileBinding
 import com.example.baseandroidproject.ui.base.BaseFragment
-import com.example.baseandroidproject.ui.view_model_factory.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
-    private val viewModel: ProfileViewModel by viewModels {
-        ViewModelFactory {
-            ProfileViewModel(
-                dataStore = DataStore(requireContext().applicationContext),
-                userRepository = UserRepository(
-                    userService = RetrofitImpl.usersService,
-                    database = AppDatabase.getInstance(requireContext().applicationContext)
-                ))
-        }
-    }
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun setup() {
         observeData()

@@ -9,7 +9,7 @@ import okio.IOException
 import retrofit2.HttpException
 import retrofit2.Response
 
-object ApiResponseHandler {
+class ApiResponseHandler {
 
     private val json = Json {
         ignoreUnknownKeys = true

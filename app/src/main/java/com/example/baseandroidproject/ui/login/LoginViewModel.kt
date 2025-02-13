@@ -6,18 +6,21 @@ import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.data.remote.models.auth.AuthRequest
 import com.example.baseandroidproject.data.remote.models.auth.AuthResponse
 import com.example.baseandroidproject.data.repositories.auth_repository.AuthRepository
+import com.example.baseandroidproject.data.repositories.data_store.DataStoreRepository
 import com.example.baseandroidproject.data.repositories.user_repository.UserRepository
 import com.example.baseandroidproject.data.resource.Resource
-import com.example.baseandroidproject.data.sessions.DataStore
 import com.example.baseandroidproject.domain.utils.validateEmails
 import com.example.baseandroidproject.domain.utils.validatePasswords
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val dataStore: DataStore, private val userRepo: UserRepository
+    private val dataStoreRepository: DataStoreRepository, private val userRepo: UserRepository
 ) : ViewModel() {
     private val _loginState = MutableStateFlow<Resource<AuthResponse>?>(null)
     val loginState = _loginState
@@ -32,19 +35,17 @@ class LoginViewModel(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             authRepository.loginUser(AuthRequest(email, password)).collect { response ->
-                _loginState.value = response
 
                 if (response is Resource.Success && response.data != null) {
                     val token = response.data.token
-
                     if (rememberMe) {
-                        dataStore.addToken(token)
-                        dataStore.addUserId(4)
+                        dataStoreRepository.addToken(token)
+                        dataStoreRepository.addUserEmail(email)
                     }
-
 
                     saveUserDetails(firstName, lastName, email, rememberMe)
                 }
+                _loginState.value = response
             }
         }
     }

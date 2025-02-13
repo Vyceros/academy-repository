@@ -8,26 +8,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.baseandroidproject.data.local.AppDatabase
-import com.example.baseandroidproject.data.remote.RetrofitImpl
-import com.example.baseandroidproject.data.repositories.user_repository.UserRepository
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
 import com.example.baseandroidproject.ui.base.BaseFragment
 import com.example.baseandroidproject.ui.home.recycler.UserListAdapter
-import com.example.baseandroidproject.ui.view_model_factory.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private val viewModel: HomeViewModel by viewModels {
-        ViewModelFactory {
-            HomeViewModel(
-                UserRepository(
-                    userService = RetrofitImpl.usersService, database =
-                    AppDatabase.getInstance(requireContext().applicationContext)
-                )
-            )
-        }
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     private lateinit var adapter : UserListAdapter
 

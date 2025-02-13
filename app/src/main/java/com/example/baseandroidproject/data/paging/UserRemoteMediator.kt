@@ -1,16 +1,19 @@
 package com.example.baseandroidproject.data.paging
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.baseandroidproject.data.local.AppDatabase
+import com.example.baseandroidproject.data.local.entities.RemoteKeys
 import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.data.remote.api.UserService
 import com.example.baseandroidproject.domain.mappers.toUserEntity
 import okio.IOException
 import retrofit2.HttpException
+import java.io.InvalidObjectException
 
 @OptIn(ExperimentalPagingApi::class)
 class UserRemoteMediator(
@@ -21,40 +24,88 @@ class UserRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, UserEntity>
     ): MediatorResult {
-        return try {
-            val loadKey = when (loadType) {
-                LoadType.REFRESH -> 1
-                LoadType.PREPEND -> return MediatorResult.Success(
-                    endOfPaginationReached = true
-                )
-
-                LoadType.APPEND -> {
-                    val lastUser = state.lastItemOrNull()
-                    if (lastUser == null) {
-                        1
-                    } else {
-                        (lastUser.id / state.config.pageSize) + 1
-                    }
-                }
+        val pageKeyData = getKeyPageData(loadType, state)
+        val page = when (pageKeyData) {
+            is MediatorResult.Success -> {
+                return pageKeyData
             }
 
-            val response = apiService.getUsers(loadKey, state.config.pageSize)
-            val users = response.body()?.data.orEmpty()
+            else -> {
+                pageKeyData as Int
+            }
+        }
+        try {
+            val response = apiService.getUsers(page,state.config.pageSize)
+            val userEntityList = response.body()?.data?.map { it.toUserEntity() }
+            val isEndOfList = response.body()?.data?.isEmpty()
 
             database.withTransaction {
-                if (loadType == LoadType.REFRESH) {
+                if (loadType == LoadType.REFRESH){
+                    database.remoteKeysDao().clearRemoteKeys()
+                    Log.d("UserRemoteMediator","DeletingRemoteKeys")
                     database.userDao().clearAllUsers()
+                    Log.d("UserRemoteMediator","DELETINGUSERS")
                 }
-                database.userDao().insertUsers(users.map { it.toUserEntity() })
-            }
+                val prevKey = if (page == 1) null else page - 1
+                val nextKey = if (isEndOfList == true) null else page + 1
+                val keys = userEntityList?.map {
+                    RemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
 
-            MediatorResult.Success(
-                endOfPaginationReached = users.isEmpty()
-            )
-        } catch (e: IOException) {
-            MediatorResult.Error(e)
-        } catch (e: HttpException) {
-            MediatorResult.Error(e)
+                }
+                if (keys != null) {
+                    database.remoteKeysDao().insertAll(keys)
+                    database.userDao().insertUsers(userEntityList)
+                }
+            }
+            return MediatorResult.Success(endOfPaginationReached = isEndOfList == true)
+        }catch (ex : IOException){
+            return MediatorResult.Error(ex)
+        }catch (ex :HttpException){
+            return MediatorResult.Error(ex)
         }
     }
-}
+        private suspend fun getClosestRemoteKey(state: PagingState<Int, UserEntity>): RemoteKeys? {
+            return state.anchorPosition?.let { position ->
+                state.closestItemToPosition(position)?.id?.let { repoId ->
+                    database.remoteKeysDao().remoteKeysId(repoId)
+                }
+            }
+        }
+
+        private suspend fun getFirstRemoteKey(state: PagingState<Int, UserEntity>): RemoteKeys? {
+            return state.pages
+                .firstOrNull() { it.data.isNotEmpty() }
+                ?.data?.firstOrNull()
+                ?.let { doggo -> database.remoteKeysDao().remoteKeysId(doggo.id) }
+        }
+
+        private suspend fun getLastRemoteKey(state: PagingState<Int, UserEntity>): RemoteKeys? {
+            return state.pages
+                .lastOrNull() { it.data.isNotEmpty() }
+                ?.data?.lastOrNull()
+                ?.let { doggo -> database.remoteKeysDao().remoteKeysId(doggo.id) }
+        }
+
+        suspend fun getKeyPageData(loadType: LoadType, state: PagingState<Int, UserEntity>): Any? {
+            return when (loadType) {
+                LoadType.REFRESH -> {
+                    val remoteKeys = getClosestRemoteKey(state)
+                    remoteKeys?.nextKey?.minus(1) ?: 1
+                }
+
+                LoadType.APPEND -> {
+                    val remoteKeys = getLastRemoteKey(state)
+                        ?: throw InvalidObjectException("Remote key should not be null for $loadType")
+                    remoteKeys.nextKey
+                }
+
+                LoadType.PREPEND -> {
+                    val remoteKeys = getFirstRemoteKey(state)
+                        ?: throw InvalidObjectException("Invalid state, key should not be null")
+                    remoteKeys.prevKey
+                        ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    remoteKeys.prevKey
+                }
+            }
+        }
+    }

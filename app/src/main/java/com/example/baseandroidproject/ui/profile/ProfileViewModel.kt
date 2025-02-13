@@ -3,24 +3,30 @@ package com.example.baseandroidproject.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.data.local.entities.UserEntity
+import com.example.baseandroidproject.data.repositories.data_store.DataStoreRepository
 import com.example.baseandroidproject.data.repositories.user_repository.UserRepository
-import com.example.baseandroidproject.data.sessions.DataStore
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(
-    private val dataStore: DataStore,
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    private val dataStoreRepository: DataStoreRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _userDetails = MutableStateFlow<UserEntity?>(null)
     val userDetails = _userDetails
 
+    init {
+        loadUserDetails()
+    }
+
 
     fun logOut() {
         viewModelScope.launch {
-            dataStore.clearStore()
-
+            dataStoreRepository.clearStore()
         }
     }
 
@@ -35,9 +41,9 @@ class ProfileViewModel(
 
     fun loadUserDetails() {
         viewModelScope.launch {
-            dataStore.getUserId().collect { userId ->
-                userId?.let { id ->
-                    val user = userRepository.getUserById(id)
+            dataStoreRepository.getUserEmail().collect { email ->
+                email?.let { userEmail ->
+                    val user = userRepository.getUserByEmail(userEmail)
                     _userDetails.value = user
                 }
             }

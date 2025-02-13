@@ -7,19 +7,20 @@ import com.example.baseandroidproject.data.remote.models.auth.AuthResponse
 import com.example.baseandroidproject.data.repositories.abstractions.IAuthRepository
 import com.example.baseandroidproject.data.resource.Resource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class AuthRepository(
-    private val authorizationService:
-    AuthorizationService
+class AuthRepository @Inject constructor(
+    private val authorizationService: AuthorizationService,
+    private val apiResponseHandler: ApiResponseHandler
 ) : IAuthRepository {
     override suspend fun loginUser(loginRequest: AuthRequest): Flow<Resource<AuthResponse>> {
-        return ApiResponseHandler.apiCall {
+        return apiResponseHandler.apiCall {
             authorizationService.loginUser(loginRequest)
         }
     }
 
     override suspend fun registerUser(registerRequest: AuthRequest): Flow<Resource<AuthResponse>> {
-        return ApiResponseHandler.apiCall {
+        return apiResponseHandler.apiCall {
             authorizationService.registerUser(registerRequest)
         }
     }

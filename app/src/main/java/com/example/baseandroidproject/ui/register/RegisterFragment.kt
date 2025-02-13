@@ -7,26 +7,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.data.remote.RetrofitImpl
 import com.example.baseandroidproject.data.remote.models.auth.AuthResponse
-import com.example.baseandroidproject.data.repositories.auth_repository.AuthRepository
 import com.example.baseandroidproject.data.resource.Resource
 import com.example.baseandroidproject.databinding.FragmentRegisterBinding
 import com.example.baseandroidproject.ui.base.BaseFragment
-import com.example.baseandroidproject.ui.view_model_factory.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
-    private val viewModel: RegisterViewModel by viewModels() {
-        ViewModelFactory {
-            RegisterViewModel(
-                authRepository = AuthRepository(RetrofitImpl.authorizationService)
-            )
-        }
-    }
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun setup() {
         setupObservers()

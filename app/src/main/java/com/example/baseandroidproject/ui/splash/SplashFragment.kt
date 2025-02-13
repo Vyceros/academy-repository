@@ -5,20 +5,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.baseandroidproject.data.sessions.DataStore
 import com.example.baseandroidproject.databinding.FragmentSplashBinding
 import com.example.baseandroidproject.ui.base.BaseFragment
-import com.example.baseandroidproject.ui.view_model_factory.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding::inflate) {
-    private val viewModel : SplashViewModel by viewModels {
-        ViewModelFactory {
-            SplashViewModel(
-                dataStore = DataStore(requireContext().applicationContext)
-            )
-        }
-    }
+    private val viewModel : SplashViewModel by viewModels()
 
     override fun setup() {
         observeToken()

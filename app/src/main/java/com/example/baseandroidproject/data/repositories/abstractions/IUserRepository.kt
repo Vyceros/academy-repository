@@ -9,6 +9,6 @@ interface IUserRepository {
 
     suspend fun insertUser(user: UserEntity)
 
-    suspend fun getUserById(id: Int): UserEntity?
+    suspend fun getUserByEmail(email: String): UserEntity?
 
 }

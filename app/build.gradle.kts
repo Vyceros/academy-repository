@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room.plugin)
+    id("kotlin-kapt")
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -45,6 +47,8 @@ android {
     room {
         schemaDirectory("$projectDir/schemas")
     }
+
+
 }
 
 dependencies {
@@ -73,6 +77,12 @@ dependencies {
     implementation(libs.androidx.room.paging)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
 }
+kapt {
+    correctErrorTypes = true
+}
+
 
