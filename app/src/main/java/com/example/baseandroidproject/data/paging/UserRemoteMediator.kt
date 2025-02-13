@@ -1,6 +1,5 @@
 package com.example.baseandroidproject.data.paging
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -24,8 +23,7 @@ class UserRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, UserEntity>
     ): MediatorResult {
-        val pageKeyData = getKeyPageData(loadType, state)
-        val page = when (pageKeyData) {
+        val page = when (val pageKeyData = getKeyPageData(loadType, state)) {
             is MediatorResult.Success -> {
                 return pageKeyData
             }
@@ -42,9 +40,7 @@ class UserRemoteMediator(
             database.withTransaction {
                 if (loadType == LoadType.REFRESH){
                     database.remoteKeysDao().clearRemoteKeys()
-                    Log.d("UserRemoteMediator","DeletingRemoteKeys")
                     database.userDao().clearAllUsers()
-                    Log.d("UserRemoteMediator","DELETINGUSERS")
                 }
                 val prevKey = if (page == 1) null else page - 1
                 val nextKey = if (isEndOfList == true) null else page + 1

@@ -10,5 +10,4 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(userRepositoryImpl: UserRepositoryImpl) : ViewModel() {
     val items = userRepositoryImpl.getUsers().cachedIn(viewModelScope)
-
 }
