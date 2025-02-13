@@ -1,0 +1,37 @@
+package com.example.baseandroidproject.data.di.storage_module
+
+import android.content.Context
+import androidx.room.Room
+import com.example.baseandroidproject.data.local.AppDatabase
+import com.example.baseandroidproject.data.local.dao.RemoteKeysDao
+import com.example.baseandroidproject.data.local.dao.UserDao
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+object StorageModule {
+
+    @Provides
+    fun provideRoomDatabase(@ApplicationContext context : Context) : AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "app_database"
+        ).build()
+    }
+
+    @Provides
+    fun provideUserDao(database: AppDatabase): UserDao {
+        return database.userDao()
+    }
+
+    @Provides
+    fun provideRemoteKeysDao(database: AppDatabase): RemoteKeysDao {
+        return database.remoteKeysDao()
+    }
+
+}

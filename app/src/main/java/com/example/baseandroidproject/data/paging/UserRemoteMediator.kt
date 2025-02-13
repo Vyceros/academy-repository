@@ -10,7 +10,7 @@ import com.example.baseandroidproject.data.local.AppDatabase
 import com.example.baseandroidproject.data.local.entities.RemoteKeys
 import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.data.remote.api.UserService
-import com.example.baseandroidproject.domain.mappers.toUserEntity
+import com.example.baseandroidproject.data.utils.toUserEntity
 import okio.IOException
 import retrofit2.HttpException
 import java.io.InvalidObjectException
