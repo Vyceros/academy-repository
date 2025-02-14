@@ -35,7 +35,6 @@ class ProfileViewModel @Inject constructor(
             val user = _userDetails.value
             val updatedUser = user?.copy(email = email, firstName = firstName, lastName = lastName)
             updatedUser?.let { userRepositoryImpl.insertUser(it) }
-            _userDetails.value = updatedUser
         }
     }
 
