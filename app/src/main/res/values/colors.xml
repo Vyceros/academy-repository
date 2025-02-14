@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#22343C</color>
+    <color name="bottom_nav_color">#30444E</color>
 </resources>

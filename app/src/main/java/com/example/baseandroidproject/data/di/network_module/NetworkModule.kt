@@ -17,46 +17,43 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Module
-    @InstallIn(SingletonComponent::class)
-    object NetworkModule {
 
-        @Provides
-        fun provideJson(): Json = Json {
-            ignoreUnknownKeys = true
-            explicitNulls = false
-        }
+    @Provides
+    fun provideJson(): Json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
 
-        @Provides
-        fun provideRetrofit(httpClient: OkHttpClient, json: Json): Retrofit {
-            return Retrofit.Builder()
-                .baseUrl("https://run.mocky.io/v3/")
-                .client(httpClient)
-                .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-                .build()
-        }
+    @Provides
+    fun provideRetrofit(httpClient: OkHttpClient, json: Json): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://run.mocky.io/v3/")
+            .client(httpClient)
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
 
-        @Provides
-        fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-            return OkHttpClient.Builder().addInterceptor(interceptor).build()
-        }
+    @Provides
+    fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
 
-        @Provides
-        fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-            return HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }
-        }
-
-        @Provides
-        fun provideUserService(retrofit: Retrofit): ImageService {
-            return retrofit.create(ImageService::class.java)
-        }
-
-
-        @Provides
-        fun provideApiHelper(): ApiSafeCallHandler {
-            return ApiSafeCallHandler()
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
+    @Provides
+    fun provideImagerService(retrofit: Retrofit): ImageService {
+        return retrofit.create(ImageService::class.java)
+    }
+
+
+    @Provides
+    fun provideApiHelper(): ApiSafeCallHandler {
+        return ApiSafeCallHandler()
+    }
+
 }
