@@ -6,4 +6,7 @@
     <string name="chat">Chat</string>
     <string name="heart">Heart</string>
     <string name="heart_">Heart</string>
+    <string name="home">Home</string>
+    <string name="heart_tv">HEART</string>
+    <string name="message">MESSAGE</string>
 </resources>

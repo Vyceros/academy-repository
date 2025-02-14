@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/carouselFragment"
-        android:title="@string/heart_"
+    <item android:id="@+id/heartFragment"
+        android:title=""
         android:icon="@drawable/heart_shape" />
 
     <item android:id="@id/carouselFragment"
-        android:title="@string/heart"
+        android:title=""
         android:icon="@drawable/home_logo" />
 
     <item
-        android:id="@+id/chatFragment"
-        android:title="@string/chat"
+        android:id="@+id/messageFragment"
+        android:title=""
         android:icon="@drawable/bubble_logo" />
 
 </menu>

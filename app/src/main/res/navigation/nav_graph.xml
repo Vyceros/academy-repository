@@ -9,5 +9,21 @@
         android:id="@+id/carouselFragment"
         android:name="com.example.baseandroidproject.presentation.carousel.CarouselFragment"
         android:label="fragment_carousel"
-        tools:layout="@layout/fragment_carousel" />
+        tools:layout="@layout/fragment_carousel" >
+        <action
+            android:id="@+id/action_carouselFragment_to_messageFragment"
+            app:destination="@id/messageFragment" />
+        <action
+            android:id="@+id/action_carouselFragment_to_heartFragment"
+            app:destination="@id/heartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/heartFragment"
+        android:name="com.example.baseandroidproject.presentation.heart.HeartFragment"
+        android:label="fragment_heart"
+        tools:layout="@layout/fragment_heart" />
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.baseandroidproject.presentation.message.MessageFragment"
+        android:label="MessageFragment" />
 </navigation>
