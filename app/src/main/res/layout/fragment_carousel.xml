@@ -10,6 +10,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStatistics"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="32sp"
         android:text="@string/statistics"
