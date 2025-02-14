@@ -10,6 +10,8 @@ import com.example.baseandroidproject.data.local.entities.RemoteKeys
 import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.data.remote.api.UserService
 import com.example.baseandroidproject.data.utils.toUserEntity
+import com.example.baseandroidproject.domain.abstractions.InternetObserver
+import kotlinx.coroutines.flow.first
 import okio.IOException
 import retrofit2.HttpException
 import java.io.InvalidObjectException
@@ -17,7 +19,8 @@ import java.io.InvalidObjectException
 @OptIn(ExperimentalPagingApi::class)
 class UserRemoteMediator(
     private val database: AppDatabase,
-    private val apiService: UserService
+    private val apiService: UserService,
+    private val internetConnection : InternetObserver
 ) : RemoteMediator<Int, UserEntity>() {
     override suspend fun load(
         loadType: LoadType,
@@ -31,6 +34,11 @@ class UserRemoteMediator(
             else -> {
                 pageKeyData as Int
             }
+        }
+
+        val connected = internetConnection.isConnected.first()
+        if(!connected){
+            return MediatorResult.Success(true)
         }
         try {
             val response = apiService.getUsers(page,state.config.pageSize)

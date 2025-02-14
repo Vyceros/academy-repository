@@ -19,6 +19,7 @@ class ProfileViewModel @Inject constructor(
     private val _userDetails = MutableStateFlow<UserEntity?>(null)
     val userDetails = _userDetails
 
+
     init {
         loadUserDetails()
     }

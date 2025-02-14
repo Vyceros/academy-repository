@@ -29,4 +29,6 @@
     <string name="save_details">Save Details</string>
     <string name="load_details">Load Details</string>
     <string name="user_details">User Details</string>
+    <string name="connected">Connected</string>
+    <string name="offline">Offline</string>
 </resources>

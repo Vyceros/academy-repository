@@ -17,6 +17,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         observeData()
     }
 
+
     override fun listeners() {
         with(binding) {
             btnSave.setOnClickListener {

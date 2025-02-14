@@ -8,6 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.baseandroidproject.R
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
 import com.example.baseandroidproject.presentation.base.BaseFragment
 import com.example.baseandroidproject.presentation.home.recycler.UserListAdapter
@@ -27,6 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     }
 
+
     private fun observe(){
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
@@ -43,6 +45,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         is LoadState.Error -> binding.progressBar.isVisible = false
                         is LoadState.Loading -> binding.progressBar.isVisible = true
                         is LoadState.NotLoading -> binding.progressBar.isVisible = false
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.isConnected.collect{
+                    if(it){
+                        binding.tvWelcomes.text = getString(R.string.connected)
+                    }else{
+                        binding.tvWelcomes.text = getString(R.string.offline)
                     }
                 }
             }

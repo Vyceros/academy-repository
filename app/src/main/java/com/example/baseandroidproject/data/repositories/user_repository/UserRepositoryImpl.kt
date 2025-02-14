@@ -8,11 +8,16 @@ import com.example.baseandroidproject.data.local.AppDatabase
 import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.data.paging.UserRemoteMediator
 import com.example.baseandroidproject.data.remote.api.UserService
+import com.example.baseandroidproject.domain.abstractions.InternetObserver
 import com.example.baseandroidproject.domain.abstractions.UserRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(private val userService: UserService, private val database: AppDatabase) :
+class UserRepositoryImpl @Inject constructor(
+    private val userService: UserService,
+    private val database: AppDatabase,
+    private val connectivityManager: InternetObserver
+) :
     UserRepository {
     @OptIn(ExperimentalPagingApi::class)
     override fun getUsers(): Flow<PagingData<UserEntity>> {
@@ -25,7 +30,7 @@ class UserRepositoryImpl @Inject constructor(private val userService: UserServic
                 prefetchDistance = 1,
                 enablePlaceholders = false,
             ),
-            remoteMediator = UserRemoteMediator(database,userService),
+            remoteMediator = UserRemoteMediator(database, userService,connectivityManager),
             pagingSourceFactory = pagingSource
         ).flow
     }

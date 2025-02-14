@@ -1,11 +1,15 @@
 package com.example.baseandroidproject.data.di.network_module
 
+import android.content.Context
 import com.example.baseandroidproject.data.helpers.ApiResponseHandler
 import com.example.baseandroidproject.data.remote.api.AuthorizationService
 import com.example.baseandroidproject.data.remote.api.UserService
+import com.example.baseandroidproject.data.remote.connection_observer.InternetObserverImpl
+import com.example.baseandroidproject.domain.abstractions.InternetObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -58,5 +62,10 @@ object NetworkModule {
     @Provides
     fun provideApiHelper() : ApiResponseHandler{
         return ApiResponseHandler()
+    }
+
+    @Provides
+    fun provideInternetConnectivityManager(@ApplicationContext context : Context) : InternetObserver {
+        return InternetObserverImpl(context)
     }
 }
