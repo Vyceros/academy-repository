@@ -29,21 +29,20 @@ class LoginViewModel @Inject constructor(
     fun loginUser(
         email: String,
         password: String,
-        rememberMe: Boolean,
-        firstName: String,
-        lastName: String
+        firstName: String = "",
+        lastName: String = "",
+        rememberMe: Boolean
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             authRepositoryImpl.loginUser(AuthRequest(email, password)).collect { response ->
 
                 if (response is Resource.Success && response.data != null) {
                     val token = response.data.token
-                    if (rememberMe) {
-                        dataStoreRepository.addToken(token)
-                        dataStoreRepository.addUserEmail(email)
-                    }
 
-                    saveUserDetails(firstName, lastName, email, rememberMe)
+                    dataStoreRepository.addToken(token)
+                    dataStoreRepository.addUserEmail(email)
+                    dataStoreRepository.saveRememberMe(rememberMe)
+                    saveUserDetails(firstName, lastName, email)
                 }
                 _loginState.value = response
             }
@@ -57,18 +56,15 @@ class LoginViewModel @Inject constructor(
     private suspend fun saveUserDetails(
         firstName: String,
         lastName: String,
-        email: String,
-        rememberMe: Boolean
+        email: String
     ) {
-        if (rememberMe) {
-            val user = UserEntity(
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                avatar = null
-            )
-            userRepo.insertUser(user)
-        }
+        val user = UserEntity(
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            avatar = null
+        )
+        userRepo.insertUser(user)
     }
 
 

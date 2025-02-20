@@ -30,9 +30,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 viewModel.loginUser(
                     email = etEmail.text.toString(),
                     password = etPassword.text.toString(),
-                    rememberMe = cbRememberMe.isChecked,
-                    firstName = "",
-                    lastName = ""
+                    rememberMe = cbRememberMe.isChecked
                 )
             }
             btnRegister.setOnClickListener {

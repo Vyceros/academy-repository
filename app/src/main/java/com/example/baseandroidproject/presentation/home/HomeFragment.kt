@@ -1,17 +1,16 @@
 package com.example.baseandroidproject.presentation.home
 
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.R
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
 import com.example.baseandroidproject.presentation.base.BaseFragment
 import com.example.baseandroidproject.presentation.home.recycler.UserListAdapter
+import com.example.baseandroidproject.presentation.home.recycler.UserLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,17 +37,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                adapter.addLoadStateListener { state ->
-                    when(state.refresh){
-                        is LoadState.Error -> binding.progressBar.isVisible = false
-                        is LoadState.Loading -> binding.progressBar.isVisible = true
-                        is LoadState.NotLoading -> binding.progressBar.isVisible = false
-                    }
-                }
-            }
-        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
@@ -71,7 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun setupRecycler(){
         val recycler = binding.recycler
-        recycler.adapter = adapter
+        recycler.adapter = adapter.withLoadStateHeaderAndFooter(
+            footer = UserLoadStateAdapter(),
+            header = UserLoadStateAdapter()
+        )
         recycler.layoutManager = LinearLayoutManager(requireContext())
     }
 

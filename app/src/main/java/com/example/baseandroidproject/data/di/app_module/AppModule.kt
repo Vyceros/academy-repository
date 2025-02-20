@@ -1,30 +1,21 @@
 package com.example.baseandroidproject.data.di.app_module
 
-import com.example.baseandroidproject.data.helpers.ApiResponseHandler
-import com.example.baseandroidproject.data.local.AppDatabase
-import com.example.baseandroidproject.data.remote.api.AuthorizationService
-import com.example.baseandroidproject.data.remote.api.UserService
-import com.example.baseandroidproject.data.remote.connection_observer.InternetObserverImpl
 import com.example.baseandroidproject.data.repositories.auth_repository.AuthRepositoryImpl
 import com.example.baseandroidproject.data.repositories.user_repository.UserRepositoryImpl
 import com.example.baseandroidproject.domain.abstractions.AuthRepository
 import com.example.baseandroidproject.domain.abstractions.UserRepository
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+abstract class  AppModule {
 
-    @Provides
-    fun providesUserRepository(database : AppDatabase,userService : UserService,conManager : InternetObserverImpl) : UserRepository {
-        return UserRepositoryImpl(userService,database,conManager)
-    }
+    @Binds
+    abstract fun providesUserRepository(userRepositoryImpl: UserRepositoryImpl) : UserRepository
 
-    @Provides
-    fun provideAuthRepository(authService : AuthorizationService, apiResponseHandler: ApiResponseHandler) : AuthRepository {
-        return AuthRepositoryImpl(authService,apiResponseHandler)
-    }
+    @Binds
+    abstract fun provideAuthRepository(authRepositoryImpl: AuthRepositoryImpl) : AuthRepository
 }

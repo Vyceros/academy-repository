@@ -2,6 +2,7 @@ package com.example.baseandroidproject.data.repositories.data_store
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -41,8 +42,19 @@ class DataStoreRepository @Inject constructor(private val dataStore : DataStore<
         }
     }
 
+    suspend fun saveRememberMe(remember: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[REMEMBER_ME] = remember
+        }
+    }
+
+    fun getRememberMe(): Flow<Boolean> = dataStore.data.map { preferences ->
+        preferences[REMEMBER_ME] ?: false
+    }
+
     companion object{
         private val USER_ID = stringPreferencesKey("user_email")
         private val TOKEN = stringPreferencesKey("token")
+        private val REMEMBER_ME = booleanPreferencesKey("remember_me")
     }
 }

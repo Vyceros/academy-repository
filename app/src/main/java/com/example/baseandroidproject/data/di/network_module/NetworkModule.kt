@@ -1,6 +1,7 @@
 package com.example.baseandroidproject.data.di.network_module
 
 import android.content.Context
+import com.example.baseandroidproject.BuildConfig
 import com.example.baseandroidproject.data.helpers.ApiResponseHandler
 import com.example.baseandroidproject.data.remote.api.AuthorizationService
 import com.example.baseandroidproject.data.remote.api.UserService
@@ -31,22 +32,23 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(httpClient: OkHttpClient, json: Json): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://reqres.in/api/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(httpClient)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
 
     @Provides
-    fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(interceptor).build()
-    }
+    fun provideOkHttpClient(): OkHttpClient {
+        val builder = OkHttpClient.Builder()
 
-    @Provides
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
         }
+
+        return builder.build()
     }
 
     @Provides
@@ -60,12 +62,12 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideApiHelper() : ApiResponseHandler{
+    fun provideApiHelper(): ApiResponseHandler {
         return ApiResponseHandler()
     }
 
     @Provides
-    fun provideInternetConnectivityManager(@ApplicationContext context : Context) : InternetObserver {
+    fun provideInternetConnectivityManager(@ApplicationContext context: Context): InternetObserver {
         return InternetObserverImpl(context)
     }
 }

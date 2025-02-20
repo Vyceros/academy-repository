@@ -8,30 +8,27 @@ import com.example.baseandroidproject.data.local.AppDatabase
 import com.example.baseandroidproject.data.local.entities.UserEntity
 import com.example.baseandroidproject.data.paging.UserRemoteMediator
 import com.example.baseandroidproject.data.remote.api.UserService
-import com.example.baseandroidproject.domain.abstractions.InternetObserver
 import com.example.baseandroidproject.domain.abstractions.UserRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val userService: UserService,
-    private val database: AppDatabase,
-    private val connectivityManager: InternetObserver
+    private val database: AppDatabase
 ) :
     UserRepository {
     @OptIn(ExperimentalPagingApi::class)
     override fun getUsers(): Flow<PagingData<UserEntity>> {
-        val pagingSource = { database.userDao().getAllUsers() }
 
         return Pager(
             config = PagingConfig(
-                pageSize = 6,
+                pageSize = 10,
                 initialLoadSize = 6,
                 prefetchDistance = 1,
-                enablePlaceholders = false,
+                enablePlaceholders = false
             ),
-            remoteMediator = UserRemoteMediator(database, userService,connectivityManager),
-            pagingSourceFactory = pagingSource
+            remoteMediator = UserRemoteMediator(database = database, apiService = userService),
+            pagingSourceFactory = { database.userDao().getAllUsers() }
         ).flow
     }
 
