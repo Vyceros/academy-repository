@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.baseandroidproject.databinding.ActivityMainBinding
+import com.example.baseandroidproject.secrets.AppSecrets
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         handleEdgeToEdge()
         setContentView(binding.root)
+        checkAgainstSecret()
     }
 
     private fun handleEdgeToEdge(){
@@ -23,5 +25,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun checkAgainstSecret(){
+        val secrets = AppSecrets()
+        val isValid = secrets.secretCheck(binding.etSecret.text.toString())
+        println("Secret valid: $isValid")
     }
 }
