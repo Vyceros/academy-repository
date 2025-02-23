@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     id(libs.plugins.safeArgs.get().pluginId)
     alias(libs.plugins.kotlin.serialization)
+    id("kotlin-kapt")
+    alias(libs.plugins.android.hilt)
 }
 
 android {
@@ -27,6 +29,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
+        }
+        debug{
+            buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
         }
     }
     compileOptions {
@@ -38,6 +44,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -54,4 +61,13 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment)
     implementation(libs.squareup.retrofit)
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.glide)
+    implementation(libs.logging.interceptor)
+
+}
+kapt {
+    correctErrorTypes = true
 }
