@@ -2,4 +2,6 @@
     <string name="app_name">BaseAndroidProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="write_comment">Write comment...</string>
+    <string name="tv_share">Share</string>
 </resources>

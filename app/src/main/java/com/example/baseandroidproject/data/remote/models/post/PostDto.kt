@@ -6,15 +6,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PostDto(
     val id: Int,
-    val images: List<String>,
+    val images: List<String>? = emptyList(),
     val title: String,
     val comments: Int,
     val likes: Int,
     @SerialName("share_content")
     val shareContent: String,
     val owner: Owner,
-    @SerialName("post_date")
-    val postDate : Long
     )
 {
     @Serializable
@@ -22,6 +20,9 @@ data class PostDto(
         @SerialName("first_name")
         val firstName: String,
         @SerialName("last_name")
-        val lastName: String
+        val lastName: String,
+        @SerialName("post_date")
+        val postDate : Long? = null,
+        val profile : String? = null
     )
 }
