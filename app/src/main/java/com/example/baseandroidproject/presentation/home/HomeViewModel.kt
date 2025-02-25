@@ -40,7 +40,6 @@ class HomeViewModel @Inject constructor(
                         it.copy(posts = response.data?.map { post -> post.toPresentation() }
                             ?: emptyList())
                     }
-
                 }
             }
         }
@@ -56,7 +55,6 @@ class HomeViewModel @Inject constructor(
                         it.copy(stories = response.data?.map { story -> story.toPresentation() }
                             ?: emptyList())
                     }
-
                 }
             }
         }

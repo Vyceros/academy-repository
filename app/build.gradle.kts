@@ -42,6 +42,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -66,7 +67,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.glide)
     implementation(libs.logging.interceptor)
-
+    kapt(libs.github.compiler)
 }
 kapt {
     correctErrorTypes = true

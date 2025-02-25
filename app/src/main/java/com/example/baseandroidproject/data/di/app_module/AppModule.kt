@@ -7,15 +7,18 @@ import com.example.baseandroidproject.data.repositories.StoriesRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 abstract class AppModule {
     @Binds
+    @ViewModelScoped
     abstract fun bindStoryRepository(storyRepositoryImpl: StoriesRepositoryImpl): StoriesRepository
 
     @Binds
+    @ViewModelScoped
     abstract fun bindsPostRepository(postRepositoryImpl : PostsRepositoryImpl) : PostRepository
 }
