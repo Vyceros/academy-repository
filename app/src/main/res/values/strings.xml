@@ -4,4 +4,6 @@
     <string name="attention">Attention!</string>
     <string name="this_application_requires_location_services_without_it_it_wont_function_please_enable_it">This application requires Location services, without it it wont function. please enable it</string>
     <string name="okay">Okay</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -9,5 +9,35 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.baseandroidproject.presentation.fragments.maps.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_bottomFragment"
+            app:destination="@id/bottomFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/bottomFragment"
+        android:name="com.example.baseandroidproject.presentation.fragments.bottomsheet.BottomFragment"
+        android:label="BottomFragment">
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="lat"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="lan"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="address"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

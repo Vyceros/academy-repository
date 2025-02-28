@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -15,7 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.baseandroidproject.R
 import com.example.baseandroidproject.databinding.FragmentMapsBinding
-import com.example.baseandroidproject.presentation.fragments.BaseFragment
+import com.example.baseandroidproject.presentation.fragments.base.BaseFragment
+import com.example.baseandroidproject.presentation.fragments.bottomsheet.BottomFragment
 import com.example.baseandroidproject.presentation.models.MarkerClusterItem
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -40,7 +42,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         googleMap = map
         googleMap?.uiSettings?.isZoomControlsEnabled = true
 
-
+        setupMarkerClickListener()
         setUpClusterManager()
     }
 
@@ -71,6 +73,11 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         val clusterManager = ClusterManager<MarkerClusterItem>(requireContext(), googleMap)
         googleMap?.setOnCameraIdleListener(clusterManager)
         googleMap?.setOnMarkerClickListener(clusterManager)
+
+        clusterManager.setOnClusterItemClickListener {
+            setupMarkerClickListener()
+            true
+        }
         viewModel.clusterManager = clusterManager
     }
 
@@ -154,13 +161,33 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
                 googleMap?.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         userLatLng,
-                        15f
+                        10f
                     )
                 )
                 googleMap?.addMarker(MarkerOptions().position(userLatLng).title("You are here"))
             }
         }
     }
+
+    private fun setupMarkerClickListener() {
+        googleMap?.setOnMarkerClickListener { marker ->
+            val title = marker.title ?: "No Title"
+            val position = marker.position
+
+            val bottomSheet = BottomFragment().apply {
+                arguments = Bundle().apply {
+                    putString("title", title)
+                    putString("latitude", position.latitude.toString())
+                    putString("longitude", position.longitude.toString())
+                }
+            }
+
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+            true
+        }
+    }
+
+
 }
 
 
