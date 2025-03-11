@@ -5,8 +5,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.R
+import com.example.baseandroidproject.data.utils.mappers.toUserEntity
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
 import com.example.baseandroidproject.presentation.base.BaseFragment
 import com.example.baseandroidproject.presentation.home.recycler.UserListAdapter
@@ -32,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.items.collect {
-                    adapter.submitData(it)
+                    adapter.submitData(it.map { user -> user.toUserEntity() })
                 }
             }
         }

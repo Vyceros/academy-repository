@@ -4,40 +4,36 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.baseandroidproject.data.local.AppDatabase
-import com.example.baseandroidproject.data.local.entities.UserEntity
-import com.example.baseandroidproject.data.paging.UserRemoteMediator
+import androidx.paging.map
+import com.example.baseandroidproject.data.local.dao.UserDao
+import com.example.baseandroidproject.data.local.paging.UserPaging
 import com.example.baseandroidproject.data.remote.api.UserService
-import com.example.baseandroidproject.domain.abstractions.UserRepository
+import com.example.baseandroidproject.data.utils.mappers.toUser
+import com.example.baseandroidproject.domain.abstractions.user.UserRepository
+import com.example.baseandroidproject.domain.models.user.UserResponse
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val userService: UserService,
-    private val database: AppDatabase
-) :
-    UserRepository {
-    @OptIn(ExperimentalPagingApi::class)
-    override fun getUsers(): Flow<PagingData<UserEntity>> {
+    private val userApi: UserService,
+    private val userDao: UserDao
+) : UserRepository {
 
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getUsers(): Flow<PagingData<UserResponse.User>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 10,
-                initialLoadSize = 6,
-                prefetchDistance = 1,
+                pageSize = 6,
+                prefetchDistance = 2,
                 enablePlaceholders = false
             ),
-            remoteMediator = UserRemoteMediator(database = database, apiService = userService),
-            pagingSourceFactory = { database.userDao().getAllUsers() }
-        ).flow
+            remoteMediator = UserPaging(userApi, userDao),
+            pagingSourceFactory = { userDao.getUsersPagingSource() }
+        ).flow.map { data ->
+            data.map { entity ->
+                entity.toUser()
+            }
+        }
     }
-
-    override suspend fun insertUser(user: UserEntity) {
-        database.userDao().insertOneUser(user)
-    }
-
-    override suspend fun getUserByEmail(email: String): UserEntity? {
-        return database.userDao().getUserById(email)
-    }
-
 }

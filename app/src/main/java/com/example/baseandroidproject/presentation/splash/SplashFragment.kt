@@ -1,14 +1,12 @@
 package com.example.baseandroidproject.presentation.splash
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentSplashBinding
 import com.example.baseandroidproject.presentation.base.BaseFragment
+import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding::inflate) {
@@ -22,15 +20,15 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
     }
 
     private fun observeToken(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-               viewModel.checkForToken {
-                   if(it){
-                       navigateToHome()
-                   }else{
-                       navigateToLogin()
-                   }
-               }
+        launchRepeatLifecycleScope {
+            viewModel.navigationFlow.collectLatest{ state ->
+                when(state){
+                    is Navigation.HomeScreen -> navigateToHome()
+                    is Navigation.LoginScreen -> navigateToLogin()
+                    Navigation.Idle -> {
+
+                    }
+                }
             }
         }
     }

@@ -20,9 +20,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     override fun listeners() {
         with(binding) {
-            btnSave.setOnClickListener {
-                saveDetails()
-            }
 
             btnLoad.setOnClickListener {
                 viewModel.loadUserDetails()
@@ -37,26 +34,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.userDetails.collect { user ->
-                user?.let {
+                user.let {
                     with(binding) {
-                        etEmail.setText(it.email)
-                        etFirstName.setText(it.firstName)
-                        etLastName.setText(it.lastName)
+                        etEmail.setText(it)
                     }
                 }
             }
         }
     }
 
-    private fun saveDetails() {
-        with(binding) {
-            val email = etEmail.text.toString()
-            val firstName = etFirstName.text.toString()
-            val lastName = etLastName.text.toString()
-
-            viewModel.updateUserDetails(email, firstName, lastName)
-        }
-    }
 
     private fun logout(){
         viewLifecycleOwner.lifecycleScope.launch {

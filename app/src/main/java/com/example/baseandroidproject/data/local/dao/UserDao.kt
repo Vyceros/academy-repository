@@ -5,25 +5,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Upsert
 import com.example.baseandroidproject.data.local.entities.UserEntity
 
 @Dao
 interface UserDao {
-
-    @Query("SELECT * FROM users")
-    fun getAllUsers(): PagingSource<Int,UserEntity>
-
-    @Upsert
-    suspend fun insertUsers(users: List<UserEntity>)
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOneUser(user: UserEntity)
+    suspend fun insertAll(users: List<UserEntity>)
+
+    @Query("SELECT * FROM users ORDER BY id ASC")
+    fun getUsersPagingSource(): PagingSource<Int, UserEntity>
 
     @Query("DELETE FROM users")
     suspend fun clearAllUsers()
-
-    @Query("SELECT * FROM users WHERE email = :email")
-    suspend fun getUserById(email: String): UserEntity?
 
 }

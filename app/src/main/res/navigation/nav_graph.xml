@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.baseandroidproject.presentation.login.LoginFragment"
+        android:name="com.example.baseandroidproject.presentation.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.baseandroidproject.presentation.register.RegisterFragment"
+        android:name="com.example.baseandroidproject.presentation.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
 

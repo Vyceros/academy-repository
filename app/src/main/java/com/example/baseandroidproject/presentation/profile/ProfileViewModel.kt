@@ -2,49 +2,34 @@ package com.example.baseandroidproject.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.data.local.entities.UserEntity
-import com.example.baseandroidproject.data.repositories.data_store.DataStoreRepository
-import com.example.baseandroidproject.data.repositories.user_repository.UserRepositoryImpl
+import com.example.baseandroidproject.domain.abstractions.datastore.DataStoreRepository
+import com.example.baseandroidproject.domain.singletons.DataStoreKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository,
-    private val userRepositoryImpl: UserRepositoryImpl
+    private val dataStore: DataStoreRepository,
 ) : ViewModel() {
 
-    private val _userDetails = MutableStateFlow<UserEntity?>(null)
-    val userDetails = _userDetails
-
-
-    init {
-        loadUserDetails()
-    }
-
+    private val _userDetails = MutableStateFlow<String>("")
+    val userDetails = _userDetails.asStateFlow()
 
     fun logOut() {
         viewModelScope.launch {
-            dataStoreRepository.clearStore()
+            dataStore.clearAllPreferences()
         }
     }
 
-    fun updateUserDetails(email: String, firstName: String, lastName: String) {
-        viewModelScope.launch {
-            val user = _userDetails.value
-            val updatedUser = user?.copy(email = email, firstName = firstName, lastName = lastName)
-            updatedUser?.let { userRepositoryImpl.insertUser(it) }
-        }
-    }
 
     fun loadUserDetails() {
         viewModelScope.launch {
-            dataStoreRepository.getUserEmail().collect { email ->
-                email?.let { userEmail ->
-                    val user = userRepositoryImpl.getUserByEmail(userEmail)
-                    _userDetails.value = user
+            dataStore.getPreference(DataStoreKeys.UserEmail).collect { email ->
+                email.let {
+                    _userDetails.value = it
                 }
             }
         }
