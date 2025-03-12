@@ -1,9 +1,11 @@
 package com.example.baseandroidproject.data.di
 
+import com.example.baseandroidproject.data.remote.connection_observer.InternetObserverImpl
 import com.example.baseandroidproject.data.repositories.auth_repository.AuthLoginRepositoryImpl
 import com.example.baseandroidproject.data.repositories.auth_repository.AuthRegisterRepositoryImpl
 import com.example.baseandroidproject.data.repositories.data_store.DataStoreRepositoryImpl
 import com.example.baseandroidproject.data.repositories.user_repository.UserRepositoryImpl
+import com.example.baseandroidproject.domain.abstractions.InternetObserver
 import com.example.baseandroidproject.domain.abstractions.auth.AuthLoginRepository
 import com.example.baseandroidproject.domain.abstractions.auth.AuthRegisterRepository
 import com.example.baseandroidproject.domain.abstractions.datastore.DataStoreRepository
@@ -28,4 +30,7 @@ abstract class  AppModule {
 
     @Binds
     abstract fun bindDataStoreRepository(dataStoreRepositoryImpl: DataStoreRepositoryImpl) : DataStoreRepository
+
+    @Binds
+    abstract fun bindsInternetRepo(internetRepoImpl : InternetObserverImpl) : InternetObserver
 }

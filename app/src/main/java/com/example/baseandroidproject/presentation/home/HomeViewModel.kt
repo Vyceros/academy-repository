@@ -3,8 +3,8 @@ package com.example.baseandroidproject.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.baseandroidproject.data.remote.connection_observer.InternetObserverImpl
-import com.example.baseandroidproject.data.repositories.user_repository.UserRepositoryImpl
+import com.example.baseandroidproject.domain.abstractions.InternetObserver
+import com.example.baseandroidproject.domain.usecases.user.GetUsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(userRepository: UserRepositoryImpl,connectivityManager: InternetObserverImpl) : ViewModel() {
-    val items = userRepository.getUsers().cachedIn(viewModelScope)
+class HomeViewModel @Inject constructor(useCase: GetUsersUseCase,connectivityManager: InternetObserver) : ViewModel() {
+    val items = useCase.invoke().cachedIn(viewModelScope)
 
     private val _isConnected = MutableStateFlow(false)
     val isConnected: StateFlow<Boolean> = _isConnected

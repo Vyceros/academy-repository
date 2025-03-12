@@ -1,16 +1,12 @@
 package com.example.baseandroidproject.data.di
 
-import android.content.Context
 import com.example.baseandroidproject.BuildConfig
 import com.example.baseandroidproject.data.helpers.SafeCall
 import com.example.baseandroidproject.data.remote.api.AuthorizationService
 import com.example.baseandroidproject.data.remote.api.UserService
-import com.example.baseandroidproject.data.remote.connection_observer.InternetObserverImpl
-import com.example.baseandroidproject.domain.abstractions.InternetObserver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -66,8 +62,5 @@ object NetworkModule {
         return SafeCall()
     }
 
-    @Provides
-    fun provideInternetConnectivityManager(@ApplicationContext context: Context): InternetObserver {
-        return InternetObserverImpl(context)
-    }
+
 }
