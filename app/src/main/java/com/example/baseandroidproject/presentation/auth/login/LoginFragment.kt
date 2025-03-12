@@ -3,16 +3,14 @@ package com.example.baseandroidproject.presentation.auth.login
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
 import com.example.baseandroidproject.domain.common.Resource
-import com.example.baseandroidproject.domain.models.auth.AuthResponse
 import com.example.baseandroidproject.presentation.base.BaseFragment
-import com.google.android.material.snackbar.Snackbar
+import com.example.baseandroidproject.presentation.models.AuthRequestUi
+import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
+import com.example.baseandroidproject.presentation.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -27,11 +25,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun listeners() {
         with(binding) {
             btnLogin.setOnClickListener {
-                viewModel.loginUser(
-                    email = etEmail.text.toString(),
-                    password = etPassword.text.toString(),
-                    rememberMe = cbRememberMe.isChecked
-                )
+                login()
             }
             btnRegister.setOnClickListener {
                 findNavController().navigate(
@@ -42,31 +36,43 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         }
     }
 
+    private fun login() {
+        viewModel.loginUser(
+            AuthRequestUi(
+                email = binding.etEmail.text.toString(),
+                password = binding.etPassword.text.toString(),
+                rememberMe = binding.cbRememberMe.isChecked
+            )
+        )
+    }
+
     private fun setupObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.loginState.collectLatest { response ->
-                if (response != null) {
-                    handleLoginResponse(response)
+        launchRepeatLifecycleScope {
+            viewModel.loginEvents.collect { event ->
+                when (event) {
+
+                    is LoginEvent.NavigateToHome -> {
+                        onSuccessfulLogin()
+                    }
+
+                    is LoginEvent.ShowError -> {
+                        binding.root.showSnackBar(
+                            requireContext(), event.message
+                        )
+                    }
                 }
+
+            }
+        }
+
+        launchRepeatLifecycleScope {
+            viewModel.loginState.collect { state ->
+                binding.loadingBar.isVisible = state is Resource.Loading
+
             }
         }
     }
 
-    private fun handleLoginResponse(response: Resource<AuthResponse>) {
-        binding.loadingBar.isVisible = response is Resource.Loading
-
-        when (response) {
-            is Resource.Success -> {
-                onSuccessfulLogin()
-            }
-
-            is Resource.Error -> {
-                Snackbar.make(binding.root, response.message, Snackbar.LENGTH_SHORT).show()
-            }
-
-            else -> {}
-        }
-    }
 
     private fun onSuccessfulLogin() {
         findNavController().navigate(

@@ -4,16 +4,14 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentRegisterBinding
 import com.example.baseandroidproject.domain.common.Resource
-import com.example.baseandroidproject.domain.models.auth.AuthResponse
 import com.example.baseandroidproject.presentation.base.BaseFragment
-import com.google.android.material.snackbar.Snackbar
+import com.example.baseandroidproject.presentation.models.AuthRequestUi
+import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
+import com.example.baseandroidproject.presentation.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
@@ -35,36 +33,36 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     private fun setupObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.registerCall.collectLatest { response ->
-                if (response != null) {
-                    handleRegisterResponse(response)
+        launchRepeatLifecycleScope {
+            viewModel.registerEvent.collect { event ->
+                when (event) {
+                    is RegisterEvent.NavigateToLogin -> {
+                        onSuccessfulRegistration()
+                    }
+
+                    is RegisterEvent.ShowError -> {
+                        binding.root.showSnackBar(
+                            requireContext(), event.message
+                        )
+                    }
                 }
+
+            }
+        }
+
+        launchRepeatLifecycleScope {
+            viewModel.registerState.collect { state ->
+                binding.loadingBar.isVisible = state is Resource.Loading
             }
         }
     }
 
-    private fun handleRegisterResponse(response: Resource<AuthResponse>) {
-        binding.loadingBar.isVisible = response is Resource.Loading
-
-        when (response) {
-            is Resource.Success -> {
-                onSuccessfulRegistration()
-            }
-
-            is Resource.Error -> {
-                showSnackbar(response.message)
-            }
-
-            else -> {}
-        }
-    }
 
     private fun registerUser() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        viewModel.registerUser(email, password)
+        viewModel.validateAndRegister(AuthRequestUi(email, password))
     }
 
 
@@ -79,7 +77,4 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         findNavController().navigateUp()
     }
 
-    private fun showSnackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
-    }
 }
