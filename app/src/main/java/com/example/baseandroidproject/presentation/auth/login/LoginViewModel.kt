@@ -2,13 +2,11 @@ package com.example.baseandroidproject.presentation.auth.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.baseandroidproject.domain.abstractions.datastore.DataStoreRepository
 import com.example.baseandroidproject.domain.common.Resource
-import com.example.baseandroidproject.domain.models.auth.AuthRequest
 import com.example.baseandroidproject.domain.models.auth.AuthResponse
 import com.example.baseandroidproject.domain.singletons.DataStoreKeys
 import com.example.baseandroidproject.domain.usecases.auth.LoginUseCase
-import com.example.baseandroidproject.presentation.models.AuthRequestUi
+import com.example.baseandroidproject.domain.usecases.datastore.AddPreferenceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -20,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCase,
-    private val dataStore: DataStoreRepository
+    private val dataStore: AddPreferenceUseCase
 ) : ViewModel() {
     private val _loginState = MutableStateFlow<Resource<AuthResponse>?>(null)
     val loginState = _loginState
@@ -28,22 +26,16 @@ class LoginViewModel @Inject constructor(
     private val _loginEvents = Channel<LoginEvent>()
     val loginEvents = _loginEvents.receiveAsFlow()
 
-    fun loginUser(ui: AuthRequestUi) {
-        val request = AuthRequest(
-            ui.email,
-            ui.password
-        )
+    fun loginUser(email : String, password : String,rememberMe : Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            useCase.invoke(request).collect { response ->
+            useCase.invoke(email = email, password = password).collect { response ->
                 when (response) {
                     is Resource.Success -> {
-                        if (response.data != null) {
-                            val token = response.data.token
-                            dataStore.addPreference(DataStoreKeys.UserEmail, ui.email)
-                            dataStore.addPreference(DataStoreKeys.UserToken, token)
-                            dataStore.addPreference(DataStoreKeys.RememberMe, ui.rememberMe)
-                            _loginEvents.send(LoginEvent.NavigateToHome)
-                        }
+                        val token = response.data.token
+                        dataStore(DataStoreKeys.UserEmail,email)
+                        dataStore(DataStoreKeys.UserToken, token)
+                        dataStore(DataStoreKeys.RememberMe,rememberMe)
+                        _loginEvents.send(LoginEvent.NavigateToHome)
                     }
                     is Resource.Error -> {
                         _loginEvents.send(LoginEvent.ShowError(response.message))

@@ -23,11 +23,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
         launchRepeatLifecycleScope {
             viewModel.navigationFlow.collectLatest{ state ->
                 when(state){
-                    is Navigation.HomeScreen -> navigateToHome()
-                    is Navigation.LoginScreen -> navigateToLogin()
-                    Navigation.Idle -> {
-
-                    }
+                    is NavigationEvent.HomeScreen -> navigateToHome()
+                    is NavigationEvent.LoginScreen -> navigateToLogin()
                 }
             }
         }

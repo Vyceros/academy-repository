@@ -9,8 +9,8 @@ import retrofit2.http.POST
 interface AuthorizationService {
 
     @POST("login")
-    suspend fun loginUser(@Body loginRequest: AuthRequestDto): Response<AuthResponseDto>
+    suspend fun loginUser(@Body requestDto: AuthRequestDto): Response<AuthResponseDto>
 
     @POST("register")
-    suspend fun registerUser(@Body registerRequest: AuthRequestDto): Response<AuthResponseDto>
+    suspend fun registerUser(@Body requestDto: AuthRequestDto): Response<AuthResponseDto>
 }

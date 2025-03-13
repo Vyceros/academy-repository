@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentRegisterBinding
 import com.example.baseandroidproject.domain.common.Resource
 import com.example.baseandroidproject.presentation.base.BaseFragment
-import com.example.baseandroidproject.presentation.models.AuthRequestUi
 import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
 import com.example.baseandroidproject.presentation.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +18,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private val viewModel: RegisterViewModel by viewModels()
 
     override fun setup() {
-        setupObservers()
+
     }
 
     override fun listeners() {
@@ -62,7 +61,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        viewModel.validateAndRegister(AuthRequestUi(email, password))
+        viewModel.validateAndRegister(email, password)
     }
 
 

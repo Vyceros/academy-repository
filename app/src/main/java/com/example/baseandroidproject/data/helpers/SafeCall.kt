@@ -1,51 +1,24 @@
 package com.example.baseandroidproject.data.helpers
 
-import com.example.baseandroidproject.data.utils.ErrorResponse
 import com.example.baseandroidproject.domain.common.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.json.Json
-import okio.IOException
-import retrofit2.HttpException
 import retrofit2.Response
 
 class SafeCall {
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-        explicitNulls = false
-    }
-
-    suspend fun <T : Any> apiCall(call: suspend () -> Response<T>): Flow<Resource<T>> {
-        return flow {
-            emit(Resource.Loading())
-            val response = call()
-            val body = response.body()
-
-            if (response.isSuccessful && body != null) {
+    fun <T> apiCall(safeCall : suspend () -> Response<T>) : Flow<Resource<T>> = flow{
+        emit(Resource.Loading)
+        val response = safeCall()
+        if (response.isSuccessful){
+            response.body()?.let { body ->
                 emit(Resource.Success(body))
-            } else {
-                val errorMessage = try {
-                    response.parseResponse()
-                } catch (e: Exception) {
-                    "Error: ${response.code()} ${response.message()}"
-                }
-                emit(Resource.Error(errorMessage))
-            }
-        }.catch { e ->
-            when (e) {
-                is IOException -> emit(Resource.Error(e.message ?: "Network Error"))
-                is HttpException -> emit(Resource.Error(e.message ?: "Bad Request"))
-                else -> emit(Resource.Error(e.message ?: "Unknown Error"))
-            }
+            } ?: emit(Resource.Error(message = "No body"))
+        }else{
+            emit(Resource.Error(message = "Error : ${response.code()} ${response.message()}"))
         }
-    }
-
-
-    private fun Response<*>.parseResponse(): String {
-        val errorString = this.errorBody()?.string()
-        return errorString?.let { json.decodeFromString<ErrorResponse>(it).error }
-            ?: "Unknown error occurred"
+    }.catch { e ->
+        emit(Resource.Error(message = "Network Error : ${e.localizedMessage}", error = e))
     }
 }

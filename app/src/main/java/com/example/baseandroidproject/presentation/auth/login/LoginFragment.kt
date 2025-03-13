@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
 import com.example.baseandroidproject.domain.common.Resource
 import com.example.baseandroidproject.presentation.base.BaseFragment
-import com.example.baseandroidproject.presentation.models.AuthRequestUi
 import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
 import com.example.baseandroidproject.presentation.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,11 +37,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun login() {
         viewModel.loginUser(
-            AuthRequestUi(
-                email = binding.etEmail.text.toString(),
-                password = binding.etPassword.text.toString(),
-                rememberMe = binding.cbRememberMe.isChecked
-            )
+            email = binding.etEmail.text.toString(),
+            password = binding.etPassword.text.toString(),
+            rememberMe = binding.cbRememberMe.isChecked
         )
     }
 
