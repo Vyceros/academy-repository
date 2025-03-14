@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.domain.common.Resource
 import com.example.baseandroidproject.domain.models.auth.AuthRequest
-import com.example.baseandroidproject.domain.models.auth.AuthResponse
 import com.example.baseandroidproject.domain.usecases.auth.RegisterUseCase
 import com.example.baseandroidproject.domain.usecases.validations.ValidateEmailUseCase
 import com.example.baseandroidproject.domain.usecases.validations.ValidatePasswordUseCase
@@ -13,6 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,46 +24,48 @@ class RegisterViewModel @Inject constructor(
     private val validateEmail: ValidateEmailUseCase,
     private val validatePassword: ValidatePasswordUseCase) : ViewModel() {
 
-    private val _registerState = MutableStateFlow<Resource<AuthResponse>?>(null)
+    private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Idle)
     val registerState = _registerState.asStateFlow()
+
+    private val _validationState = MutableStateFlow<Boolean>(false)
+    val validationState = _validationState.asStateFlow()
 
     private val _registerEvent = Channel<RegisterEvent>()
     val registerEvent = _registerEvent.receiveAsFlow()
 
-    fun validateAndRegister(email : String, password : String) {
-        viewModelScope.launch {
-            val isEmailValid = validateEmail(email)
-            val isPasswordValid = validatePassword(password)
 
-            when {
-                !isEmailValid -> {
-                    _registerEvent.send(RegisterEvent.ShowError("Enter valid email"))
-                }
-                !isPasswordValid -> {
-                    _registerEvent.send(RegisterEvent.ShowError("Passowrd must be 8 characters and must have both digits and letters"))
-                }
-                else -> {
-                    registerUser(email,password)
+    fun register(email : String,password : String){
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase(AuthRequest(email = email,password = password)).onStart {
+                _registerState.value = RegisterState.Loading
+            }.catch {
+                _registerState.value = RegisterState.Error()
+            }.collect{result ->
+                _registerState.value = when(result){
+                    is Resource.Error -> {
+                        _registerEvent.send(RegisterEvent.ShowError(result.message))
+                        RegisterState.Error(result.message)
+                    }
+                    is Resource.Loading -> {
+                        RegisterState.Loading
+                    }
+
+                    is Resource.Success -> {
+                        _registerEvent.send(RegisterEvent.NavigateToLogin)
+                        RegisterState.Success
+                    }
                 }
             }
         }
     }
 
-    private fun registerUser(email : String, password : String) {
-
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.invoke(AuthRequest(email = email,password = password)).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _registerEvent.send(RegisterEvent.NavigateToLogin)
-                    }
-                    is Resource.Error -> {
-                        _registerEvent.send(RegisterEvent.ShowError(response.message))
-                    }
-                    is Resource.Loading -> {
-                    }
-                }
-                _registerState.value = response
+    fun validateInputs(email : String,password: String){
+        when(val successfulValidation = validateEmail(email) || validatePassword(password)){
+            true -> {
+                _validationState.value = true
+            }
+            false -> {
+                _validationState.value = true
             }
         }
     }

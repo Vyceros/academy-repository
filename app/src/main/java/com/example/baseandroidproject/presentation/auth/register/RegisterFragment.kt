@@ -2,11 +2,12 @@ package com.example.baseandroidproject.presentation.auth.register
 
 import android.os.Bundle
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.baseandroidproject.R
 import com.example.baseandroidproject.databinding.FragmentRegisterBinding
-import com.example.baseandroidproject.domain.common.Resource
 import com.example.baseandroidproject.presentation.base.BaseFragment
 import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
 import com.example.baseandroidproject.presentation.utils.showSnackBar
@@ -18,7 +19,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     private val viewModel: RegisterViewModel by viewModels()
 
     override fun setup() {
-
+        setupObservers()
     }
 
     override fun listeners() {
@@ -28,6 +29,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
         binding.btnLogin.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.etEmail.doOnTextChanged { text, _, _, _ ->
+            viewModel.validateInputs(text.toString(),text.toString())
         }
     }
 
@@ -50,8 +55,26 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
 
         launchRepeatLifecycleScope {
+            viewModel.validationState.collect { state ->
+                when (state) {
+                    true -> {
+                        binding.btnRegister.isEnabled = true
+                    }
+
+                    false -> {
+                        binding.root.showSnackBar(
+                            requireContext(),
+                            getString(R.string.enter_valid_email_and_password)
+                        )
+                    }
+                }
+
+            }
+        }
+
+        launchRepeatLifecycleScope {
             viewModel.registerState.collect { state ->
-                binding.loadingBar.isVisible = state is Resource.Loading
+                binding.loadingBar.isVisible = state is RegisterState.Loading
             }
         }
     }
@@ -61,7 +84,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        viewModel.validateAndRegister(email, password)
+        viewModel.register(email, password)
     }
 
 
