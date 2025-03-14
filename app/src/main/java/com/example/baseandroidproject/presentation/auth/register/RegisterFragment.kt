@@ -46,7 +46,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
                     is RegisterEvent.ShowError -> {
                         binding.root.showSnackBar(
-                            requireContext(), event.message
+                            event.message
                         )
                     }
                 }
@@ -63,7 +63,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
                     false -> {
                         binding.root.showSnackBar(
-                            requireContext(),
                             getString(R.string.enter_valid_email_and_password)
                         )
                     }

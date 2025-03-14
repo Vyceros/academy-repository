@@ -27,7 +27,7 @@ class RegisterViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Idle)
     val registerState = _registerState.asStateFlow()
 
-    private val _validationState = MutableStateFlow<Boolean>(false)
+    private val _validationState = MutableStateFlow(false)
     val validationState = _validationState.asStateFlow()
 
     private val _registerEvent = Channel<RegisterEvent>()

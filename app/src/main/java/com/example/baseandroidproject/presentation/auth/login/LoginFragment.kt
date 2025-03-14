@@ -53,7 +53,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
                     is LoginEvent.ShowError -> {
                         binding.root.showSnackBar(
-                            requireContext(), event.message
+                            event.message
                         )
                     }
                 }
