@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.data.utils.mappers.toUserEntity
+import com.example.baseandroidproject.data.user.mappers.toUserEntity
 import com.example.baseandroidproject.databinding.FragmentHomeBinding
 import com.example.baseandroidproject.presentation.base.BaseFragment
 import com.example.baseandroidproject.presentation.home.recycler.UserListAdapter

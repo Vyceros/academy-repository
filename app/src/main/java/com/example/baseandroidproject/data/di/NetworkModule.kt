@@ -2,8 +2,8 @@ package com.example.baseandroidproject.data.di
 
 import com.example.baseandroidproject.BuildConfig
 import com.example.baseandroidproject.data.helpers.SafeCall
-import com.example.baseandroidproject.data.remote.api.AuthorizationService
-import com.example.baseandroidproject.data.remote.api.UserService
+import com.example.baseandroidproject.data.auth.service.AuthorizationService
+import com.example.baseandroidproject.data.user.service.UserService
 import com.example.baseandroidproject.domain.usecases.validations.ValidateEmailUseCase
 import com.example.baseandroidproject.domain.usecases.validations.ValidatePasswordUseCase
 import dagger.Module

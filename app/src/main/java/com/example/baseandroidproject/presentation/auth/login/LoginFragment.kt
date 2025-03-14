@@ -5,7 +5,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentLoginBinding
-import com.example.baseandroidproject.domain.common.Resource
 import com.example.baseandroidproject.presentation.base.BaseFragment
 import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
 import com.example.baseandroidproject.presentation.utils.showSnackBar
@@ -64,7 +63,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         launchRepeatLifecycleScope {
             viewModel.loginState.collect { state ->
-                binding.loadingBar.isVisible = state is Resource.Loading
+                binding.loadingBar.isVisible = state is LoginState.Loading
 
             }
         }

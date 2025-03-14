@@ -3,7 +3,7 @@ package com.example.baseandroidproject.presentation.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.domain.common.Resource
-import com.example.baseandroidproject.domain.models.auth.AuthResponse
+import com.example.baseandroidproject.domain.models.auth.AuthRequest
 import com.example.baseandroidproject.domain.singletons.DataStoreKeys
 import com.example.baseandroidproject.domain.usecases.auth.LoginUseCase
 import com.example.baseandroidproject.domain.usecases.datastore.AddPreferenceUseCase
@@ -11,6 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,7 +22,7 @@ class LoginViewModel @Inject constructor(
     private val useCase: LoginUseCase,
     private val dataStore: AddPreferenceUseCase
 ) : ViewModel() {
-    private val _loginState = MutableStateFlow<Resource<AuthResponse>?>(null)
+    private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState = _loginState
 
     private val _loginEvents = Channel<LoginEvent>()
@@ -28,25 +30,30 @@ class LoginViewModel @Inject constructor(
 
     fun loginUser(email : String, password : String,rememberMe : Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            useCase.invoke(email = email, password = password).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        val token = response.data.token
-                        dataStore(DataStoreKeys.UserEmail,email)
-                        dataStore(DataStoreKeys.UserToken, token)
-                        dataStore(DataStoreKeys.RememberMe,rememberMe)
-                        _loginEvents.send(LoginEvent.NavigateToHome)
-                    }
+            useCase(AuthRequest(email = email, password = password)).
+            onStart {
+                _loginState.value = LoginState.Loading
+            }.catch {
+                _loginState.value = LoginState.Error()
+            }.collect{ result ->
+                _loginState.value = when(result){
                     is Resource.Error -> {
-                        _loginEvents.send(LoginEvent.ShowError(response.message))
+                        _loginEvents.send(LoginEvent.ShowError(result.message))
+                        LoginState.Error(result.message)
                     }
                     is Resource.Loading -> {
+                        LoginState.Loading
+                    }
+                    is Resource.Success -> {
+                        dataStore(DataStoreKeys.UserEmail,email)
+                        dataStore(DataStoreKeys.RememberMe,rememberMe)
+                        _loginEvents.send(LoginEvent.NavigateToHome)
+                        LoginState.Success
                     }
                 }
-                _loginState.value = response
+
             }
         }
+
     }
-
-
 }

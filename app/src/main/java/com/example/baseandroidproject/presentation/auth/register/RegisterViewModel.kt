@@ -3,6 +3,7 @@ package com.example.baseandroidproject.presentation.auth.register
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.domain.common.Resource
+import com.example.baseandroidproject.domain.models.auth.AuthRequest
 import com.example.baseandroidproject.domain.models.auth.AuthResponse
 import com.example.baseandroidproject.domain.usecases.auth.RegisterUseCase
 import com.example.baseandroidproject.domain.usecases.validations.ValidateEmailUseCase
@@ -50,7 +51,7 @@ class RegisterViewModel @Inject constructor(
     private fun registerUser(email : String, password : String) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            useCase.invoke(email, password).collect { response ->
+            useCase.invoke(AuthRequest(email = email,password = password)).collect { response ->
                 when (response) {
                     is Resource.Success -> {
                         _registerEvent.send(RegisterEvent.NavigateToLogin)

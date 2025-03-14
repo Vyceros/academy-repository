@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.baseandroidproject.R
-import com.example.baseandroidproject.data.local.entities.UserEntity
+import com.example.baseandroidproject.data.user.models.entities.UserEntity
 import com.example.baseandroidproject.databinding.UserItemBinding
 
 private class UserDiffUtils : DiffUtil.ItemCallback<UserEntity>() {
