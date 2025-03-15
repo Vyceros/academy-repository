@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(useCase: GetUsersUseCase,connectivityManager: InternetObserver) : ViewModel() {
+
     val items = useCase.invoke().cachedIn(viewModelScope)
 
     private val _isConnected = MutableStateFlow(false)

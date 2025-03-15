@@ -1,13 +1,11 @@
 package com.example.baseandroidproject.presentation.profile
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.baseandroidproject.databinding.FragmentProfileBinding
 import com.example.baseandroidproject.presentation.base.BaseFragment
+import com.example.baseandroidproject.presentation.utils.launchRepeatLifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -26,13 +24,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             }
 
             btnLogout.setOnClickListener {
-                logout()
+                viewModel.logout()
             }
         }
     }
 
     private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        launchRepeatLifecycleScope {
             viewModel.userDetails.collect { user ->
                 user.let {
                     with(binding) {
@@ -41,14 +39,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 }
             }
         }
+
+        launchRepeatLifecycleScope {
+            viewModel.logoutEvent.collect{ state ->
+                when(state){
+                    ProfileEvent.Logout -> {
+                        logout()
+                    }
+                }
+
+            }
+        }
     }
 
-
     private fun logout(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.logOut()
-            delay(100)
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
-        }
+        findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
     }
 }
