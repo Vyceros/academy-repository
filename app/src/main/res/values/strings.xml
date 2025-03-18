@@ -33,4 +33,7 @@
     <string name="offline">Offline</string>
     <string name="retry">RETRY</string>
     <string name="enter_valid_email_and_password">Enter valid email and password</string>
+    <string name="category">Category</string>
+    <string name="filter_by_name">Filter by name</string>
+    <string name="suggestions">Suggestions</string>
 </resources>

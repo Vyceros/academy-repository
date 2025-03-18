@@ -13,7 +13,7 @@ fun CategoryDto.toDomain() : Category{
         createdAt = createdAt,
         nameGerman = nameGerman,
         main = main,
-        orderId = orderId
+        orderId = orderId ?: 1
     )
 }
 fun List<CategoryDto>.toDomain(): List<Category> {

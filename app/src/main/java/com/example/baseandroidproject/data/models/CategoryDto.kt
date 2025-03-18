@@ -15,7 +15,7 @@ data class CategoryDto(
     @SerialName("bgl_variant")
     val bglVariant : String?,
     @SerialName("order_id")
-    val orderId : Int,
+    val orderId : Int?,
     val main : String?,
     val children : List<CategoryDto> = emptyList()
 )

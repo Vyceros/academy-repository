@@ -1,5 +1,6 @@
 package com.example.baseandroidproject.presentation.category
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.domain.common.Resource
@@ -60,12 +61,15 @@ class CategoryViewModel @Inject constructor(
             }.collect{ state ->
                 when(state){
                     is Resource.Error -> {
+                        Log.d("HomeViewModel","$state")
                         _uiState.update { it.copy(isLoading = false, error = state.message) }
                     }
                     is Resource.Loading -> {
+                        Log.d("HomeViewModel","$state")
                         _uiState.update { it.copy(isLoading = true) }
                     }
                     is Resource.Success -> {
+                        Log.d("HomeViewModel","${state.data} state - $state")
                         _uiState.update { it.copy(isLoading = false, data = state.data.toPresentation()) }
                     }
                 }
