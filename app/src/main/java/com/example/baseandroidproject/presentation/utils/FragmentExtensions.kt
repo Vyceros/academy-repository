@@ -16,3 +16,4 @@ fun Fragment.launchRepeatLifecycleScope(
         repeatOnLifecycle(state,block)
     }
 }
+
