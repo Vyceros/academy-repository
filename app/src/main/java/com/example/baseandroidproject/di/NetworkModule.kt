@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.data.di
+package com.example.baseandroidproject.di
 
 import com.example.baseandroidproject.BuildConfig
 import com.example.baseandroidproject.data.auth.service.AuthorizationService

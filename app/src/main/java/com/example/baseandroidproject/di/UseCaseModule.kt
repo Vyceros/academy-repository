@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.data.di
+package com.example.baseandroidproject.di
 
 import com.example.baseandroidproject.domain.usecases.validations.ValidateEmailUseCase
 import com.example.baseandroidproject.domain.usecases.validations.ValidatePasswordUseCase

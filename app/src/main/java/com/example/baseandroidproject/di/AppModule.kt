@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.data.di
+package com.example.baseandroidproject.di
 
 import com.example.baseandroidproject.data.auth.repositories.AuthLoginRepositoryImpl
 import com.example.baseandroidproject.data.auth.repositories.AuthRegisterRepositoryImpl
