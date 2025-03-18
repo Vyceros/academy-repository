@@ -1,89 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
-
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.baseandroidproject.presentation.profile.ProfileFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_profile">
-
-        <argument
-            android:name="token"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-
-        <argument
-            android:name="email"
-            android:defaultValue="default@email.com"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_profileFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/profileFragment"/>
-    </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.baseandroidproject.presentation.auth.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.baseandroidproject.presentation.auth.register.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register">
-
-    </fragment>
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.baseandroidproject.presentation.home.HomeFragment"
+        android:name="com.example.baseandroidproject.presentation.category.CategoryFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-        <argument
-            android:name="token"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="email"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.example.baseandroidproject.presentation.splash.SplashFragment"
-        android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-
+        tools:layout="@layout/fragment_home" />
 </navigation>

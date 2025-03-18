@@ -1,9 +1,8 @@
 package com.example.baseandroidproject.di
 
 import com.example.baseandroidproject.BuildConfig
-import com.example.baseandroidproject.data.auth.service.AuthorizationService
-import com.example.baseandroidproject.data.helpers.SafeCall
-import com.example.baseandroidproject.data.user.service.UserService
+import com.example.baseandroidproject.data.service.CategoryService
+import com.example.baseandroidproject.data.util.ApiHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,15 +14,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
-    fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
-        explicitNulls = false
-    }
+    fun Json() = Json { explicitNulls = false
+    ignoreUnknownKeys = true}
 
     @Provides
     fun provideRetrofit(httpClient: OkHttpClient, json: Json): Retrofit {
@@ -48,18 +45,12 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideUserService(retrofit: Retrofit): UserService {
-        return retrofit.create(UserService::class.java)
+    fun provideService(retrofit : Retrofit) : CategoryService{
+        return retrofit.create(CategoryService::class.java)
     }
 
     @Provides
-    fun provideAuthorizationService(retrofit: Retrofit): AuthorizationService {
-        return retrofit.create(AuthorizationService::class.java)
+    fun provideApiHelper() : ApiHelper{
+        return ApiHelper()
     }
-
-    @Provides
-    fun provideApiHelper(): SafeCall {
-        return SafeCall()
-    }
-
 }

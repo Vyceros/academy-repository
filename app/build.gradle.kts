@@ -29,7 +29,7 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,7 +39,7 @@ android {
 
 
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "BASE_URL", "\"https://run.mocky.io/v3/\"")
         }
 
     }
