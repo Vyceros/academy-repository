@@ -3,7 +3,7 @@ package com.example.baseandroidproject.presentation.screen.category
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.domain.common.Resource
-import com.example.baseandroidproject.domain.usecases.CategoriesUseCaseImpl
+import com.example.baseandroidproject.domain.usecases.CategoriesUseCase
 import com.example.baseandroidproject.presentation.screen.mapper.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    private val useCase: CategoriesUseCaseImpl
+    private val useCase: CategoriesUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CategoryUiState())
