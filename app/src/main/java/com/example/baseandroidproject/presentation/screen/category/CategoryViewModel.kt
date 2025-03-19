@@ -1,11 +1,10 @@
-package com.example.baseandroidproject.presentation.category
+package com.example.baseandroidproject.presentation.screen.category
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.baseandroidproject.domain.common.Resource
-import com.example.baseandroidproject.domain.usecases.CategoriesUseCase
-import com.example.baseandroidproject.presentation.mapper.toPresentation
+import com.example.baseandroidproject.domain.usecases.CategoriesUseCaseImpl
+import com.example.baseandroidproject.presentation.screen.mapper.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    private val useCase: CategoriesUseCase
+    private val useCase: CategoriesUseCaseImpl
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CategoryUiState())
@@ -61,16 +60,13 @@ class CategoryViewModel @Inject constructor(
             }.collect{ state ->
                 when(state){
                     is Resource.Error -> {
-                        Log.d("HomeViewModel","$state")
                         _uiState.update { it.copy(isLoading = false, error = state.message) }
                     }
                     is Resource.Loading -> {
-                        Log.d("HomeViewModel","$state")
                         _uiState.update { it.copy(isLoading = true) }
                     }
                     is Resource.Success -> {
-                        Log.d("HomeViewModel","${state.data} state - $state")
-                        _uiState.update { it.copy(isLoading = false, data = state.data.toPresentation()) }
+                        _uiState.update { it.copy(isLoading = false, data = state.data.toUi()) }
                     }
                 }
 

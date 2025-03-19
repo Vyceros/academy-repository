@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.data.mappers
+package com.example.baseandroidproject.domain.util
 
 import com.example.baseandroidproject.domain.common.Resource
 import kotlinx.coroutines.flow.Flow

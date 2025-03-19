@@ -1,6 +1,6 @@
-package com.example.baseandroidproject.presentation.category
+package com.example.baseandroidproject.presentation.screen.category
 
-import com.example.baseandroidproject.presentation.models.CategoryUi
+import com.example.baseandroidproject.presentation.screen.models.CategoryUi
 
 data class CategoryUiState(
     val isLoading : Boolean = false,

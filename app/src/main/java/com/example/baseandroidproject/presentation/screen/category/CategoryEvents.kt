@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.presentation.category
+package com.example.baseandroidproject.presentation.screen.category
 
 sealed class CategoryEvents {
     data class onSearch(val searchQuery : String) : CategoryEvents()

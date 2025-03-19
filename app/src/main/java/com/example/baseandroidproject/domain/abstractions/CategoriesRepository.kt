@@ -5,5 +5,5 @@ import com.example.baseandroidproject.domain.models.Category
 import kotlinx.coroutines.flow.Flow
 
 interface CategoriesRepository {
-    suspend fun getCategories(query : String) : Flow<Resource<List<Category>>>
+    suspend fun getCategories() : Flow<Resource<List<Category>>>
 }
