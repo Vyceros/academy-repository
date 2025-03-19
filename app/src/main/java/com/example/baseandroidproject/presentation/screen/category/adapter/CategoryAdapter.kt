@@ -42,7 +42,9 @@ class CategoryAdapter : ListAdapter<CategoryUi, CategoryAdapter.CategoryViewHold
 
         fun bind() {
             with(binding) {
-                val item = getItem(absoluteAdapterPosition)
+                val item = getItem(absoluteAdapterPosition).also {
+                    it.children.size <= 4
+                }
                 indicatorAdapter.submitList(item.children)
                 indicatorRecycler.isVisible = item.children.isNotEmpty()
                 tvName.text = item.name
