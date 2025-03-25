@@ -1,4 +1,4 @@
-package com.example.baseandroidproject.fragments
+package com.example.senderbroadcast.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

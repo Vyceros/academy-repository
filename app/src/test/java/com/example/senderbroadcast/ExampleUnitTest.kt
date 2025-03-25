@@ -1,4 +1,4 @@
-package com.example.baseandroidproject
+package com.example.senderbroadcast
 
 import org.junit.Test
 

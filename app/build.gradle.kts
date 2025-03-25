@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.baseandroidproject"
+    namespace = "com.example.senderbroadcast"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.baseandroidproject"
+        applicationId = "com.example.senderbroadcast"
         minSdk = 27
         targetSdk = 35
         versionCode = 1
