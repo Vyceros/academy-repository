@@ -18,5 +18,6 @@ class AirplaneModeReceiver(private val callback : (Boolean) -> Unit) : Broadcast
             Toast.makeText(context, "Airplane Mode Disabled", Toast.LENGTH_LONG).show()
 
         }
+
     }
 }
