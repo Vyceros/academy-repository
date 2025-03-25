@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.retrofit.converter)
     implementation(libs.image.glide)
+    implementation(libs.coil)
     implementation(libs.androidx.paging)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

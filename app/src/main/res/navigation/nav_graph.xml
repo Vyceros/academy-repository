@@ -4,10 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/galleryFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.baseandroidproject.presentation.screen.category.CategoryFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/galleryFragment"
+        android:name="com.example.baseandroidproject.presentation.screen.gallery.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_photoPickerFragment"
+            app:destination="@id/photoPickerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/photoPickerFragment"
+        android:name="com.example.baseandroidproject.presentation.screen.dialog.PhotoPickerFragment"
+        android:label="fragment_photo_picker"
+        tools:layout="@layout/fragment_photo_picker" />
 </navigation>

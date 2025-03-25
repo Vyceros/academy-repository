@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+coil = "2.7.0"
 datastorePreferences = "1.1.2"
 hiltAndroid = "2.51.1"
 hiltAndroidCompiler = "2.51.1"
@@ -34,6 +35,7 @@ hilt = "2.51.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

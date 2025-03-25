@@ -20,5 +20,4 @@ fun <T, D> Flow<Resource<T>>.mapFlow(transform: (T) -> D): Flow<Resource<D>> =
                 Resource.Success(transform(res.data))
             }
         }
-
     }
