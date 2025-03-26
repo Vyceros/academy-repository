@@ -33,13 +33,13 @@ class Messaging : FirebaseMessagingService() {
         val channel = NotificationChannel(
             channelId,
             getString(R.string.default_notification_channel_id),
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_HIGH
         )
         notificationManager.createNotificationChannel(channel)
 
 
         val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         val pendingIntent = PendingIntent.getActivity(
             this,
@@ -52,10 +52,8 @@ class Messaging : FirebaseMessagingService() {
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setContentTitle(notification.title)
             .setContentText(notification.body)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
-
 
         notificationManager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
     }
