@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.room.plugin)
     id("kotlin-kapt")
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -90,6 +91,9 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.analytics)
     kapt(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)
 }

@@ -1,3 +1,0 @@
-package com.example.baseandroidproject.data.repositories
-
-class CompressionRepositoryImpl
