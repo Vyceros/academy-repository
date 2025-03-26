@@ -21,11 +21,11 @@ class GalleryViewModel @Inject constructor(
 
     fun onEvent(event: GalleryEvent) {
         when (event) {
-            is GalleryEvent.ProcessImage -> {
+            is GalleryEvent.CompressImage -> {
                 compressImage()
             }
 
-            is GalleryEvent.UriCreated -> {
+            is GalleryEvent.GetUri -> {
                 _state.update { it.copy(tempUri = event.uri) }
             }
         }

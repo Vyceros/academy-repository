@@ -32,8 +32,8 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding>(FragmentGalleryBind
             val uriString = bundle.getString("uri")
             uriString?.let {
                 val uri = Uri.parse(it)
-                viewModel.onEvent(GalleryEvent.UriCreated(uri))
-                viewModel.onEvent(GalleryEvent.ProcessImage)
+                viewModel.onEvent(GalleryEvent.GetUri(uri))
+                viewModel.onEvent(GalleryEvent.CompressImage)
             }
         }
     }
