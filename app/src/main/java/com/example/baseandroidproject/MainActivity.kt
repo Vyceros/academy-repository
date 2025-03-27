@@ -1,7 +1,10 @@
 package com.example.baseandroidproject
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.baseandroidproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,17 +15,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //registerReceiver()
+        registerReceiver()
         //registerCustomReceiver()
     }
 
-//    private fun registerReceiver() {
-//        receiver = AirplaneModeReceiver {
-//            binding.loader.isVisible = it
-//        }
-//        val intentFilter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
-//        registerReceiver(receiver, intentFilter)
-//    }
+    private fun registerReceiver() {
+        receiver = AirplaneModeReceiver {
+            binding.loader.isVisible = it
+        }
+        val intentFilter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+        registerReceiver(receiver, intentFilter)
+    }
 
 //    private fun registerCustomReceiver() {
 //        customReceiver = CustomReceiver()
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-       // unregisterReceiver(receiver)
+       unregisterReceiver(receiver)
         //unregisterReceiver(customReceiver)
     }
 }
