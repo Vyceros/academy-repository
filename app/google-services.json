@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "658760042030",
+    "firebase_url": "https://notifications-8e641-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "notifications-8e641",
     "storage_bucket": "notifications-8e641.firebasestorage.app"
   },

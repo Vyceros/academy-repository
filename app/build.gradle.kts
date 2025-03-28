@@ -5,7 +5,6 @@ plugins {
     id(libs.plugins.safeArgs.get().pluginId)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.room.plugin)
     id("kotlin-kapt")
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.google.services)
@@ -56,11 +55,6 @@ android {
         viewBinding = true
         buildConfig = true
     }
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
-
-
 }
 
 dependencies {
@@ -69,7 +63,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -84,18 +77,16 @@ dependencies {
     implementation(libs.squareup.retrofit.converter)
     implementation(libs.image.glide)
     implementation(libs.coil)
-    implementation(libs.androidx.paging)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.storage)
     implementation(libs.firebase.analytics)
+    implementation(libs.hilt.work)
     kapt(libs.hilt.android.compiler)
-    ksp(libs.androidx.room.compiler)
 }
 kapt {
     correctErrorTypes = true

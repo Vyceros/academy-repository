@@ -21,7 +21,6 @@ class Messaging : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
         message.notification?.let { showNotification(it) }
-
     }
 
     private fun showNotification(notification: RemoteMessage.Notification) {
