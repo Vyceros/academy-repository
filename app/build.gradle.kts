@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     id(libs.plugins.safeArgs.get().pluginId)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -28,6 +29,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+
+        debug {
+            buildConfigField("String","BASE_URL","\"https://run.mocky.io/v3/\"")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,7 +43,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
+
 }
 
 dependencies {
