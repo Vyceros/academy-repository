@@ -24,5 +24,4 @@ data class GalleryUiState (
     override fun hashCode(): Int {
         return compressedBytes?.contentHashCode() ?: 0
     }
-
 }

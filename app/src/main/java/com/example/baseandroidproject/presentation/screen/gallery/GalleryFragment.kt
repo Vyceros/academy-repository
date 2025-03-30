@@ -94,7 +94,7 @@ class GalleryFragment : BaseFragment<FragmentGalleryBinding>(FragmentGalleryBind
             val selection = bundle.getString("result_data-key")
             when (selection) {
                 "CAMERA" -> openCamera()
-                "GALLERY" -> selectFromGallery()
+                "GALLERY" -> selectFromGallery() //enums
             }
         }
     }

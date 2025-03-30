@@ -33,9 +33,7 @@ class GalleryViewModel @Inject constructor(
                 compressImage()
             }
 
-            is GalleryEvents.CreateTempUri -> {
-
-            }
+            is GalleryEvents.CreateTempUri -> {}
 
             is GalleryEvents.UploadImage -> {
                 uploadImage()

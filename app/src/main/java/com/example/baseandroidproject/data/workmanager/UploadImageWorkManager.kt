@@ -44,8 +44,8 @@ class UploadImageWorkManager @AssistedInject constructor(
             )
         }
     }
-    private fun notificationService(): ForegroundInfo {
 
+    private fun notificationService(): ForegroundInfo {
         val notification = NotificationCompat.Builder(applicationContext, "UPLOAD")
             .setContentTitle("Upload")
             .setTicker("Upload")
